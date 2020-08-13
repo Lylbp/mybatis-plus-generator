@@ -12,26 +12,28 @@ import com.lylbp.generator.service.GenneratorService;
  */
 public class OracleCodeGenerator {
     /**
-     * 如果你配置了com.dar.app.generator.Config中的PACKAGE_NAME
-     * ！！！每次生成代码会覆盖原有代码 请谨慎操作！
-     * ！！！每次生成代码会覆盖原有代码 请谨慎操作！
-     * ！！！每次生成代码会覆盖原有代码 请谨慎操作！
-     * ！！！每次生成代码会覆盖原有代码 请谨慎操作！
+     * 若配置了是否覆盖已有文件为true每次生成代码会覆盖原有代码 请谨慎操作！
+     * 若配置了是否覆盖已有文件为true每次生成代码会覆盖原有代码 请谨慎操作！
+     * 若配置了是否覆盖已有文件为true每次生成代码会覆盖原有代码 请谨慎操作！
      *
-     * @param args
+     * @param args 参数
      */
     public static void main(String[] args) {
         DbType dbType = DbType.ORACLE;
-        String dbUrl = "jdbc:oracle:thin:@192.168.1.151:1521/orcl";
-        String username = "C##gsgkpt";
-        String password = "gsgkpt";
+        //URL
+        String dbUrl = "jdbc:oracle:thin:@111.111.1.111:1521/orcl";
+        //用户名
+        String username = "";
+        //密码
+        String password = "";
         String driver = "oracle.jdbc.driver.OracleDriver";
         // 表前缀，生成的实体类，不含前缀
-        String[] tablePrefixes = {"SJCZ_T_"};
+        String[] tablePrefixes = {""};
         // 表名，为空，不生成表
-        String[] tableNames = {"SJCZ_T_CJ_B"};
+        String[] tableNames = {""};
         // 字段前缀
         String[] fieldPrefixes = {};
+
         GenneratorService.execute(dbType, dbUrl, username, password, driver, tablePrefixes, tableNames, fieldPrefixes);
     }
 

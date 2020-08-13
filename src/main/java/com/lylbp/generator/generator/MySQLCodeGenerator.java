@@ -12,13 +12,11 @@ import com.lylbp.generator.service.GenneratorService;
 public class MySQLCodeGenerator {
 
     /**
-     * 如果你配置了com.dar.app.generator.Config中的PACKAGE_NAME
-     * ！！！每次生成代码会覆盖原有代码 请谨慎操作！
-     * ！！！每次生成代码会覆盖原有代码 请谨慎操作！
-     * ！！！每次生成代码会覆盖原有代码 请谨慎操作！
-     * ！！！每次生成代码会覆盖原有代码 请谨慎操作！
+     * 若配置了是否覆盖已有文件为true每次生成代码会覆盖原有代码 请谨慎操作！
+     * 若配置了是否覆盖已有文件为true每次生成代码会覆盖原有代码 请谨慎操作！
+     * 若配置了是否覆盖已有文件为true每次生成代码会覆盖原有代码 请谨慎操作！
      *
-     * @param args
+     * @param args 参数
      */
     public static void main(String[] args) {
         DbType dbType = DbType.MYSQL;
