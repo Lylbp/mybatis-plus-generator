@@ -24,4 +24,5 @@
 的模版文件
 4.生成的代码中使用了三方依赖-hutool工具类
 5.如果你用的oracle, oracle驱动可能maven不下来, 网上解决方法一大堆请自行百度进行手动maven打包oracle驱动
+6.代码生成模版使用velocity模板引擎,顾生成的java代码,请手动一键格式话(ctrl+A-> Ctrl+Alt+L)
 ```
