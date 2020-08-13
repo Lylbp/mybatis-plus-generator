@@ -1,6 +1,8 @@
 package com.lylbp.generator.config;
 
 
+import com.baomidou.mybatisplus.annotation.IdType;
+
 public class Config {
     /**
      * 作者
@@ -9,27 +11,27 @@ public class Config {
 
     /////////////////////////////////////////////路径相关///////////////////////////////////////////////////////////
     /**
-     * controller,service,mapper,serviceImpl路径
+     * controller,service,mapper,serviceImpl输出路径
      */
     public static final String OUT_OUT_DIR = "/Library/WebServer/java_project/backend/dar-modules/dar-biz/src/main/java/";
 
     /**
-     * xml文件路径
+     * xml文件输出路径
      */
     public static final String XML_PATH = "/Library/WebServer/java_project/backend/dar-modules/dar-biz/src/main/resources/mapper/dispatch";
 
     /**
-     * dto路径
+     * dto输出路径
      */
     public static final String DTO_PATH = "/Library/WebServer/java_project/backend/dar-modules/dar-biz/src/main/java/com/dar/app/biz/dispatch/dto";
 
     /**
-     * qo路径
+     * qo输出路径
      */
     public static final String QO_PATH = "/Library/WebServer/java_project/backend/dar-modules/dar-biz/src/main/java/com/dar/app/biz/dispatch/qo";
 
     /**
-     * vo路径
+     * vo输出路径
      */
     public static final String VO_PATH = "/Library/WebServer/java_project/backend/dar-modules/dar-biz/src/main/java/com/dar/app/biz/dispatch/vo";
 
@@ -183,4 +185,9 @@ public class Config {
      * 是否为RestController
      */
     public static final Boolean IS_REST_CONTROLLER = true;
+
+    /**
+     * entity主键类型
+     */
+    public static final IdType ENTITY_ID_TYPE = IdType.ASSIGN_UUID;
 }

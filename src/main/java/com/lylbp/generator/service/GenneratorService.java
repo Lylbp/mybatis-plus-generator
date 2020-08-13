@@ -3,7 +3,6 @@ package com.lylbp.generator.service;
 import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.annotation.DbType;
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.InjectionConfig;
@@ -51,7 +50,9 @@ public class GenneratorService {
      */
     private static GlobalConfig globalConfig() {
         return new GlobalConfig()
+                //作者
                 .setAuthor(Config.AUTHOR)
+                //controller,service,mapper,serviceImpl输出路径
                 .setOutputDir(Config.OUT_OUT_DIR)
                 //是否覆盖已有文件
                 .setFileOverride(Config.FILE_OVERRIDE)
@@ -63,15 +64,15 @@ public class GenneratorService {
                 .setActiveRecord(true)
                 //XML 二级缓存
                 .setEnableCache(false)
-                //XML ResultMap
+                //XML是否生成ResultMap
                 .setBaseResultMap(true)
-                //XML columList
+                //XML是否生成columList
                 .setBaseColumnList(true)
                 //XML enableCache
                 .setEnableCache(false)
                 //是否生成 kotlin 代码
                 .setKotlin(false)
-                //自定义文件命名，注意 %s 会自动填充表实体属性！
+                //自定义文件命名，注意 %s 会自动填充表名
                 .setEntityName(Config.FILE_NAME_ENTITY)
                 .setMapperName(Config.FILE_NAME_MAPPER)
                 .setXmlName(Config.FILE_NAME_XML)
@@ -79,10 +80,9 @@ public class GenneratorService {
                 .setServiceImplName(Config.FILE_NAME_SERVICE_IMPL)
                 .setControllerName(Config.FILE_NAME_CONTROLLER)
                 //主键类型
-                .setIdType(IdType.ASSIGN_UUID)
+                .setIdType(Config.ENTITY_ID_TYPE)
                 //是否支持swagger2
-                .setSwagger2(Config.SWAGGER_SUPPORT)
-                ;
+                .setSwagger2(Config.SWAGGER_SUPPORT);
     }
 
     /**
@@ -209,6 +209,7 @@ public class GenneratorService {
      */
     public static void execute(DbType dbType, String dbUrl, String username, String password, String driver,
                                String[] tablePrefixes, String[] tableNames, String[] fieldPrefixes) {
+        //要生成的表数组为空直接中断
         if (ArrayUtil.isAllEmpty(tableNames)) {
             return;
         }
@@ -244,13 +245,16 @@ public class GenneratorService {
         };
         injectionConfig = injectionConfig(injectionConfig);
 
+        //设置模版
         TemplateConfig tc = new TemplateConfig();
         tc.setMapper(Config.MAPPER_TEMPLATE);
         tc.setService(Config.SERVICE_TEMPLATE);
         tc.setServiceImpl(Config.SERVICE_IMPL_TEMPLATE);
         tc.setController(Config.CONTROLLER_TEMPLATE);
+        //已自定义xml模版以及输出路径顾这里写null,不然默认会在mapper目录下生成一个xml
         tc.setXml(null);
 
+        //代码生成
         new AutoGenerator()
                 .setGlobalConfig(globalConfig)
                 .setDataSource(dataSourceConfig)
