@@ -13,7 +13,7 @@
 ``` lua
 1.首先配置config
 2.进入generator目录根据数据库类型选择MySQLCodeGenerator或OracleCodeGenerator并进行数据配置
-3.执行MySQLCodeGenerator或OracleCodeGenerator执行main方法
+3.执行MySQLCodeGenerator或OracleCodeGenerator的main方法
 ```
 
 ### 注意
