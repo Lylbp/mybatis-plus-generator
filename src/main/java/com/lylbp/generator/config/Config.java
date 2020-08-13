@@ -130,7 +130,7 @@ public class Config {
 
 
     /**
-     * mapper模版地址
+     * xml模版地址
      */
     public static final String XML_TEMPLATE = "/templates/generate/myMapper.xml.vm";
 
