@@ -19,18 +19,19 @@ public class MySQLCodeGenerator {
      * @param args 参数
      */
     public static void main(String[] args) {
-        DbType dbType = DbType.MYSQL;
+        // url
         String dbUrl = "jdbc:mysql://localhost:3306/java_model";
+        // 账户
         String username = "root";
+        // 密码
         String password = "root";
-        String driver = "com.mysql.cj.jdbc.Driver";
-        // 表前缀，生成的实体类，不含前缀
+        // 表前缀[生成的实体类自动不含表前缀]
         String[] tablePrefixes = {"t_dar_"};
         // 表名，为空，不生成表
         String[] tableNames = {"area"};
         // 字段前缀
         String[] fieldPrefixes = {};
-        GenneratorService.execute(dbType, dbUrl, username, password, driver, tablePrefixes, tableNames, fieldPrefixes);
+        GenneratorService.execute(DbType.MYSQL, dbUrl, username, password, "com.mysql.cj.jdbc.Driver", tablePrefixes, tableNames, fieldPrefixes);
     }
 
 }

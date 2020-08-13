@@ -19,22 +19,20 @@ public class OracleCodeGenerator {
      * @param args 参数
      */
     public static void main(String[] args) {
-        DbType dbType = DbType.ORACLE;
-        //URL
+        // URL
         String dbUrl = "jdbc:oracle:thin:@111.111.1.111:1521/orcl";
-        //用户名
+        // 用户名
         String username = "";
-        //密码
+        // 密码
         String password = "";
-        String driver = "oracle.jdbc.driver.OracleDriver";
-        // 表前缀，生成的实体类，不含前缀
+        // 表前缀[生成的实体类自动不含表前缀]
         String[] tablePrefixes = {""};
         // 表名，为空，不生成表
         String[] tableNames = {""};
         // 字段前缀
         String[] fieldPrefixes = {};
 
-        GenneratorService.execute(dbType, dbUrl, username, password, driver, tablePrefixes, tableNames, fieldPrefixes);
+        GenneratorService.execute(DbType.ORACLE, dbUrl, username, password, "oracle.jdbc.driver.OracleDriver", tablePrefixes, tableNames, fieldPrefixes);
     }
 
 }

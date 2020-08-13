@@ -9,6 +9,12 @@
         ├── OracleCodeGenerator -- oracle数据库代码生成执行类
     ├── service -- 代码生成器代码
 ```
+### 执行
+``` lua
+1.首先配置config
+2.进入generator目录根据数据库类型选择MySQLCodeGenerator或OracleCodeGenerator并进行数据配置
+3.执行MySQLCodeGenerator或OracleCodeGenerator执行main方法
+```
 
 ### 注意
 ``` lua
