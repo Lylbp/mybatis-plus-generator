@@ -22,9 +22,9 @@ public class OracleCodeGenerator {
         // URL
         String dbUrl = "jdbc:oracle:thin:@192.168.1.151:1521/orcl";
         // 用户名
-        String username = "C##gsgkpt";
+        String username = "";
         // 密码
-        String password = "gsgkpt";
+        String password = "";
         // 表前缀[生成的实体类自动不含表前缀]
         String[] tablePrefixes = {""};
         // 表名，为空，不生成表
