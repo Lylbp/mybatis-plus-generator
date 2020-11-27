@@ -32,4 +32,4 @@ build/
 ### VS Code ###
 .vscode/
 
-src/main/java/com/lylbp/generator/config_tem
+src/main/java/com/lylbp/generator/tem
