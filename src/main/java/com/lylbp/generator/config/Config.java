@@ -13,70 +13,70 @@ public class Config {
     /**
      * controller,service,mapper,serviceImpl输出路径
      */
-    public static final String OUT_OUT_DIR = "/Library/WebServer/java_project/backend/dar-modules/dar-biz/src/main/java/";
+    public static final String OUT_OUT_DIR = "/Library/WebServer/java_project/java_model2/src/main/java/";
 
     /**
      * xml文件输出路径
      */
-    public static final String XML_PATH = "/Library/WebServer/java_project/backend/dar-modules/dar-biz/src/main/resources/mapper/dispatch";
+    public static final String XML_PATH = "/Library/WebServer/java_project/java_model2/src/main/resources/mapper";
 
     /**
      * dto输出路径
      */
-    public static final String DTO_PATH = "/Library/WebServer/java_project/backend/dar-modules/dar-biz/src/main/java/com/dar/app/biz/dispatch/dto";
+    public static final String DTO_PATH = "/Library/WebServer/java_project/java_model2/src/main/java/com/lylbp/project/dto";
 
     /**
      * qo输出路径
      */
-    public static final String QO_PATH = "/Library/WebServer/java_project/backend/dar-modules/dar-biz/src/main/java/com/dar/app/biz/dispatch/qo";
+    public static final String QO_PATH = "/Library/WebServer/java_project/java_model2/src/main/java/com/lylbp/project/qo";
 
     /**
      * vo输出路径
      */
-    public static final String VO_PATH = "/Library/WebServer/java_project/backend/dar-modules/dar-biz/src/main/java/com/dar/app/biz/dispatch/vo";
+    public static final String VO_PATH = "/Library/WebServer/java_project/java_model2/src/main/java/com/lylbp/project/vo";
 
     /////////////////////////////////////////////包名相关///////////////////////////////////////////////////////////
     /**
      * controller包名
      */
-    public static final String PACKAGE_NAME_CONTROLLER = "com.dar.app.biz.dispatch.controller";
+    public static final String PACKAGE_NAME_CONTROLLER = "com.lylbp.project.controller";
 
     /**
      * 包名：entity
      */
-    public static final String PACKAGE_NAME_ENTITY = "com.dar.app.biz.dispatch.entity";
+    public static final String PACKAGE_NAME_ENTITY = "com.lylbp.project.entity";
 
 
     /**
      * 包名：mapper
      */
-    public static final String PACKAGE_NAME_MAPPER = "com.dar.app.biz.dispatch.mapper";
+    public static final String PACKAGE_NAME_MAPPER = "com.lylbp.project.mapper";
 
     /**
      * 包名：service
      */
-    public static final String PACKAGE_NAME_SERVICE = "com.dar.app.biz.dispatch.service";
+    public static final String PACKAGE_NAME_SERVICE = "com.lylbp.project.service";
 
     /**
      * 包名：service.impl
      */
-    public static final String PACKAGE_NAME_SERVICE_IMPL = "com.dar.app.biz.dispatch.service.impl";
+    public static final String PACKAGE_NAME_SERVICE_IMPL = "com.lylbp.project.service.impl";
 
     /**
      * 包名：dto
      */
-    public static final String PACKAGE_NAME_DTO = "com.dar.app.biz.dispatch.dto";
+    public static final String PACKAGE_NAME_DTO = "com.lylbp.project.dto";
 
 
     /**
      * 包名：qo
      */
-    public static final String PACKAGE_NAME_QO = "com.dar.app.biz.dispatch.qo";
+    public static final String PACKAGE_NAME_QO = "com.lylbp.project.qo";
 
     /**
      * 包名：vo
      */
-    public static final String PACKAGE_NAME_VO = "com.dar.app.biz.dispatch.vo";
+    public static final String PACKAGE_NAME_VO = "com.lylbp.project.vo";
 
     /////////////////////////////////////////////类名相关///////////////////////////////////////////////////////////
     /**
@@ -113,46 +113,46 @@ public class Config {
     /**
      * controller模版地址
      */
-    public static final String CONTROLLER_TEMPLATE = "/templates/generate/myController.java.vm";
+    public static final String CONTROLLER_TEMPLATE = "/templates/lylbp/myController.java.vm";
 
     /**
      * service模版地址
      */
-    public static final String SERVICE_TEMPLATE = "/templates/generate/myService.java.vm";
+    public static final String SERVICE_TEMPLATE = "/templates/lylbp/myService.java.vm";
 
     /**
      * serviceImpl模版地址
      */
-    public static final String SERVICE_IMPL_TEMPLATE = "/templates/generate/myServiceImpl.java.vm";
+    public static final String SERVICE_IMPL_TEMPLATE = "/templates/lylbp/myServiceImpl.java.vm";
 
     /**
      * mapper模版地址
      */
-    public static final String MAPPER_TEMPLATE = "/templates/generate/myMapper.java.vm";
+    public static final String MAPPER_TEMPLATE = "/templates/lylbp/myMapper.java.vm";
 
 
     /**
      * xml模版地址
      */
-    public static final String XML_TEMPLATE = "/templates/generate/myMapper.xml.vm";
+    public static final String XML_TEMPLATE = "/templates/lylbp/myMapper.xml.vm";
 
 
     /**
      * VO模版地址
      */
-    public static final String VO_TEMPLATE = "/templates/generate/entity.vo.java.vm";
+    public static final String VO_TEMPLATE = "/templates/lylbp/entity.vo.java.vm";
 
 
     /**
      * QO模版地址
      */
-    public static final String QO_TEMPLATE = "/templates/generate/entity.qo.java.vm";
+    public static final String QO_TEMPLATE = "/templates/lylbp/entity.qo.java.vm";
 
 
     /**
      * DTO模版地址
      */
-    public static final String DTO_TEMPLATE = "/templates/generate/entity.dto.java.vm";
+    public static final String DTO_TEMPLATE = "/templates/lylbp/entity.dto.java.vm";
     /////////////////////////////////////////////其他配置///////////////////////////////////////////////////////////
     /**
      * controller公共父类[空串无效]
