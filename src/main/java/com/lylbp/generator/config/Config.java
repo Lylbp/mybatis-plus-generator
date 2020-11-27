@@ -13,70 +13,70 @@ public class Config {
     /**
      * controller,service,mapper,serviceImpl输出路径
      */
-    public static final String OUT_OUT_DIR = "/Library/WebServer/java_project/java_model2/src/main/java/";
+    public static final String OUT_OUT_DIR = "/Library/WebServer/java_project/czywxt/src/main/java/";
 
     /**
      * xml文件输出路径
      */
-    public static final String XML_PATH = "/Library/WebServer/java_project/java_model2/src/main/resources/mapper";
+    public static final String XML_PATH = "/Library/WebServer/java_project/czywxt/src/main/resources/mapper";
 
     /**
      * dto输出路径
      */
-    public static final String DTO_PATH = "/Library/WebServer/java_project/java_model2/src/main/java/com/lylbp/project/dto";
+    public static final String DTO_PATH = "/Library/WebServer/java_project/czywxt/src/main/java/com/dar/project/dto";
 
     /**
      * qo输出路径
      */
-    public static final String QO_PATH = "/Library/WebServer/java_project/java_model2/src/main/java/com/lylbp/project/qo";
+    public static final String QO_PATH = "/Library/WebServer/java_project/czywxt/src/main/java/com/dar/project/qo";
 
     /**
      * vo输出路径
      */
-    public static final String VO_PATH = "/Library/WebServer/java_project/java_model2/src/main/java/com/lylbp/project/vo";
+    public static final String VO_PATH = "/Library/WebServer/java_project/czywxt/src/main/java/com/dar/project/vo";
 
     /////////////////////////////////////////////包名相关///////////////////////////////////////////////////////////
     /**
      * controller包名
      */
-    public static final String PACKAGE_NAME_CONTROLLER = "com.lylbp.project.controller";
+    public static final String PACKAGE_NAME_CONTROLLER = "com.dar.project.controller";
 
     /**
      * 包名：entity
      */
-    public static final String PACKAGE_NAME_ENTITY = "com.lylbp.project.entity";
+    public static final String PACKAGE_NAME_ENTITY = "com.dar.project.entity";
 
 
     /**
      * 包名：mapper
      */
-    public static final String PACKAGE_NAME_MAPPER = "com.lylbp.project.mapper";
+    public static final String PACKAGE_NAME_MAPPER = "com.dar.project.mapper";
 
     /**
      * 包名：service
      */
-    public static final String PACKAGE_NAME_SERVICE = "com.lylbp.project.service";
+    public static final String PACKAGE_NAME_SERVICE = "com.dar.project.service";
 
     /**
      * 包名：service.impl
      */
-    public static final String PACKAGE_NAME_SERVICE_IMPL = "com.lylbp.project.service.impl";
+    public static final String PACKAGE_NAME_SERVICE_IMPL = "com.dar.project.service.impl";
 
     /**
      * 包名：dto
      */
-    public static final String PACKAGE_NAME_DTO = "com.lylbp.project.dto";
+    public static final String PACKAGE_NAME_DTO = "com.dar.project.dto";
 
 
     /**
      * 包名：qo
      */
-    public static final String PACKAGE_NAME_QO = "com.lylbp.project.qo";
+    public static final String PACKAGE_NAME_QO = "com.dar.project.qo";
 
     /**
      * 包名：vo
      */
-    public static final String PACKAGE_NAME_VO = "com.lylbp.project.vo";
+    public static final String PACKAGE_NAME_VO = "com.dar.project.vo";
 
     /////////////////////////////////////////////类名相关///////////////////////////////////////////////////////////
     /**
