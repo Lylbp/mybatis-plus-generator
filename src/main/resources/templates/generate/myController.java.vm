@@ -29,8 +29,8 @@ import cn.hutool.core.bean.BeanUtil;
 import java.util.List;
 import java.util.Map;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.dar.app.common.msg.R;
-import com.dar.app.common.vo.PageVO;
+import ${cfg.BasePack}.app.common.msg.R;
+import ${cfg.BasePack}.app.common.vo.PageVO;
 
 
 /**

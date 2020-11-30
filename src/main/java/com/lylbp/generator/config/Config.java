@@ -39,6 +39,11 @@ public class Config {
     /**
      * controller包名
      */
+    public static final String BASE_PACK = "com.dar";
+
+    /**
+     * controller包名
+     */
     public static final String PACKAGE_NAME_CONTROLLER = "com.dar.project.controller";
 
     /**

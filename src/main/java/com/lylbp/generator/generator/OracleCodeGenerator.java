@@ -20,7 +20,7 @@ public class OracleCodeGenerator {
      */
     public static void main(String[] args) {
         // URL
-        String dbUrl = "jdbc:oracle:thin:@192.168.1.151:1521/orcl";
+        String dbUrl = "jdbc:oracle:thin:@192.168.1.191:1521:cdb1";
         // 用户名
         String username = "";
         // 密码
@@ -28,7 +28,7 @@ public class OracleCodeGenerator {
         // 表前缀[生成的实体类自动不含表前缀]
         String[] tablePrefixes = {""};
         // 表名，为空，不生成表
-        String[] tableNames = {""};
+        String[] tableNames = {"FRM_CODE"};
         // 字段前缀
         String[] fieldPrefixes = {};
 

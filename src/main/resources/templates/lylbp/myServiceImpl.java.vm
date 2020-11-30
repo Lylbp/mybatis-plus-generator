@@ -15,7 +15,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.lylbp.common.enums.TrueOrFalseEnum;
+import ${cfg.BasePack}.common.enums.TrueOrFalseEnum;
 /**
  * <p>
  * $!{table.comment} 服务实现类

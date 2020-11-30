@@ -240,6 +240,7 @@ public class GenneratorService {
                 map.put("DTOPackage", Config.PACKAGE_NAME_DTO);
                 map.put("DBType", dbType.getDb());
                 map.put("FieldlogicDeleteName", Config.FIELD_LOGIC_DELETE_NAME);
+                map.put("BasePack", Config.BASE_PACK);
                 this.setMap(map);
             }
         };
