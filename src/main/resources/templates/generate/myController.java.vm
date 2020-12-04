@@ -62,7 +62,10 @@ public class ${table.controllerName} {
 
     /**
     * 获取数据分页列表
-    * @author weiwenbin
+    *
+    * @author ${author}
+    * @date   ${date}
+    * @return R<Boolean>
     */
     @PostMapping(value = "/list")
     @ApiOperation("获取数据分页列表")
@@ -82,7 +85,10 @@ public class ${table.controllerName} {
 
     /**
     * 获取信息
-    * @author weiwenbin
+    *
+    * @author ${author}
+    * @date   ${date}
+    * @return R<${entity}VO>
     */
     @GetMapping(value = "/{id}")
     @ApiOperation("获取信息")
@@ -94,7 +100,10 @@ public class ${table.controllerName} {
 
     /**
     * 添加
-    * @author weiwenbin
+    *
+    * @author ${author}
+    * @date   ${date}
+    * @return R<Boolean>
     */
     @PostMapping(value = "/add")
     @ApiOperation("添加")
@@ -107,7 +116,10 @@ public class ${table.controllerName} {
 
     /**
     * 编辑
-    * @author weiwenbin
+    *
+    * @author ${author}
+    * @date   ${date}
+    * @return R<Boolean>
     */
     @PutMapping(value = "/edit")
     @ApiOperation("编辑")
@@ -120,7 +132,10 @@ public class ${table.controllerName} {
 
     /**
     * 批量删除
-    * @author weiwenbin
+    *
+    * @author ${author}
+    * @date   ${date}
+    * @return R<Boolean>
     */
     @DeleteMapping(value = "/batchDelete")
     @ApiOperation("批量删除")

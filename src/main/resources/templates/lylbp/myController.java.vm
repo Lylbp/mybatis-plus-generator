@@ -59,8 +59,15 @@ public class ${table.controllerName} {
     @Resource
     private ${table.serviceName}  service;
 
+     /**
+     * 获取数据分页列表
+     *
+     * @author ${author}
+     * @date   ${date}
+     * @return ResResult<PageResResult<${entity}VO>>
+     */
     @PostMapping(value = "/getList")
-    @ApiOperation("获取列表")
+    @ApiOperation("获取分页列表")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "current", value = "当前页 默认1", defaultValue = "1", dataType = "Integer", paramType = "query"),
             @ApiImplicitParam(name = "size", value = "每页显示数 默认10", defaultValue = "10", dataType = "Integer", paramType = "query")
@@ -76,16 +83,47 @@ public class ${table.controllerName} {
             return ResResultUtil.makePageRsp(page);
     }
 
+    /**
+     * 获取信息
+     *
+     * @author ${author}
+     * @date ${date}
+     * @return ResResult<${entity}VO>
+     */
     @GetMapping(value = "/{id}")
-    @ApiOperation("通过主键获取信息[主键值 一般为id]")
+    @ApiOperation("获取信息")
     public ResResult<${entity}VO> getInfoById(@PathVariable(value = "id") @NotBlank String id) {
         ${entity}VO entity = service.getOne${entity}VOBy("id", id);
 
         return ResResultUtil.success(entity);
     }
 
-    @PostMapping(value = "/edit")
-    @ApiOperation("添加或编辑")
+
+    /**
+    * 添加
+    *
+    * @author ${author}
+    * @date   ${date}
+    * @return ResResult<${entity}VO>
+    */
+    @PostMapping(value = "/add")
+    @ApiOperation("添加")
+    public ResResult<Boolean> add(@RequestBody @Validated ${entity}DTO dto) {
+        ${entity} entity = new ${entity}();
+        BeanUtil.copyProperties(dto, entity);
+
+        return ResResultUtil.success(service.edit(entity));
+    }
+
+    /**
+    * 编辑
+    *
+    * @author ${author}
+    * @date   ${date}
+    * @return ResResult<Boolean>
+    */
+    @PutMapping(value = "/edit")
+    @ApiOperation("编辑")
     public ResResult<Boolean> edit(@RequestBody @Validated ${entity}DTO dto) {
         ${entity} entity = new ${entity}();
         BeanUtil.copyProperties(dto, entity);
@@ -93,7 +131,14 @@ public class ${table.controllerName} {
         return ResResultUtil.success(service.edit(entity));
     }
 
-    @PostMapping(value = "/batchDeleteByIds")
+    /**
+     * 通过主键批量删除
+     *
+     * @author ${author}
+     * @date   ${date}
+     * @return ResResult<Boolean>
+     */
+    @DeleteMapping(value = "/batchDelete")
     @ApiOperation("通过主键批量删除")
     public ResResult<Boolean> batchDeleteByUserIds(@RequestBody @NotNull List<String> idList) {
         return ResResultUtil.success(service.removeByIds(idList));
