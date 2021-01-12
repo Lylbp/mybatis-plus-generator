@@ -140,7 +140,7 @@ public class ${table.controllerName} {
      */
     @DeleteMapping(value = "/batchDelete")
     @ApiOperation("通过主键批量删除")
-    public ResResult<Boolean> batchDeleteByUserIds(@RequestBody @NotNull List<String> idList) {
+    public ResResult<Boolean> batchDelete(@RequestBody @NotNull List<String> idList) {
         return ResResultUtil.success(service.removeByIds(idList));
     }
 }
