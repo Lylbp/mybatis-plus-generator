@@ -13,27 +13,27 @@ public class Config {
     /**
      * controller,service,mapper,serviceImpl输出路径
      */
-    public static final String OUT_OUT_DIR = "/Library/WebServer/java_project/czywxt/src/main/java/";
+    public static final String OUT_OUT_DIR = "/Library/WebServer/java_project/lbxt/src/main/java/";
 
     /**
      * xml文件输出路径
      */
-    public static final String XML_PATH = "/Library/WebServer/java_project/czywxt/src/main/resources/mapper";
+    public static final String XML_PATH = "/Library/WebServer/java_project/lbxt/src/main/resources/mapper";
 
     /**
      * dto输出路径
      */
-    public static final String DTO_PATH = "/Library/WebServer/java_project/czywxt/src/main/java/com/dar/project/dto";
+    public static final String DTO_PATH = "/Library/WebServer/java_project/lbxt/src/main/java/com/dar/project/dto";
 
     /**
      * qo输出路径
      */
-    public static final String QO_PATH = "/Library/WebServer/java_project/czywxt/src/main/java/com/dar/project/qo";
+    public static final String QO_PATH = "/Library/WebServer/java_project/lbxt/src/main/java/com/dar/project/qo";
 
     /**
      * vo输出路径
      */
-    public static final String VO_PATH = "/Library/WebServer/java_project/czywxt/src/main/java/com/dar/project/vo";
+    public static final String VO_PATH = "/Library/WebServer/java_project/lbxt/src/main/java/com/dar/project/vo";
 
     /////////////////////////////////////////////包名相关///////////////////////////////////////////////////////////
     /**
@@ -167,7 +167,7 @@ public class Config {
     /**
      * 逻辑删除字段[空串无效]
      */
-    public static final String FIELD_LOGIC_DELETE_NAME = "";
+    public static final String FIELD_LOGIC_DELETE_NAME = "IS_VALID";
 
     /**
      * 是否支持Swagger

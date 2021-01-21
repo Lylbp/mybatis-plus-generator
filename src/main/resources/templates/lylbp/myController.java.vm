@@ -14,8 +14,8 @@ import cn.hutool.core.bean.BeanUtil;
 import java.util.List;
 import java.util.Map;
 import ${cfg.BasePack}.common.utils.ResResultUtil;
-import ${cfg.BasePack}.core.entity.PageResResult;
-import ${cfg.BasePack}.core.entity.ResResult;
+import ${cfg.BasePack}.common.entity.PageResResult;
+import ${cfg.BasePack}.common.entity.ResResult;
 import ${package.Service}.${table.serviceName};
 import ${package.Entity}.${entity};
 import ${cfg.VOPackage}.${entity}VO;
@@ -56,6 +56,13 @@ public class ${table.controllerName} extends ${superControllerClass} {
 #else
 public class ${table.controllerName} {
 #end
+
+#foreach($field in ${table.fields})
+        #if(${field.keyFlag})
+            #set($keyPropertyName=${field.propertyName})
+        #end
+#end
+
     @Resource
     private ${table.serviceName}  service;
 
@@ -90,10 +97,10 @@ public class ${table.controllerName} {
      * @date ${date}
      * @return ResResult<${entity}VO>
      */
-    @GetMapping(value = "/{id}")
+    @GetMapping(value = "/{${keyPropertyName}}")
     @ApiOperation("获取信息")
-    public ResResult<${entity}VO> getInfoById(@PathVariable(value = "id") @NotBlank String id) {
-        ${entity}VO entity = service.getOne${entity}VOBy("id", id);
+    public ResResult<${entity}VO> getInfoById(@PathVariable(value = "${keyPropertyName}") @NotBlank String ${keyPropertyName}) {
+        ${entity}VO entity = service.getOne${entity}VOBy("${keyPropertyName}", ${keyPropertyName});
 
         return ResResultUtil.success(entity);
     }
