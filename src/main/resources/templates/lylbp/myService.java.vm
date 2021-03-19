@@ -23,7 +23,7 @@ public interface ${table.serviceName} extends ${superServiceClass}<${entity}> {
         /**
          * 新增或编辑
          *
-         * @param entity
+         * @param entity 实体
          * @return Boolean
          */
         Boolean edit(${entity} entity);
