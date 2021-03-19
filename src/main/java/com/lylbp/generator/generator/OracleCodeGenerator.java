@@ -22,9 +22,9 @@ public class OracleCodeGenerator {
         // URL
         String dbUrl = "jdbc:oracle:thin:@192.168.1.191:1521:cdb1";
         // 用户名
-        String username = "taxi";
+        String username = "";
         // 密码
-        String password = "taxi";
+        String password = "";
         // 表前缀[生成的实体类自动不含表前缀]
         String[] tablePrefixes = {""};
         // 表名，为空，不生成表
