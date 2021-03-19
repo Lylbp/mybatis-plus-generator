@@ -2,21 +2,22 @@ package com.lylbp.generator.service;
 
 import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.annotation.DbType;
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.InjectionConfig;
 import com.baomidou.mybatisplus.generator.config.*;
+import com.baomidou.mybatisplus.generator.config.po.TableFill;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.VelocityTemplateEngine;
 import com.lylbp.generator.config.Config;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.function.Consumer;
 
 /**
  * @author weiwenbin
@@ -94,6 +95,18 @@ public class GenneratorService {
      * @return StrategyConfig
      */
     private static StrategyConfig strategyConfig(String[] tablePrefixes, String[] tableNames, String[] fieldPrefixes) {
+        List<TableFill> tableFills = new ArrayList<>();
+        // 表的自动填充字段
+        if (StrUtil.isNotEmpty(Config.CREATE_FILL)){
+            List<String> createFillList = Arrays.asList(Config.CREATE_FILL.split(","));
+            createFillList.forEach(s -> tableFills.add(new TableFill(s, FieldFill.INSERT)));
+        }
+
+        if (StrUtil.isNotEmpty(Config.UPDATE_FILL)){
+            List<String> updateFillList = Arrays.asList(Config.UPDATE_FILL.split(","));
+            updateFillList.forEach(s -> tableFills.add(new TableFill(s, FieldFill.UPDATE)));
+        }
+
         return new StrategyConfig()
                 // 全局大写命名 ORACLE 注意
                 .setCapitalMode(true)
@@ -118,6 +131,8 @@ public class GenneratorService {
                 .setEntityColumnConstant(false)
                 // 逻辑删除属性名称
                 .setLogicDeleteFieldName(Config.FIELD_LOGIC_DELETE_NAME)
+                // 表的自动填充字段
+                .setTableFillList(tableFills)
                 //是否为RestController
                 .setRestControllerStyle(Config.IS_REST_CONTROLLER)
                 //实体属性上添加表字段映射
@@ -252,6 +267,7 @@ public class GenneratorService {
         tc.setService(Config.SERVICE_TEMPLATE);
         tc.setServiceImpl(Config.SERVICE_IMPL_TEMPLATE);
         tc.setController(Config.CONTROLLER_TEMPLATE);
+        tc.setEntity(Config.ENTITY_TEMPLATE);
         //已自定义xml模版以及输出路径顾这里写null,不然默认会在mapper目录下生成一个xml
         tc.setXml(null);
 

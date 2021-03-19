@@ -13,27 +13,27 @@ public class Config {
     /**
      * controller,service,mapper,serviceImpl输出路径
      */
-    public static final String OUT_OUT_DIR = "/Library/WebServer/java_project/lbxt/src/main/java/";
+    public static final String OUT_OUT_DIR = "/home/alex/code/java/taxi-api/src/main/java/";
 
     /**
      * xml文件输出路径
      */
-    public static final String XML_PATH = "/Library/WebServer/java_project/lbxt/src/main/resources/mapper";
+    public static final String XML_PATH = "/home/alex/code/java/taxi-api/src/main/resources/mapper";
 
     /**
      * dto输出路径
      */
-    public static final String DTO_PATH = "/Library/WebServer/java_project/lbxt/src/main/java/com/dar/project/dto";
+    public static final String DTO_PATH = "/home/alex/code/java/taxi-api/src/main/java/com/dar/project/dto";
 
     /**
      * qo输出路径
      */
-    public static final String QO_PATH = "/Library/WebServer/java_project/lbxt/src/main/java/com/dar/project/qo";
+    public static final String QO_PATH = "/home/alex/code/java/taxi-api/src/main/java/com/dar/project/qo";
 
     /**
      * vo输出路径
      */
-    public static final String VO_PATH = "/Library/WebServer/java_project/lbxt/src/main/java/com/dar/project/vo";
+    public static final String VO_PATH = "/home/alex/code/java/taxi-api/src/main/java/com/dar/project/vo";
 
     /////////////////////////////////////////////包名相关///////////////////////////////////////////////////////////
     /**
@@ -120,6 +120,7 @@ public class Config {
      */
     public static final String CONTROLLER_TEMPLATE = "/templates/lylbp/myController.java.vm";
 
+
     /**
      * service模版地址
      */
@@ -141,6 +142,10 @@ public class Config {
      */
     public static final String XML_TEMPLATE = "/templates/lylbp/myMapper.xml.vm";
 
+    /**
+     * entity模版地址
+     */
+    public static final String ENTITY_TEMPLATE = "/templates/lylbp/entity.java.vm";
 
     /**
      * VO模版地址
@@ -168,6 +173,16 @@ public class Config {
      * 逻辑删除字段[空串无效]
      */
     public static final String FIELD_LOGIC_DELETE_NAME = "IS_VALID";
+
+    /**
+     * 添加自动填充[空串无效]
+     */
+    public static final String CREATE_FILL = "CREATE_AT,CREATE_BY,IS_VALID";
+
+    /**
+     * 编辑自动填充[空串无效]
+     */
+    public static final String UPDATE_FILL = "UPDATE_AT,UPDATE_BY";
 
     /**
      * 是否支持Swagger
