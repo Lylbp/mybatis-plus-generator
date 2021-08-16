@@ -22,7 +22,7 @@ interface ${table.mapperName} : ${superMapperClass}<${entity}>
 public interface ${table.mapperName} extends ${superMapperClass}<${entity}> {
     /**
     * 条件查询List<${entity}VO>
-    *
+    * @param page   分页参数
     * @param params 查询参数
     * @return List<${entity}VO>
     */
