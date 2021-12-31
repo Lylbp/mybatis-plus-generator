@@ -31,10 +31,10 @@ public interface ${table.mapperName} extends ${superMapperClass}<${entity}> {
     /**
      * 编辑
      *
-     * @param entity 对应实体 注意为null值不修改
-     * @param uuid  id
+     * @param entity 对应实体
+     * @param uuid  uuid
      * @return Boolean
      */
-    Boolean updateEntityByUuid(@Param("entity")${entity} entity, @Param("id") String id);
+    Boolean updateEntityByUuid(@Param("entity")${entity} entity, @Param("uuid") String uuid);
 }
 #end

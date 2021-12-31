@@ -39,9 +39,9 @@
     #if(${baseColumnList})
         <!-- 通用查询结果列 -->
         <sql id="Base_Column_List">
-                #foreach($field in ${table.fields})
-                t.${field.columnName}#if($foreach.hasNext),#end
-                #end
+        #foreach($field in ${table.fields})
+            t.${field.columnName}#if($foreach.hasNext),#end
+        #end
         </sql>
     #end
 
@@ -80,7 +80,7 @@
                 ##不为日期类型
                 #if(${field.type.indexOf("DATE")} == -1 && ${field.type.indexOf("date")} == -1 && ${field.type.indexOf(
                     "datetime")} == -1 && ${field.type.indexOf("DATETIME")} == -1
-                && ${field.type.indexOf("TIMESTAMP")} == -1 && ${field.type.indexOf("timestamp")} == -1)
+                    && ${field.type.indexOf("TIMESTAMP")} == -1 && ${field.type.indexOf("timestamp")} == -1)
                     #if(${field.comment} != "" && ${field.comment.indexOf("?")} == -1)
                         <!-- ${field.comment}查询 -->
                     #end
@@ -167,9 +167,9 @@
     </select>
 
     <!-- 根据uuid编辑${entity} -->
-    <update id="updateEntityById">
+    <update id="updateEntityByUuid">
         update ${table.name}
         <include refid="Base_Set"/>
-        where id = #{id}
+        where uuid = #{uuid}
     </update>
 </mapper>
