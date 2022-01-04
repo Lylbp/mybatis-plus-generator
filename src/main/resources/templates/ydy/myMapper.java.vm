@@ -36,5 +36,23 @@ public interface ${table.mapperName} extends ${superMapperClass}<${entity}> {
      * @return Boolean
      */
     Boolean updateEntityByUuid(@Param("entity")${entity} entity, @Param("uuid") String uuid);
+
+
+    /**
+     * 插入
+     *
+     * @param entity 对应实体
+     * @return Boolean
+     */
+    Boolean insert(@Param("entity") ${entity} entity);
+
+    /**
+     * 批量插入
+     *
+     * @param entity 要修改的字段
+     * @param entityList  要修改的实体集合
+     * @return Boolean
+     */
+    Boolean batchInsert(@Param("entity") ${entity} entity, @Param("entityList") List<${entity}> entityList);
 }
 #end

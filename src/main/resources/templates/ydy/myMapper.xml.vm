@@ -53,10 +53,32 @@
                     <!-- ${field.comment}设置 -->
                 #end
                 <if test="entity.${field.propertyName} != null ">
-                    ${field.columnName} = #{entity.${field.propertyName}},
+                    ${field.columnName} = #{entity.${field.propertyName}}#if($foreach.hasNext),#end
                 </if>
             #end
         </set>
+    </sql>
+
+    <!-- 通用插入语句(数据库comment中含有?则不显示字段注释)) -->
+    <sql id="Insert_Column">
+        #foreach($field in ${table.fields})
+            #if(${field.comment} != "" && ${field.comment.indexOf("?")} == -1)
+                <!-- ${field.comment} -->
+            #end
+            #if(!${field.keyFlag})
+                <if test="entity.${field.propertyName} != null ">
+                    ${field.columnName},
+                </if>
+            #end
+        #end
+        #foreach($field in ${table.fields})
+            #if(${field.keyFlag})
+                #if(${field.comment} != "" && ${field.comment.indexOf("?")} == -1)
+                    <!-- ${field.comment} -->
+                #end
+                ${field.columnName}
+            #end
+        #end
     </sql>
 
     <!-- 通用查询语句(数据库comment中含有?则不显示字段注释)) -->
@@ -172,4 +194,44 @@
         <include refid="Base_Set"/>
         where uuid = #{uuid}
     </update>
+
+
+    <!-- 批量插入 -->
+    <insert id="batchInsert" parameterType="java.util.List">
+        insert into ${table.name} (<include refid="Insert_Column"/>) values
+        <foreach collection="entityList" item="entity" index="index" separator=",">
+            <trim prefix=" (" suffix=")" suffixOverrides=",">
+                #foreach($field in ${table.fields})
+                    #if(!${field.keyFlag})
+                        <if test="entity.${field.propertyName} != null ">
+                            #{item.${field.propertyName}},
+                        </if>
+                    #end
+                #end
+                #foreach($field in ${table.fields})
+                    #if(${field.keyFlag})
+                        #{item.${field.propertyName}}
+                    #end
+                #end
+            </trim>
+        </foreach>
+    </insert>
+
+    <!-- 插入 -->
+    <insert id="insert">
+        insert into ${table.name} (<include refid="Insert_Column"/>) values (
+        #foreach($field in ${table.fields})
+            #if(!${field.keyFlag})
+                <if test="entity.${field.propertyName} != null ">
+                    #{entity.${field.propertyName}},
+                </if>
+            #end
+        #end
+        #foreach($field in ${table.fields})
+            #if(${field.keyFlag})
+                #{item.${field.propertyName}}
+            #end
+        #end
+        )
+    </insert>
 </mapper>
