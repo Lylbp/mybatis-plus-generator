@@ -59,27 +59,6 @@
         </set>
     </sql>
 
-    <!-- 通用插入语句(数据库comment中含有?则不显示字段注释)) -->
-    <sql id="Insert_Column">
-        #foreach($field in ${table.fields})
-            #if(${field.comment} != "" && ${field.comment.indexOf("?")} == -1)
-                <!-- ${field.comment} -->
-            #end
-            #if(!${field.keyFlag})
-                <if test="entity.${field.propertyName} != null ">
-                    ${field.columnName},
-                </if>
-            #end
-        #end
-        #foreach($field in ${table.fields})
-            #if(${field.keyFlag})
-                #if(${field.comment} != "" && ${field.comment.indexOf("?")} == -1)
-                    <!-- ${field.comment} -->
-                #end
-                ${field.columnName}
-            #end
-        #end
-    </sql>
 
     <!-- 通用查询语句(数据库comment中含有?则不显示字段注释)) -->
     <sql id="Base_Where_List">
@@ -178,10 +157,22 @@
         #end
     </sql>
 
-    <!-- ${entity}VO查询语句 -->
-    <select id="query${entity}VOByParams" parameterType="java.util.Map" resultType="${cfg.VOPackage}.${entity}VO">
+    <!-- ${entity}VO分页查询语句 -->
+    <select id="query${entity}VOPage" resultType="${cfg.VOPackage}.${entity}VO">
         SELECT
         <include refid="Base_Column_List"/>
+        FROM ${table.name} t
+        <where>
+            <include refid="Base_Where_List"/>
+        </where>
+        ORDER BY t.id DESC
+        limit #{limitBegin},#{pageSize}
+    </select>
+
+    <!-- 查询分页数 -->
+    <select id="countPageList" resultType="java.lang.Integer">
+        SELECT
+            COUNT(1)
         FROM ${table.name} t
         <where>
             <include refid="Base_Where_List"/>
@@ -192,26 +183,23 @@
     <update id="updateEntityByUuid">
         update ${table.name}
         <include refid="Base_Set"/>
-        where uuid = #{uuid}
+        <where>
+            uuid = #{uuid}
+        </where>
     </update>
 
 
     <!-- 批量插入 -->
     <insert id="batchInsert" parameterType="java.util.List">
-        insert into ${table.name} (<include refid="Insert_Column"/>) values
-        <foreach collection="entityList" item="entity" index="index" separator=",">
+        INSERT INTO ${table.name} (
+        #foreach($field in ${table.fields})
+            ${field.columnName}#if($foreach.hasNext),#end
+        #end
+        ) VALUES
+        <foreach collection="entityList" item="item" index="index" separator=",">
             <trim prefix=" (" suffix=")" suffixOverrides=",">
                 #foreach($field in ${table.fields})
-                    #if(!${field.keyFlag})
-                        <if test="entity.${field.propertyName} != null ">
-                            #{item.${field.propertyName}},
-                        </if>
-                    #end
-                #end
-                #foreach($field in ${table.fields})
-                    #if(${field.keyFlag})
-                        #{item.${field.propertyName}}
-                    #end
+                    #{item.${field.propertyName}}#if($foreach.hasNext),#end
                 #end
             </trim>
         </foreach>
@@ -219,19 +207,25 @@
 
     <!-- 插入 -->
     <insert id="insert">
-        insert into ${table.name} (<include refid="Insert_Column"/>) values (
+        INSERT INTO ${table.name} (
+        #foreach($field in ${table.fields})
+            ${field.columnName}#if($foreach.hasNext),#end
+        #end
+        ) VALUES (
         #foreach($field in ${table.fields})
             #if(!${field.keyFlag})
-                <if test="entity.${field.propertyName} != null ">
-                    #{entity.${field.propertyName}},
-                </if>
-            #end
-        #end
-        #foreach($field in ${table.fields})
-            #if(${field.keyFlag})
-                #{item.${field.propertyName}}
+                #{entity.${field.propertyName}}#if($foreach.hasNext),#end
             #end
         #end
         )
     </insert>
+
+    <!-- 删除 -->
+    <delete id="deleteBy">
+        DELETE
+        FROM ${table.name}
+        <where>
+            uuid = #{uuid}
+        </where>
+    </delete>
 </mapper>

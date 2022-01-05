@@ -200,11 +200,25 @@ public class Config {
      */
     public static final Boolean ENTITY_LOMBOK_SUPPORT = true;
 
-
     /**
      * 是否为RestController
      */
     public static final Boolean IS_REST_CONTROLLER = true;
+
+    /**
+     * entity属性上添加表字段映射
+     */
+    public static final Boolean ENTITY_TABLE_FIELD_ANNOTATION_ENABLE = true;
+
+    /**
+     * entity是否生成序列化id
+     */
+    public static final Boolean ENTITY_SERIAL_VERSION_UID = true;
+
+    /**
+     * Boolean 类型字段是否移除 is 前缀（默认 false）
+     */
+    public static final Boolean ENTITY_BOOLEAN_COLUMN_REMOVE_IS_PREFIX = false;
 
     /**
      * entity主键类型

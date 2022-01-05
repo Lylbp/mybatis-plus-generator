@@ -2,12 +2,11 @@ package ${package.Service};
 
 import ${package.Entity}.${entity};
 import ${cfg.VOPackage}.${entity}VO;
-import ${superServiceClassPackage};
 
 import java.util.List;
 import java.util.Map;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
+import com.dingcloud.iot.common.result.Result;
+import com.dingcloud.iot.common.util.page.PageDataListVO;
 /**
  * <p>
  * $!{table.comment} 服务类
@@ -19,14 +18,14 @@ import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
 #if(${kotlin})
 interface ${table.serviceName} : ${superServiceClass}<${entity}>
 #else
-public interface ${table.serviceName} extends ${superServiceClass}<${entity}> {
+public interface ${table.serviceName} {
         /**
          * 新增或编辑
          *
          * @param entity 实体
          * @return Boolean
          */
-        Boolean edit(${entity} entity);
+        Boolean saveOrUpdate(${entity} entity);
 
         /**
          * 通过查询参数获取列表

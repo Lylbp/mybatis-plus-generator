@@ -2,11 +2,9 @@ package ${package.Mapper};
 
 import ${package.Entity}.${entity};
 import ${cfg.VOPackage}.${entity}VO;
-import ${superMapperClassPackage};
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
 import java.util.Map;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 /**
  * <p>
@@ -19,14 +17,22 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 #if(${kotlin})
 interface ${table.mapperName} : ${superMapperClass}<${entity}>
 #else
-public interface ${table.mapperName} extends ${superMapperClass}<${entity}> {
+public interface ${table.mapperName} {
     /**
-    * 条件查询List<${entity}VO>
-    * @param page   分页参数
+    * 分页查询List<${entity}VO>
+    *
     * @param params 查询参数
     * @return List<${entity}VO>
     */
-    List<${entity}VO> query${entity}VOByParams(@Param("page")Page<${entity}VO> page, @Param("params") Map<String, Object> params);
+    List<${entity}VO> query${entity}VOPage(@Param("params") ${entity}SearchRequest request);
+
+    /**
+     * 分页查询List<${entity}VO>
+     *
+     * @param params 查询参数
+     * @return List<${entity}VO>
+     */
+    List<${entity}VO> countPageList(@Param("params") ${entity}SearchRequest request);
 
     /**
      * 编辑
@@ -49,10 +55,17 @@ public interface ${table.mapperName} extends ${superMapperClass}<${entity}> {
     /**
      * 批量插入
      *
-     * @param entity 要修改的字段
      * @param entityList  要修改的实体集合
      * @return Boolean
      */
-    Boolean batchInsert(@Param("entity") ${entity} entity, @Param("entityList") List<${entity}> entityList);
+    Boolean batchInsert(@Param("entityList") List<${entity}> entityList);
+
+    /**
+     * 根据uuid删除
+     *
+     * @param uuid uuid
+     * @return Boolean
+     */
+    Boolean deleteBy(@Param("uuid") String uuid);
 }
 #end

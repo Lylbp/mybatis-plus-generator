@@ -1,8 +1,11 @@
 package ${package.Entity};
 
 #foreach($pkg in ${table.importPackages})
+#if(${pkg.indexOf("baomidou")} == -1)
 import ${pkg};
 #end
+#end
+import javax.persistence.*;
 #if(${swagger2})
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -20,6 +23,7 @@ import lombok.experimental.Accessors;
  * $!{table.comment}
  * </p>
  *
+ * ${pkg}
  * @author ${author}
  * @since ${date}
  */
@@ -34,20 +38,12 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
   #end
 #end
-#if(${table.convert})
-@TableName("${table.name}")
-#end
+@Table("${table.name}")
 #if(${swagger2})
 @ApiModel(value="${entity}对象", description="$!{table.comment}")
 #end
-#if(${superEntityClass})
-public class ${entity} extends ${superEntityClass}#if(${activeRecord})<${entity}>#end {
-#elseif(${activeRecord})
-public class ${entity} extends Model<${entity}> {
-#else
-public class ${entity} implements Serializable {
-#end
 
+public class ${entity} implements Serializable {
 #if(${entitySerialVersionUID})
     private static final long serialVersionUID=1L;
 #end
@@ -68,13 +64,7 @@ public class ${entity} implements Serializable {
 #end
 #if(${field.keyFlag})
 ## 主键
-  #if(${field.keyIdentityFlag})
-    @TableId(value = "${field.annotationColumnName}", type = IdType.AUTO)
-  #elseif(!$null.isNull(${idType}) && "$!idType" != "")
-    @TableId(value = "${field.annotationColumnName}", type = IdType.${idType})
-  #elseif(${field.convert})
-    @TableId("${field.annotationColumnName}")
-  #end
+    @Id
 ## 普通字段
 #elseif(${field.fill})
 ## -----   存在字段填充设置   -----

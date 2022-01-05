@@ -136,7 +136,11 @@ public class GenneratorService {
                 //是否为RestController
                 .setRestControllerStyle(Config.IS_REST_CONTROLLER)
                 //实体属性上添加表字段映射
-                .setEntityTableFieldAnnotationEnable(true)
+                .setEntityTableFieldAnnotationEnable(Config.ENTITY_TABLE_FIELD_ANNOTATION_ENABLE)
+                //entity是否生成序列化id
+                .setEntitySerialVersionUID(Config.ENTITY_SERIAL_VERSION_UID)
+                //Boolean 类型字段是否移除 is 前缀（默认 false）
+                .setEntityBooleanColumnRemoveIsPrefix(Config.ENTITY_BOOLEAN_COLUMN_REMOVE_IS_PREFIX)
                 ;
     }
 
