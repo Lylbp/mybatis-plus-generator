@@ -168,7 +168,7 @@ public class GenneratorService {
      */
     private static InjectionConfig injectionConfig(InjectionConfig injectionConfig) {
         List<FileOutConfig> fileOutConfigList = new ArrayList<>();
-        if (ObjectUtil.isNotEmpty(Config.XML_PATH) || ObjectUtil.isNotEmpty(Config.XML_TEMPLATE)) {
+        if (ObjectUtil.isNotEmpty(Config.XML_PATH) && ObjectUtil.isNotEmpty(Config.XML_TEMPLATE)) {
             // 自定义xml配置
             fileOutConfigList.add(new FileOutConfig(Config.XML_TEMPLATE) {
                 @Override
@@ -178,7 +178,7 @@ public class GenneratorService {
             });
         }
 
-        if (ObjectUtil.isNotEmpty(Config.VO_TEMPLATE) || ObjectUtil.isNotEmpty(Config.VO_PATH)) {
+        if (ObjectUtil.isNotEmpty(Config.VO_TEMPLATE) && ObjectUtil.isNotEmpty(Config.VO_PATH)) {
             // 自定义输出VO配置
             fileOutConfigList.add(new FileOutConfig(Config.VO_TEMPLATE) {
                 @Override
@@ -188,7 +188,7 @@ public class GenneratorService {
             });
         }
 
-        if (ObjectUtil.isNotEmpty(Config.QO_TEMPLATE) || ObjectUtil.isNotEmpty(Config.QO_PATH)) {
+        if (ObjectUtil.isNotEmpty(Config.QO_TEMPLATE) && ObjectUtil.isNotEmpty(Config.QO_PATH)) {
             // 自定义输出QO配置
             fileOutConfigList.add(new FileOutConfig(Config.QO_TEMPLATE) {
                 @Override
@@ -198,7 +198,7 @@ public class GenneratorService {
             });
         }
 
-        if (ObjectUtil.isNotEmpty(Config.DTO_TEMPLATE) || ObjectUtil.isNotEmpty(Config.DTO_PATH)) {
+        if (ObjectUtil.isNotEmpty(Config.DTO_TEMPLATE) && ObjectUtil.isNotEmpty(Config.DTO_PATH)) {
             // 自定义输出DTO配置
             fileOutConfigList.add(new FileOutConfig(Config.DTO_TEMPLATE) {
                 @Override
