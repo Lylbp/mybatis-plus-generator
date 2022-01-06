@@ -65,26 +65,5 @@ public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.m
         public Boolean isExist(String id) {
             return ObjectUtil.isNotEmpty(this.getById(id));
         }
-
-        @Override
-        public Boolean columnHasRepeat(String notId, SFunction<${entity}, ?> columnName, Object columnValue) {
-            LambdaQueryWrapper<${entity}> wrapper = new QueryWrapper<${entity}>().lambda().eq(columnName, columnValue);
-            #foreach($field in ${table.fields})
-                #if(${field.columnName} == ${cfg.FieldlogicDeleteName})
-                        wrapper.eq(${entity}::get${field.propertyName.substring(0,1).toUpperCase()}${field.propertyName.substring(1)},TrueOrFalseEnum.TRUE.getCode());
-                #end
-            #end
-
-            if (StrUtil.isNotEmpty(notId)) {
-                #foreach($field in ${table.fields})
-                    #if(${field.keyFlag})
-                            wrapper.ne(${entity}::get${field.propertyName.substring(0,1).toUpperCase()}${field.propertyName.substring(1)}, notId);
-                    #end
-                #end
-            }
-            List<${entity}> entities = getBaseMapper().selectList(wrapper);
-
-            return ObjectUtil.isNotEmpty(entities);
-        }
 }
 #end
