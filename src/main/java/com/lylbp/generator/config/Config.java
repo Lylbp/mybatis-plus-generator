@@ -13,75 +13,75 @@ public class Config {
     /**
      * controller,service,mapper,serviceImpl输出路径
      */
-    public static final String OUT_OUT_DIR = "/home/alex/code/java/taxi-api/src/main/java/";
+    public static final String OUT_OUT_DIR = "/home/alex/code/java/lylbp/java_model_simple/src/main/java/";
 
     /**
      * xml文件输出路径
      */
-    public static final String XML_PATH = "/home/alex/code/java/taxi-api/src/main/resources/mapper";
+    public static final String XML_PATH = "/home/alex/code/java/lylbp/java_model_simple/src/main/resources/mapper";
 
     /**
      * dto输出路径
      */
-    public static final String DTO_PATH = "/home/alex/code/java/taxi-api/src/main/java/com/dar/project/dto";
+    public static final String DTO_PATH = "/home/alex/code/java/lylbp/java_model_simple/src/main/java/com/lylbp/project/dto";
 
     /**
      * qo输出路径
      */
-    public static final String QO_PATH = "/home/alex/code/java/taxi-api/src/main/java/com/dar/project/qo";
+    public static final String QO_PATH = "/home/alex/code/java/lylbp/java_model_simple/src/main/java/com/lylbp/project/qo";
 
     /**
      * vo输出路径
      */
-    public static final String VO_PATH = "/home/alex/code/java/taxi-api/src/main/java/com/dar/project/vo";
+    public static final String VO_PATH = "/home/alex/code/java/lylbp/java_model_simple/src/main/java/com/lylbp/project/vo";
 
     /////////////////////////////////////////////包名相关///////////////////////////////////////////////////////////
     /**
      * controller包名
      */
-    public static final String BASE_PACK = "com.dar";
+    public static final String BASE_PACK = "com.lylbp";
 
     /**
      * controller包名
      */
-    public static final String PACKAGE_NAME_CONTROLLER = "com.dar.project.controller";
+    public static final String PACKAGE_NAME_CONTROLLER = "com.lylbp.project.controller";
 
     /**
      * 包名：entity
      */
-    public static final String PACKAGE_NAME_ENTITY = "com.dar.project.entity";
+    public static final String PACKAGE_NAME_ENTITY = "com.lylbp.project.entity";
 
 
     /**
      * 包名：mapper
      */
-    public static final String PACKAGE_NAME_MAPPER = "com.dar.project.mapper";
+    public static final String PACKAGE_NAME_MAPPER = "com.lylbp.project.mapper";
 
     /**
      * 包名：service
      */
-    public static final String PACKAGE_NAME_SERVICE = "com.dar.project.service";
+    public static final String PACKAGE_NAME_SERVICE = "com.lylbp.project.service";
 
     /**
      * 包名：service.impl
      */
-    public static final String PACKAGE_NAME_SERVICE_IMPL = "com.dar.project.service.impl";
+    public static final String PACKAGE_NAME_SERVICE_IMPL = "com.lylbp.project.service.impl";
 
     /**
      * 包名：dto
      */
-    public static final String PACKAGE_NAME_DTO = "com.dar.project.dto";
+    public static final String PACKAGE_NAME_DTO = "com.lylbp.project.dto";
 
 
     /**
      * 包名：qo
      */
-    public static final String PACKAGE_NAME_QO = "com.dar.project.qo";
+    public static final String PACKAGE_NAME_QO = "com.lylbp.project.qo";
 
     /**
      * 包名：vo
      */
-    public static final String PACKAGE_NAME_VO = "com.dar.project.vo";
+    public static final String PACKAGE_NAME_VO = "com.lylbp.project.vo";
 
     /////////////////////////////////////////////类名相关///////////////////////////////////////////////////////////
     /**
@@ -172,17 +172,17 @@ public class Config {
     /**
      * 逻辑删除字段[空串无效]
      */
-    public static final String FIELD_LOGIC_DELETE_NAME = "IS_VALID";
+    public static final String FIELD_LOGIC_DELETE_NAME = "is_valid";
 
     /**
      * 添加自动填充[空串无效]
      */
-    public static final String CREATE_FILL = "CREATE_AT,CREATE_BY,IS_VALID";
+    public static final String CREATE_FILL = "create_time,create_by,is_valid";
 
     /**
      * 编辑自动填充[空串无效]
      */
-    public static final String UPDATE_FILL = "UPDATE_AT,UPDATE_BY";
+    public static final String UPDATE_FILL = "update_by,update_time";
 
     /**
      * 是否支持Swagger

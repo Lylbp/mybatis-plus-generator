@@ -20,6 +20,15 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 interface ${table.mapperName} : ${superMapperClass}<${entity}>
 #else
 public interface ${table.mapperName} extends ${superMapperClass}<${entity}> {
+    ## ----------  BEGIN 字段循环遍历  ----------
+    #foreach($field in ${table.fields})
+        #if(${field.keyFlag})
+            #set($keyPropertyName=${field.propertyName})
+            #set($keyPropertyNameFirstUp=${field.propertyName.substring(0,1).toUpperCase()} + ${field.propertyName.substring(1)})
+        #end
+    #end
+    ## ----------  END 字段循环遍历  ----------
+
     /**
     * 条件查询List<${entity}VO>
     * @param page   分页参数
@@ -29,12 +38,12 @@ public interface ${table.mapperName} extends ${superMapperClass}<${entity}> {
     List<${entity}VO> query${entity}VOByParams(@Param("page")Page<${entity}VO> page, @Param("params") Map<String, Object> params);
 
     /**
-     * 编辑
+     * 根据${keyPropertyName}编辑
      *
      * @param entity 对应实体 注意为null值不修改
-     * @param uuid  id
+     * @param ${keyPropertyName}  ${keyPropertyName} ${keyPropertyNameFirstUp}
      * @return Boolean
      */
-    Boolean updateEntityByUuid(@Param("entity")${entity} entity, @Param("id") String id);
+    Boolean updateEntityBy${keyPropertyNameFirstUp}(@Param("entity")${entity} entity, @Param("${keyPropertyName}") String ${keyPropertyName});
 }
 #end

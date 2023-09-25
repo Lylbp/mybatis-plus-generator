@@ -20,15 +20,15 @@ public class MySQLCodeGenerator {
      */
     public static void main(String[] args) {
         // url
-        String dbUrl = "jdbc:mysql://localhost:3306/java_model";
+        String dbUrl = "jdbc:mysql://localhost:3306/hatzi_cloud";
         // 账户
         String username = "root";
         // 密码
         String password = "root";
         // 表前缀[生成的实体类自动不含表前缀]
-        String[] tablePrefixes = {"t_dar_"};
+        String[] tablePrefixes = {""};
         // 表名，为空，不生成表
-        String[] tableNames = {"area"};
+        String[] tableNames = {"older"};
         // 字段前缀
         String[] fieldPrefixes = {};
         GenneratorService.execute(DbType.MYSQL, dbUrl, username, password, "com.mysql.cj.jdbc.Driver", tablePrefixes, tableNames, fieldPrefixes);

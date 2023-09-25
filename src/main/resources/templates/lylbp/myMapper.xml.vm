@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="${package.Mapper}.${table.mapperName}">
+    ## ----------  BEGIN 字段循环遍历  ----------
+    #foreach($field in ${table.fields})
+        #if(${field.keyFlag})
+            #set($keyPropertyName=${field.propertyName})
+            #set($keyPropertyNameFirstUp=${field.propertyName.substring(0,1).toUpperCase()} + ${field.propertyName.substring(1)})
+            #set($keyColumnName=${field.columnName})
+        #end
+    #end
+    ## ----------  END 字段循环遍历  ----------
+
     #if(${enableCache})
         <!-- 开启二级缓存 -->
         <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
@@ -166,10 +176,10 @@
         </where>
     </select>
 
-    <!-- 根据uuid编辑${entity} -->
-    <update id="updateEntityById">
+    <!-- 根据${keyPropertyName}编辑${entity} -->
+    <update id="updateEntityBy${keyPropertyNameFirstUp}">
         update ${table.name}
         <include refid="Base_Set"/>
-        where id = #{id}
+        where ${keyColumnName} = #{${keyPropertyName}}
     </update>
 </mapper>
