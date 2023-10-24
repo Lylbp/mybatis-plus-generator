@@ -2,12 +2,14 @@ package ${package.Service};
 
 import ${package.Entity}.${entity};
 import ${cfg.VOPackage}.${entity}VO;
+import ${cfg.DTOPackage}.${entity}QueryDTO;
 import ${superServiceClassPackage};
 
 import java.util.List;
 import java.util.Map;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
+import cn.hutool.core.lang.func.Func1;
 /**
  * <p>
  * $!{table.comment} 服务类
@@ -31,27 +33,27 @@ public interface ${table.serviceName} extends ${superServiceClass}<${entity}> {
         /**
          * 通过查询参数获取列表
          * @param page   分页对象,传null代表不分页
-         * @param params 参数
+         * @param queryDTO 查询参数
          * @return List<${entity}VO>
          */
-        List<${entity}VO> get${entity}VOListByParams(Page<${entity}VO> page, Map<String, Object> params);
+        List<${entity}VO> getVOListBy(Page<${entity}VO> page, ${entity}QueryDTO queryDTO);
 
         /**
          * 通过查询参数获取单个${entity}VO对象
          *
-         * @param params 参数
+         * @param queryDTO 查询参数
          * @return ${entity}VO
          */
-        ${entity}VO getOne${entity}VOByParams(Map<String, Object> params);
+        ${entity}VO getVOInfoBy(${entity}QueryDTO queryDTO);
 
         /**
          * 通过字段名称与值获取单个${entity}VO对象
          *
-         * @param columnName 名称
-         * @param columnValue 值
+         * @param func 字段名称
+         * @param value 字段值
          * @return ${entity}VO
          */
-        ${entity}VO getOne${entity}VOBy(String columnName, Object columnValue);
+        ${entity}VO getVOInfoBy(Func1<${entity}QueryDTO,?>func,Object value);
 
         /**
          * 通过主键判断是否存在

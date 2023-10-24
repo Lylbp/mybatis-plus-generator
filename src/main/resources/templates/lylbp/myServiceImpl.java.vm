@@ -2,6 +2,7 @@ package ${package.ServiceImpl};
 
 import ${package.Entity}.${entity};
 import ${cfg.VOPackage}.${entity}VO;
+import ${cfg.DTOPackage}.${entity}QueryDTO;
 import ${package.Mapper}.${table.mapperName};
 import ${package.Service}.${table.serviceName};
 import ${superServiceImplClassPackage};
@@ -10,12 +11,14 @@ import java.util.List;
 import java.util.Map;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
-import java.util.HashMap;
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.lang.func.Func1;
+import cn.hutool.core.lang.func.LambdaUtil;
+import cn.hutool.core.util.ReflectUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import ${cfg.BasePack}.common.enums.TrueOrFalseEnum;
 /**
  * <p>
  * $!{table.comment} 服务实现类
@@ -38,27 +41,27 @@ public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.m
         }
 
         @Override
-        public List<${entity}VO> get${entity}VOListByParams(Page<${entity}VO> page, Map<String, Object> params) {
-            return getBaseMapper().query${entity}VOByParams(page, params);
+        public List<${entity}VO> getVOListBy(Page<${entity}VO> page, ${entity}QueryDTO queryDTO) {
+            return getBaseMapper().queryVOByParams(page, BeanUtil.beanToMap(queryDTO));
         }
 
         @Override
-        public ${entity}VO getOne${entity}VOByParams(Map<String, Object> params) {
-            ${entity}VO entityVO = null;
-            List<${entity}VO> list = get${entity}VOListByParams(null,params);
+        public ${entity}VO getVOInfoBy(${entity}QueryDTO queryDTO) {
+            ${entity}VO ${table.entityPath}VO = null;
+            List<${entity}VO> list = getVOListBy(new Page<>(1, 1), queryDTO);
             if (ObjectUtil.isNotEmpty(list)){
-                entityVO = list.get(0);
+                ${table.entityPath}VO = list.get(0);
             }
 
-            return entityVO;
+            return ${table.entityPath}VO;
         }
 
         @Override
-        public ${entity}VO getOne${entity}VOBy(String columnName, Object columnValue){
-            HashMap<String, Object> params = new HashMap<>(1);
-            params.put(columnName, columnValue);
+        public ${entity}VO getVOInfoBy(Func1<${entity}QueryDTO,?>func,Object value){
+            ${entity}QueryDTO queryDTO = new ${entity}QueryDTO();
+            ReflectUtil.setFieldValue(queryDTO,LambdaUtil.getFieldName(func),value);
 
-            return getOne${entity}VOByParams(params);
+            return getVOInfoBy(queryDTO);
         }
 
         @Override
@@ -71,14 +74,14 @@ public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.m
             LambdaQueryWrapper<${entity}> wrapper = new QueryWrapper<${entity}>().lambda().eq(columnName, columnValue);
             #foreach($field in ${table.fields})
                 #if(${field.columnName} == ${cfg.FieldlogicDeleteName})
-                        wrapper.eq(${entity}::get${field.propertyName.substring(0,1).toUpperCase()}${field.propertyName.substring(1)},TrueOrFalseEnum.TRUE.getCode());
+                        wrapper.eq(${entity}::get${field.capitalName}, ${cfg.FieldlogicDeleteDefaultValue});
                 #end
             #end
 
             if (StrUtil.isNotEmpty(notId)) {
                 #foreach($field in ${table.fields})
                     #if(${field.keyFlag})
-                            wrapper.ne(${entity}::get${field.propertyName.substring(0,1).toUpperCase()}${field.propertyName.substring(1)}, notId);
+                            wrapper.ne(${entity}::get${field.capitalName}, notId);
                     #end
                 #end
             }

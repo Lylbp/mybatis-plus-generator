@@ -24,6 +24,62 @@ import java.util.function.Consumer;
  */
 public class GenneratorService {
 
+    /////////////////////////////////////////////类名相关///////////////////////////////////////////////////////////
+    /**
+     * Entity文件名称
+     */
+    public static final String FILE_NAME_ENTITY = "%s";
+
+    /**
+     * mapper文件名称
+     */
+    public static final String FILE_NAME_MAPPER = "%sMapper";
+
+    /**
+     * 数据库xml文件名称
+     */
+    public static final String FILE_NAME_XML = "%sMapper";
+
+    /**
+     * Service文件名称
+     */
+    public static final String FILE_NAME_SERVICE = "%sService";
+
+    /**
+     * Service实现类文件名称
+     */
+    public static final String FILE_NAME_SERVICE_IMPL = "%sServiceImpl";
+
+    /**
+     * Controller文件名称
+     */
+    public static final String FILE_NAME_CONTROLLER = "%sController";
+
+    /**
+     * vo文件名称
+     */
+    public static final String FILE_NAME_VO = "%sVO";
+
+    /**
+     * 新增DTO文件名称
+     */
+    public static final String FILE_NAME_DTO_CREATE = "%sCreateDTO";
+
+    /**
+     * 编辑DTO文件名称
+     */
+    public static final String FILE_NAME_DTO_UPDATE = "%sUpdateDTO";
+
+    /**
+     * 查询DTO文件名称
+     */
+    public static final String FILE_NAME_DTO_QUERY = "%sQueryDTO";
+
+    /**
+     * convertMapper文件名称
+     */
+    public static final String FILE_NAME_CONVERT_MAPPER = "%sConvertMapper";
+
     /**
      * 数据连接信息
      *
@@ -74,12 +130,12 @@ public class GenneratorService {
                 //是否生成 kotlin 代码
                 .setKotlin(false)
                 //自定义文件命名，注意 %s 会自动填充表名
-                .setEntityName(Config.FILE_NAME_ENTITY)
-                .setMapperName(Config.FILE_NAME_MAPPER)
-                .setXmlName(Config.FILE_NAME_XML)
-                .setServiceName(Config.FILE_NAME_SERVICE)
-                .setServiceImplName(Config.FILE_NAME_SERVICE_IMPL)
-                .setControllerName(Config.FILE_NAME_CONTROLLER)
+                .setEntityName(FILE_NAME_ENTITY)
+                .setMapperName(FILE_NAME_MAPPER)
+                .setXmlName(FILE_NAME_XML)
+                .setServiceName(FILE_NAME_SERVICE)
+                .setServiceImplName(FILE_NAME_SERVICE_IMPL)
+                .setControllerName(FILE_NAME_CONTROLLER)
                 //主键类型
                 .setIdType(Config.ENTITY_ID_TYPE)
                 //是否支持swagger2
@@ -168,42 +224,125 @@ public class GenneratorService {
      */
     private static InjectionConfig injectionConfig(InjectionConfig injectionConfig) {
         List<FileOutConfig> fileOutConfigList = new ArrayList<>();
+        //自定义controller
+        if (ObjectUtil.isNotEmpty(Config.CONTROLLER_PATH) && ObjectUtil.isNotEmpty(Config.CONTROLLER_TEMPLATE)) {
+            fileOutConfigList.add(new FileOutConfig(Config.CONTROLLER_TEMPLATE) {
+                @Override
+                public String outputFile(TableInfo tableInfo) {
+                    String fileName = String.format(FILE_NAME_CONTROLLER, tableInfo.getEntityName());
+                    return Config.CONTROLLER_PATH + "/" + fileName + StringPool.DOT_JAVA;
+                }
+            });
+        }
+
+        //自定义entity
+        if (ObjectUtil.isNotEmpty(Config.ENTITY_PATH) && ObjectUtil.isNotEmpty(Config.ENTITY_TEMPLATE)) {
+            fileOutConfigList.add(new FileOutConfig(Config.ENTITY_TEMPLATE) {
+                @Override
+                public String outputFile(TableInfo tableInfo) {
+                    String fileName = String.format(FILE_NAME_ENTITY, tableInfo.getEntityName());
+                    return Config.ENTITY_PATH + "/" + fileName + StringPool.DOT_JAVA;
+                }
+            });
+        }
+
+        //自定义Service
+        if (ObjectUtil.isNotEmpty(Config.SERVICE_PATH) && ObjectUtil.isNotEmpty(Config.SERVICE_TEMPLATE)) {
+            fileOutConfigList.add(new FileOutConfig(Config.SERVICE_TEMPLATE) {
+                @Override
+                public String outputFile(TableInfo tableInfo) {
+                    String fileName = String.format(FILE_NAME_SERVICE, tableInfo.getEntityName());
+                    return Config.SERVICE_PATH + "/" + fileName + StringPool.DOT_JAVA;
+                }
+            });
+        }
+
+        //自定义ServiceImpl
+        if (ObjectUtil.isNotEmpty(Config.SERVICE_IMPL_PATH) && ObjectUtil.isNotEmpty(Config.SERVICE_IMPL_TEMPLATE)) {
+            fileOutConfigList.add(new FileOutConfig(Config.SERVICE_IMPL_TEMPLATE) {
+                @Override
+                public String outputFile(TableInfo tableInfo) {
+                    String fileName = String.format(FILE_NAME_SERVICE_IMPL, tableInfo.getEntityName());
+                    return Config.SERVICE_IMPL_PATH + "/" + fileName + StringPool.DOT_JAVA;
+                }
+            });
+        }
+
+
+        //自定义Mapper
+        if (ObjectUtil.isNotEmpty(Config.MAPPER_PATH) && ObjectUtil.isNotEmpty(Config.MAPPER_TEMPLATE)) {
+            fileOutConfigList.add(new FileOutConfig(Config.MAPPER_TEMPLATE) {
+                @Override
+                public String outputFile(TableInfo tableInfo) {
+                    String fileName = String.format(FILE_NAME_MAPPER, tableInfo.getEntityName());
+                    return Config.MAPPER_PATH + "/" + fileName + StringPool.DOT_JAVA;
+                }
+            });
+        }
+
+        // 自定义xml配置
         if (ObjectUtil.isNotEmpty(Config.XML_PATH) && ObjectUtil.isNotEmpty(Config.XML_TEMPLATE)) {
-            // 自定义xml配置
             fileOutConfigList.add(new FileOutConfig(Config.XML_TEMPLATE) {
                 @Override
                 public String outputFile(TableInfo tableInfo) {
-                    return Config.XML_PATH + "/" + tableInfo.getXmlName() + StringPool.DOT_XML;
+                    String fileName = tableInfo.getXmlName();
+                    return Config.XML_PATH + "/" + fileName + StringPool.DOT_XML;
                 }
             });
         }
 
+        // 自定义输出VO配置
         if (ObjectUtil.isNotEmpty(Config.VO_TEMPLATE) && ObjectUtil.isNotEmpty(Config.VO_PATH)) {
-            // 自定义输出VO配置
             fileOutConfigList.add(new FileOutConfig(Config.VO_TEMPLATE) {
                 @Override
                 public String outputFile(TableInfo tableInfo) {
-                    return Config.VO_PATH + "/" + tableInfo.getEntityName() + "VO.java";
+                    String fileName = String.format(FILE_NAME_VO, tableInfo.getEntityName());
+                    return Config.VO_PATH + "/" + fileName + StringPool.DOT_JAVA;
                 }
             });
         }
 
-        if (ObjectUtil.isNotEmpty(Config.QO_TEMPLATE) && ObjectUtil.isNotEmpty(Config.QO_PATH)) {
-            // 自定义输出QO配置
-            fileOutConfigList.add(new FileOutConfig(Config.QO_TEMPLATE) {
+        // 自定义输出查询DTO配置
+        if (ObjectUtil.isNotEmpty(Config.DTO_QUERY_TEMPLATE) && ObjectUtil.isNotEmpty(Config.DTO_PATH)) {
+            fileOutConfigList.add(new FileOutConfig(Config.DTO_QUERY_TEMPLATE) {
                 @Override
                 public String outputFile(TableInfo tableInfo) {
-                    return Config.QO_PATH + "/" + tableInfo.getEntityName() + "QO.java";
+                    String fileName = String.format(FILE_NAME_DTO_QUERY, tableInfo.getEntityName());
+                    return Config.DTO_PATH + "/" + fileName + StringPool.DOT_JAVA;
                 }
             });
         }
 
-        if (ObjectUtil.isNotEmpty(Config.DTO_TEMPLATE) && ObjectUtil.isNotEmpty(Config.DTO_PATH)) {
-            // 自定义输出DTO配置
-            fileOutConfigList.add(new FileOutConfig(Config.DTO_TEMPLATE) {
+        // 自定义输出新增DTO配置
+        if (ObjectUtil.isNotEmpty(Config.DTO_CREATE_TEMPLATE) && ObjectUtil.isNotEmpty(Config.DTO_PATH)) {
+            fileOutConfigList.add(new FileOutConfig(Config.DTO_CREATE_TEMPLATE) {
                 @Override
                 public String outputFile(TableInfo tableInfo) {
-                    return Config.DTO_PATH + "/" + tableInfo.getEntityName() + "DTO.java";
+                    String fileName = String.format(FILE_NAME_DTO_CREATE, tableInfo.getEntityName());
+                    return Config.DTO_PATH + "/" + fileName + StringPool.DOT_JAVA;
+                }
+            });
+        }
+
+
+        // 自定义输出编辑DTO配置
+        if (ObjectUtil.isNotEmpty(Config.DTO_UPDATE_TEMPLATE) && ObjectUtil.isNotEmpty(Config.DTO_PATH)) {
+            fileOutConfigList.add(new FileOutConfig(Config.DTO_UPDATE_TEMPLATE) {
+                @Override
+                public String outputFile(TableInfo tableInfo) {
+                    String fileName = String.format(FILE_NAME_DTO_UPDATE, tableInfo.getEntityName());
+                    return Config.DTO_PATH + "/" + fileName + StringPool.DOT_JAVA;
+                }
+            });
+        }
+
+        // 自定义输出convertMapper配置
+        if (ObjectUtil.isNotEmpty(Config.CONVERT_MAPPER_TEMPLATE) && ObjectUtil.isNotEmpty(Config.CONVERT_PATH)) {
+            fileOutConfigList.add(new FileOutConfig(Config.CONVERT_MAPPER_TEMPLATE) {
+                @Override
+                public String outputFile(TableInfo tableInfo) {
+                    String fileName = String.format(FILE_NAME_CONVERT_MAPPER, tableInfo.getEntityName());
+                    return Config.CONVERT_PATH + "/" + fileName + StringPool.DOT_JAVA;
                 }
             });
         }
@@ -255,11 +394,13 @@ public class GenneratorService {
             public void initMap() {
                 Map<String, Object> map = new HashMap<>(10);
                 map.put("VOPackage", Config.PACKAGE_NAME_VO);
-                map.put("QOPackage", Config.PACKAGE_NAME_QO);
+                map.put("ConvertMapperPackage", Config.PACKAGE_NAME_CONVERT);
                 map.put("DTOPackage", Config.PACKAGE_NAME_DTO);
                 map.put("DBType", dbType.getDb());
                 map.put("FieldlogicDeleteName", Config.FIELD_LOGIC_DELETE_NAME);
+                map.put("FieldlogicDeleteDefaultValue", Config.FIELD_LOGIC_DELETE_DEFAULT_VALUE);
                 map.put("BasePack", Config.BASE_PACK);
+                map.put("VoNotReturnField", Config.VO_NOT_RETURN_FIELD);
                 this.setMap(map);
             }
         };

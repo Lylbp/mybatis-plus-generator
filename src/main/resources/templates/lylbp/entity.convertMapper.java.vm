@@ -1,0 +1,54 @@
+package ${cfg.ConvertMapperPackage};
+
+import org.mapstruct.Mapper;
+import org.mapstruct.factory.Mappers;
+import java.util.List;
+
+import ${package.Entity}.${entity};
+import ${cfg.DTOPackage}.${entity}CreateDTO;
+import ${cfg.DTOPackage}.${entity}UpdateDTO;
+import ${cfg.VOPackage}.${entity}VO;
+/**
+ * <p>
+ * ${entity}对象转换类
+ * </p>
+ *
+ * @Description ${entity}转换对象
+ * @Author ${author}
+ * @Date ${date}
+ */
+@Mapper(componentModel ="spring")
+public interface ${entity}ConvertMapper {
+        /**
+         * ${entity}CreateDTO转${entity}
+         *
+         * @param createDTO 创建对象
+         * @return ${entity}
+         */
+        ${entity} ${table.entityPath}CreateDTO2${entity}(${entity}CreateDTO createDTO);
+
+        /**
+         * ${entity}UpdateDTO转${entity}
+         *
+         * @param updateDTO 修改对象
+         * @return ${entity}
+         */
+        ${entity} ${table.entityPath}UpdateDTO2${entity}(${entity}UpdateDTO updateDTO);
+
+        /**
+         * ${entity}转${entity}VO
+         *
+         * @param ${table.entityPath} ${entity}对象
+         * @return ${entity}VO
+         */
+         ${entity}VO ${table.entityPath}2${entity}VO(${entity} ${table.entityPath});
+
+
+        /**
+         * ${entity}集合转${entity}VO集合
+         *
+         * @param ${table.entityPath}List ${entity}对象集合
+         * @return List<${entity}VO>
+         */
+        List<${entity}VO> ${table.entityPath}List2${entity}VOList(List<${entity}> ${table.entityPath}List);
+}

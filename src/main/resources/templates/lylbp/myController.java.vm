@@ -1,30 +1,29 @@
 package ${package.Controller};
 
-#if(${restControllerStyle})
-import org.springframework.web.bind.annotation.*;
-#else
-import org.springframework.stereotype.Controller;
-#end
-#if(${superControllerClassPackage})
-import ${superControllerClassPackage};
-#end
+    #if(${restControllerStyle})
+    import org.springframework.web.bind.annotation.*;
+    #else
+    import org.springframework.stereotype.Controller;
+    #end
+    #if(${superControllerClassPackage})
+    import ${superControllerClassPackage};
+    #end
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import cn.hutool.core.bean.BeanUtil;
 import java.util.List;
-import java.util.Map;
+
 import ${cfg.BasePack}.common.utils.ResResultUtil;
+import ${cfg.BasePack}.common.utils.MybatisUtil;
 import ${cfg.BasePack}.common.entity.PageResResult;
 import ${cfg.BasePack}.common.entity.ResResult;
+import ${cfg.BasePack}.common.entity.PageQueryDTO;
 import ${package.Service}.${table.serviceName};
-import ${package.Entity}.${entity};
 import ${cfg.VOPackage}.${entity}VO;
-import ${cfg.QOPackage}.${entity}QO;
-import ${cfg.DTOPackage}.${entity}DTO;
-
+import ${cfg.DTOPackage}.${entity}QueryDTO;
+import ${cfg.DTOPackage}.${entity}CreateDTO;
+import ${cfg.DTOPackage}.${entity}UpdateDTO;
+import ${cfg.ConvertMapperPackage}.${entity}ConvertMapper;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 
 import org.springframework.validation.annotation.Validated;
@@ -32,6 +31,17 @@ import org.springframework.validation.annotation.Validated;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.annotation.Resource;
+
+## ----------  BEGIN 字段循环遍历  ----------
+#foreach($field in ${table.fields})
+    #if(${field.keyFlag})
+        #set($keyPropertyName=${field.propertyName})
+        #set($keyCapitalName=${field.capitalName})
+        #set($keyColumnName=${field.columnName})
+    #end
+#end
+## ----------  END 字段循环遍历  ----------
+
 /**
  * <p>
  * $!{table.comment} 前端控制器
@@ -51,105 +61,91 @@ import javax.annotation.Resource;
 class ${table.controllerName}#if(${superControllerClass}) : ${superControllerClass}()#end
 
 #else
-#if(${superControllerClass})
-public class ${table.controllerName} extends ${superControllerClass} {
-#else
-public class ${table.controllerName} {
-#end
+    #if(${superControllerClass})
+    public class ${table.controllerName} extends ${superControllerClass} {
+    #else
+    public class ${table.controllerName} {
+    #end
 
-#foreach($field in ${table.fields})
+    #foreach($field in ${table.fields})
         #if(${field.keyFlag})
             #set($keyPropertyName=${field.propertyName})
         #end
-#end
+    #end
 
-    @Resource
-    private ${table.serviceName}  service;
+@Resource
+private ${table.serviceName}  ${table.entityPath}Service;
 
-     /**
-     * 获取数据分页列表
-     *
-     * @author ${author}
-     * @date   ${date}
-     * @return ResResult<PageResResult<${entity}VO>>
-     */
-    @PostMapping(value = "/getList")
-    @ApiOperation("获取分页列表")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "current", value = "当前页 默认1", defaultValue = "1", dataType = "Integer", paramType = "query"),
-            @ApiImplicitParam(name = "size", value = "每页显示数 默认10", defaultValue = "10", dataType = "Integer", paramType = "query")
-    })
-    public ResResult<PageResResult<${entity}VO>> getList(@RequestBody ${entity}QO query,
-    @RequestParam(defaultValue = "1") Integer current,@RequestParam(defaultValue = "10") Integer size) {
-            Map<String, Object> params = BeanUtil.beanToMap(query);
+@Resource
+private ${entity}ConvertMapper ${table.entityPath}ConvertMapper;
 
-            Page<${entity}VO> page = new Page<>(current, size);
-            List<${entity}VO> list = service.get${entity}VOListByParams(page, params);
-            page.setRecords(list);
+/**
+ * 获取数据分页列表
+ *
+ * @author ${author}
+ * @date   ${date}
+ * @return ResResult<PageResResult <${entity}VO>>
+ */
+@GetMapping(value = "/getPageList")
+@ApiOperation("获取分页列表")
+public ResResult<PageResResult<${entity}VO>>getPageList(${entity}QueryDTO queryDTO, PageQueryDTO pageQueryDTO){
+        Page<${entity}VO> page = MybatisUtil.getMybatisPlusPage(pageQueryDTO, ${entity}VO.class);
 
-            return ResResultUtil.makePageRsp(page);
-    }
+        return ResResultUtil.makePageRsp(page.setRecords(${table.entityPath}Service.getVOListBy(page,queryDTO)));
+        }
 
-    /**
-     * 获取信息
-     *
-     * @author ${author}
-     * @date ${date}
-     * @return ResResult<${entity}VO>
-     */
-    @GetMapping(value = "/{${keyPropertyName}}")
-    @ApiOperation("获取信息")
-    public ResResult<${entity}VO> getInfoById(@PathVariable(value = "${keyPropertyName}") @NotBlank String ${keyPropertyName}) {
-        ${entity}VO entity = service.getOne${entity}VOBy("${keyPropertyName}", ${keyPropertyName});
-
-        return ResResultUtil.success(entity);
-    }
+/**
+ * 根据主键获取信息
+ *
+ * @author ${author}
+ * @date ${date}
+ * @return ResResult<${entity}VO>
+ */
+@GetMapping(value = "/{${keyPropertyName}}")
+@ApiOperation("根据主键获取信息")
+public ResResult<${entity}VO> getInfoById(@PathVariable(value = "${keyPropertyName}") @NotBlank String ${keyPropertyName}){
+        return ResResultUtil.success(${table.entityPath}Service.getVOInfoBy(${entity}QueryDTO::get${keyCapitalName} , ${keyPropertyName}));
+        }
 
 
-    /**
-    * 添加
-    *
-    * @author ${author}
-    * @date   ${date}
-    * @return ResResult<${entity}VO>
-    */
-    @PostMapping(value = "/add")
-    @ApiOperation("添加")
-    public ResResult<Boolean> add(@RequestBody @Validated ${entity}DTO dto) {
-        ${entity} entity = new ${entity}();
-        BeanUtil.copyProperties(dto, entity);
+/**
+ * 添加
+ *
+ * @author ${author}
+ * @date   ${date}
+ * @return ResResult<${entity}VO>
+ */
+@PostMapping(value = "/add")
+@ApiOperation("添加")
+public ResResult<Boolean> add(@RequestBody @Validated ${entity}CreateDTO dto){
+        return ResResultUtil.success(${table.entityPath}Service.edit(${table.entityPath}ConvertMapper.${table.entityPath}CreateDTO2${entity}(dto)));
+        }
 
-        return ResResultUtil.success(service.edit(entity));
-    }
+/**
+ * 编辑
+ *
+ * @author ${author}
+ * @date   ${date}
+ * @return ResResult<Boolean>
+ */
+@PutMapping(value = "/edit")
+@ApiOperation("编辑")
+public ResResult<Boolean> edit(@RequestBody @Validated ${entity}UpdateDTO dto){
+        return ResResultUtil.success(${table.entityPath}Service.edit(${table.entityPath}ConvertMapper.${table.entityPath}UpdateDTO2${entity}(dto)));
+        }
 
-    /**
-    * 编辑
-    *
-    * @author ${author}
-    * @date   ${date}
-    * @return ResResult<Boolean>
-    */
-    @PutMapping(value = "/edit")
-    @ApiOperation("编辑")
-    public ResResult<Boolean> edit(@RequestBody @Validated ${entity}DTO dto) {
-        ${entity} entity = new ${entity}();
-        BeanUtil.copyProperties(dto, entity);
-
-        return ResResultUtil.success(service.edit(entity));
-    }
-
-    /**
-     * 通过主键批量删除
-     *
-     * @author ${author}
-     * @date   ${date}
-     * @return ResResult<Boolean>
-     */
-    @DeleteMapping(value = "/batchDelete")
-    @ApiOperation("通过主键批量删除")
-    public ResResult<Boolean> batchDelete(@RequestBody @NotNull List<String> idList) {
-        return ResResultUtil.success(service.removeByIds(idList));
-    }
-}
+/**
+ * 通过主键批量删除
+ *
+ * @author ${author}
+ * @date   ${date}
+ * @return ResResult<Boolean>
+ */
+@DeleteMapping(value = "/batchDelete")
+@ApiOperation("通过主键批量删除")
+public ResResult<Boolean> batchDelete(@RequestBody @NotNull List<Long> idList){
+        return ResResultUtil.success(${table.entityPath}Service.removeByIds(idList));
+        }
+        }
 
 #end

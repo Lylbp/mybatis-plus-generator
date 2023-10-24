@@ -14,7 +14,7 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 #end
 #end
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 /**
  * <p>
  * $!{table.comment}
@@ -59,7 +59,7 @@ public class ${entity} implements Serializable {
 #end
 #if("$!field.comment" != "")
   #if(${swagger2})
-    @ApiModelProperty(value = "${field.comment}")
+    @ApiModelProperty(value = "${field.comment}" #if(${cfg.VoNotReturnField.split(",").contains($field.columnName)}) ,hidden = true #end)
   #else
     /**
      * ${field.comment}
@@ -93,6 +93,9 @@ public class ${entity} implements Serializable {
 ## 逻辑删除注解
 #if(${logicDeleteFieldName}==${field.name})
     @TableLogic
+#end
+#if(${cfg.VoNotReturnField.split(",").contains($field.columnName)})
+    @JsonIgnore
 #end
     private ${field.propertyType} ${field.propertyName};
 #end

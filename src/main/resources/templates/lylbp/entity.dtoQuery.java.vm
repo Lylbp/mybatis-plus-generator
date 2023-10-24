@@ -1,0 +1,71 @@
+package ${cfg.DTOPackage};
+
+#if(${entityLombokModel})
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import io.swagger.annotations.*;
+#end
+import java.io.Serializable;
+
+/**
+ * <p>
+ * $!{table.comment}查询
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+#if(${entityLombokModel})
+@Data
+#if(${superEntityClass})
+@EqualsAndHashCode(callSuper = true)
+#else
+@EqualsAndHashCode(callSuper = false)
+#end
+#if(${chainModel})
+@Accessors(chain = true)
+#end
+#end
+#if(${swagger2})
+@ApiModel
+#end
+public class ${entity}QueryDTO implements Serializable{
+    #if(${entitySerialVersionUID})
+        private static final long serialVersionUID = 1L;
+    #end
+
+    ## ----------  BEGIN 字段循环遍历  ----------
+    #foreach($field in ${table.fields})
+        #if(${field.keyFlag} || ${field.columnName} == ${cfg.FieldlogicDeleteName})
+            #if("$!field.comment" != "")
+                #if(${swagger2})
+                @ApiModelProperty(value = "${field.comment}")
+                #else
+                /**
+                 * ${field.comment}
+                 */
+                #end
+            #end
+            private ${field.propertyType} ${field.propertyName} #if(${field.columnName} == ${cfg.FieldlogicDeleteName}) = ${cfg.FieldlogicDeleteDefaultValue} #end;
+        #end
+    #end
+    ## ----------  END 字段循环遍历  ----------
+
+
+
+
+
+    #if(!${entityLombokModel})
+        #foreach($field in ${table.fields})
+            #if(${field.keyFlag} || ${field.columnName} == ${cfg.FieldlogicDeleteName})
+                public ${field.propertyType} ${getprefix}${field.capitalName}() {
+                    return ${field.propertyName};
+                }
+
+                public void set${field.capitalName}(${field.propertyType} ${field.propertyName}) {
+                    this.${field.propertyName} = ${field.propertyName};
+                }
+            #end
+        #end
+    #end
+}

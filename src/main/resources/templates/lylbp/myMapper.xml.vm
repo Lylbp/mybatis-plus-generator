@@ -72,21 +72,16 @@
     <!-- 通用查询语句(数据库comment中含有?则不显示字段注释)) -->
     <sql id="Base_Where_List">
         #foreach($field in ${table.fields})
-            #if(${field.columnName} == ${cfg.FieldlogicDeleteName})
-                <!-- 删除状态查询 -->
-                AND t.${cfg.FieldlogicDeleteName} = 1
-            #end
-
             #if(${field.keyFlag})
                 #if(${field.comment} != "" && ${field.comment.indexOf("?")} == -1)
                     <!-- ${field.comment}查询 -->
                 #end
-                <if test="params.containsKey('${field.propertyName}')">
+                <if test="params.${field.propertyName} != null and params.${field.propertyName} != ''">
                     AND t.${field.columnName} = #{params.${field.propertyName}}
                 </if>
             #end
 
-            #if(!${field.keyFlag} && ${field.columnName} != ${cfg.FieldlogicDeleteName})
+            #if(!${field.keyFlag})
                 ##不为日期类型
                 #if(${field.type.indexOf("DATE")} == -1 && ${field.type.indexOf("date")} == -1 && ${field.type.indexOf(
                     "datetime")} == -1 && ${field.type.indexOf("DATETIME")} == -1
@@ -167,7 +162,7 @@
     </sql>
 
     <!-- ${entity}VO查询语句 -->
-    <select id="query${entity}VOByParams" parameterType="java.util.Map" resultType="${cfg.VOPackage}.${entity}VO">
+    <select id="queryVOByParams" parameterType="java.util.Map" resultType="${cfg.VOPackage}.${entity}VO">
         SELECT
         <include refid="Base_Column_List"/>
         FROM ${table.name} t

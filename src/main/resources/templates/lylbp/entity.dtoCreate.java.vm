@@ -1,14 +1,14 @@
-package ${cfg.QOPackage};
+package ${cfg.DTOPackage};
 
 #if(${entityLombokModel})
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import io.swagger.annotations.*;
 #end
-
+import java.io.Serializable;
 /**
  * <p>
- * $!{table.comment}QO类
+ * $!{table.comment}创建
  * </p>
  *
  * @author ${author}
@@ -26,9 +26,10 @@ import io.swagger.annotations.*;
 #end
 #end
 #if(${swagger2})
-@ApiModel(value="${entity}QO对象", description = "注意！！当该对象作为body传参时，对象名称并不是key,直接将对象值json字符串放入body实体即可！！")
+@ApiModel
 #end
-public class ${entity}QO {
-    @ApiModelProperty(value = "示列请对应修改")
-    private String example;
+public class ${entity}CreateDTO implements Serializable{
+    #if(${entitySerialVersionUID})
+        private static final long serialVersionUID = 1L;
+    #end
 }
