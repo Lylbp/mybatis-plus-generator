@@ -400,6 +400,9 @@ public class GenneratorService {
                 map.put("FieldlogicDeleteName", Config.FIELD_LOGIC_DELETE_NAME);
                 map.put("FieldlogicDeleteDefaultValue", Config.FIELD_LOGIC_DELETE_DEFAULT_VALUE);
                 map.put("BasePack", Config.BASE_PACK);
+                map.put("BaseCoreUtilPack", Config.BASE_CORE_UTIL_PACK);
+                map.put("BaseCoreEntityPack", Config.BASE_CORE_ENTITY_PACK);
+                map.put("MybatisUtilPack", Config.MYBATIS_UTIL_PACK);
                 map.put("VoNotReturnField", Config.VO_NOT_RETURN_FIELD);
                 this.setMap(map);
             }

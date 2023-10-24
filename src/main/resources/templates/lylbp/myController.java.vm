@@ -12,17 +12,15 @@ package ${package.Controller};
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import java.util.List;
 
-import ${cfg.BasePack}.common.utils.ResResultUtil;
-import ${cfg.BasePack}.common.utils.MybatisUtil;
-import ${cfg.BasePack}.common.entity.PageResResult;
-import ${cfg.BasePack}.common.entity.ResResult;
-import ${cfg.BasePack}.common.entity.PageQueryDTO;
-import ${package.Service}.${table.serviceName};
+import ${cfg.BaseCoreUtilPack};
+import ${cfg.BaseCoreEntityPack};
+import ${cfg.MybatisUtilPack};
 import ${cfg.VOPackage}.${entity}VO;
 import ${cfg.DTOPackage}.${entity}QueryDTO;
 import ${cfg.DTOPackage}.${entity}CreateDTO;
 import ${cfg.DTOPackage}.${entity}UpdateDTO;
 import ${cfg.ConvertMapperPackage}.${entity}ConvertMapper;
+import ${package.Service}.${table.serviceName};
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -90,8 +88,8 @@ private ${entity}ConvertMapper ${table.entityPath}ConvertMapper;
 @ApiOperation("获取分页列表")
 public ResResult<PageResResult<${entity}VO>>getPageList(${entity}QueryDTO queryDTO, PageQueryDTO pageQueryDTO){
         Page<${entity}VO> page = MybatisUtil.getMybatisPlusPage(pageQueryDTO, ${entity}VO.class);
-
-        return ResResultUtil.makePageRsp(page.setRecords(${table.entityPath}Service.getVOListBy(page,queryDTO)));
+        page.setRecords(${table.entityPath}Service.getVOListBy(page,queryDTO));
+        return ResResultUtil.makePageRsp(page.getRecords(), page.getTotal(), page.getCurrent(), page.getSize());
         }
 
 /**

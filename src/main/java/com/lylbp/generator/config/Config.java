@@ -61,10 +61,11 @@ public class Config {
     public static final String CONVERT_PATH = "/home/alex/code/java/lylbp/java_model_simple/src/main/java/com/lylbp/project/convert";
 
     /////////////////////////////////////////////包名相关///////////////////////////////////////////////////////////
-    /**
-     * controller包名
-     */
     public static final String BASE_PACK = "com.lylbp";
+
+    public static final String BASE_CORE_UTIL_PACK = "com.lylbp.common.utils.*";
+    public static final String BASE_CORE_ENTITY_PACK = "com.lylbp.common.entity.*";
+    public static final String MYBATIS_UTIL_PACK = "com.lylbp.common.utils.MybatisUtil";
 
     /**
      * controller包名
