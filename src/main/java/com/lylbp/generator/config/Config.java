@@ -13,101 +13,100 @@ public class Config {
     /**
      * controller,service,mapper,serviceImpl输出路径
      */
-    public static final String OUT_OUT_DIR = "/home/alex/code/java/lylbp/java_model_simple/src/main/java/";
+    public static final String OUT_OUT_DIR = "/home/alex/code/java/lylbp/Hatzi-Cloud/hatzi-service/hatzi-system/src/main/java/";
 
     /**
      * controller文件输出路径
      */
-    public static final String CONTROLLER_PATH = "/home/alex/code/java/lylbp/java_model_simple/src/main/java/com/lylbp/project/controller";
+    public static final String CONTROLLER_PATH = "/home/alex/code/java/lylbp/Hatzi-Cloud/hatzi-service/hatzi-system/src/main/java/com/hatzi/sys/controller";
 
     /**
      * entity输出路径
      */
-    public static final String ENTITY_PATH = "/home/alex/code/java/lylbp/java_model_simple/src/main/java/com/lylbp/project/entity";
+    public static final String ENTITY_PATH = "/home/alex/code/java/lylbp/Hatzi-Cloud/hatzi-service/hatzi-system/src/main/java/com/hatzi/sys/entity";
 
     /**
      * service文件输出路径
      */
-    public static final String SERVICE_PATH = "/home/alex/code/java/lylbp/java_model_simple/src/main/java/com/lylbp/project/service";
+    public static final String SERVICE_PATH = "/home/alex/code/java/lylbp/Hatzi-Cloud/hatzi-service/hatzi-system/src/main/java/com/hatzi/sys/service";
 
     /**
      * serviceImpl文件输出路径
      */
-    public static final String SERVICE_IMPL_PATH = "/home/alex/code/java/lylbp/java_model_simple/src/main/java/com/lylbp/project/service/impl";
+    public static final String SERVICE_IMPL_PATH = "/home/alex/code/java/lylbp/Hatzi-Cloud/hatzi-service/hatzi-system/src/main/java/com/hatzi/sys/service/impl";
 
     /**
      * Mapper文件输出路径
      */
-    public static final String MAPPER_PATH = "/home/alex/code/java/lylbp/java_model_simple/src/main/java/com/lylbp/project/mapper";
+    public static final String MAPPER_PATH = "/home/alex/code/java/lylbp/Hatzi-Cloud/hatzi-service/hatzi-system/src/main/java/com/hatzi/sys/mapper";
 
     /**
      * xml文件输出路径
      */
-    public static final String XML_PATH = "/home/alex/code/java/lylbp/java_model_simple/src/main/resources/mapper";
+    public static final String XML_PATH = "/home/alex/code/java/lylbp/Hatzi-Cloud/hatzi-service/hatzi-system/src/main/resources/mapper";
 
     /**
      * dto输出路径
      */
-    public static final String DTO_PATH = "/home/alex/code/java/lylbp/java_model_simple/src/main/java/com/lylbp/project/dto";
+    public static final String DTO_PATH = "/home/alex/code/java/lylbp/Hatzi-Cloud/hatzi-service/hatzi-system/src/main/java/com/hatzi/sys/dto";
 
     /**
      * vo输出路径
      */
-    public static final String VO_PATH = "/home/alex/code/java/lylbp/java_model_simple/src/main/java/com/lylbp/project/vo";
+    public static final String VO_PATH = "/home/alex/code/java/lylbp/Hatzi-Cloud/hatzi-service/hatzi-system/src/main/java/com/hatzi/sys/vo";
 
     /**
      * convert输出路径
      */
-    public static final String CONVERT_PATH = "/home/alex/code/java/lylbp/java_model_simple/src/main/java/com/lylbp/project/convert";
+    public static final String CONVERT_PATH = "/home/alex/code/java/lylbp/Hatzi-Cloud/hatzi-service/hatzi-system/src/main/java/com/hatzi/sys/convert";
 
     /////////////////////////////////////////////包名相关///////////////////////////////////////////////////////////
-    public static final String BASE_PACK = "com.lylbp";
-
-    public static final String BASE_CORE_UTIL_PACK = "com.lylbp.common.utils.*";
-    public static final String BASE_CORE_ENTITY_PACK = "com.lylbp.common.entity.*";
-    public static final String MYBATIS_UTIL_PACK = "com.lylbp.common.utils.MybatisUtil";
+    public static final String BASE_PACK = "com.hatzi";
+    public static final String BASE_CORE_UTIL_PACK = "com.hatzi.core.util.*";
+    public static final String BASE_CORE_ENTITY_PACK = "com.hatzi.core.entity.*";
+    public static final String MYBATIS_UTIL_PACK = "com.hatzi.mybatis.util.MybatisUtil";
 
     /**
      * controller包名
      */
-    public static final String PACKAGE_NAME_CONTROLLER = "com.lylbp.project.controller";
+    public static final String PACKAGE_NAME_CONTROLLER = "com.hatzi.sys.controller";
 
     /**
      * 包名：entity
      */
-    public static final String PACKAGE_NAME_ENTITY = "com.lylbp.project.entity";
+    public static final String PACKAGE_NAME_ENTITY = "com.hatzi.sys.entity";
 
 
     /**
      * 包名：mapper
      */
-    public static final String PACKAGE_NAME_MAPPER = "com.lylbp.project.mapper";
+    public static final String PACKAGE_NAME_MAPPER = "com.hatzi.sys.mapper";
 
     /**
      * 包名：service
      */
-    public static final String PACKAGE_NAME_SERVICE = "com.lylbp.project.service";
+    public static final String PACKAGE_NAME_SERVICE = "com.hatzi.sys.service";
 
     /**
      * 包名：service.impl
      */
-    public static final String PACKAGE_NAME_SERVICE_IMPL = "com.lylbp.project.service.impl";
+    public static final String PACKAGE_NAME_SERVICE_IMPL = "com.hatzi.sys.service.impl";
 
     /**
      * 包名：dto
      */
-    public static final String PACKAGE_NAME_DTO = "com.lylbp.project.dto";
+    public static final String PACKAGE_NAME_DTO = "com.hatzi.sys.dto";
 
 
     /**
      * 包名：vo
      */
-    public static final String PACKAGE_NAME_VO = "com.lylbp.project.vo";
+    public static final String PACKAGE_NAME_VO = "com.hatzi.sys.vo";
 
     /**
      * 包名：convert
      */
-    public static final String PACKAGE_NAME_CONVERT = "com.lylbp.project.convert";
+    public static final String PACKAGE_NAME_CONVERT = "com.hatzi.sys.convert";
 
     /////////////////////////////////////////////模版文件配置///////////////////////////////////////////////////////////
     /**
