@@ -3,8 +3,8 @@ package ${cfg.DTOPackage};
 #if(${entityLombokModel})
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import io.swagger.annotations.*;
 #end
+import io.swagger.annotations.*;
 import java.io.Serializable;
 /**
  * <p>
