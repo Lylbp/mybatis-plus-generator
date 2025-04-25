@@ -13,52 +13,52 @@ public class Config {
     /**
      * controller,service,mapper,serviceImpl输出路径
      */
-    public static final String OUT_OUT_DIR = "/home/alex/code/java/lylbp/Hatzi-Cloud/hatzi-service/hatzi-system/src/main/java/";
+    public static final String OUT_OUT_DIR = "E:\\code\\java\\lylbp\\Hatzi-Cloud\\hatzi-service\\hatzi-system\\src\\main\\java\\";
 
     /**
      * controller文件输出路径
      */
-    public static final String CONTROLLER_PATH = "/home/alex/code/java/lylbp/Hatzi-Cloud/hatzi-service/hatzi-system/src/main/java/com/hatzi/sys/controller";
+    public static final String CONTROLLER_PATH = "E:\\code\\java\\lylbp\\Hatzi-Cloud\\hatzi-service\\hatzi-system\\src\\main\\java\\com\\hatzi\\sys\\controller";
 
     /**
      * entity输出路径
      */
-    public static final String ENTITY_PATH = "/home/alex/code/java/lylbp/Hatzi-Cloud/hatzi-service/hatzi-system/src/main/java/com/hatzi/sys/entity";
+    public static final String ENTITY_PATH = "E:\\code\\java\\lylbp\\Hatzi-Cloud\\hatzi-service\\hatzi-system\\src\\main\\java\\com\\hatzi\\sys\\entity";
 
     /**
      * service文件输出路径
      */
-    public static final String SERVICE_PATH = "/home/alex/code/java/lylbp/Hatzi-Cloud/hatzi-service/hatzi-system/src/main/java/com/hatzi/sys/service";
+    public static final String SERVICE_PATH = "E:\\code\\java\\lylbp\\Hatzi-Cloud\\hatzi-service\\hatzi-system\\src\\main\\java\\com\\hatzi\\sys\\service";
 
     /**
      * serviceImpl文件输出路径
      */
-    public static final String SERVICE_IMPL_PATH = "/home/alex/code/java/lylbp/Hatzi-Cloud/hatzi-service/hatzi-system/src/main/java/com/hatzi/sys/service/impl";
+    public static final String SERVICE_IMPL_PATH = "E:\\code\\java\\lylbp\\Hatzi-Cloud\\hatzi-service\\hatzi-system\\src\\main\\java\\com\\hatzi\\sys\\service\\impl";
 
     /**
      * Mapper文件输出路径
      */
-    public static final String MAPPER_PATH = "/home/alex/code/java/lylbp/Hatzi-Cloud/hatzi-service/hatzi-system/src/main/java/com/hatzi/sys/mapper";
+    public static final String MAPPER_PATH = "E:\\code\\java\\lylbp\\Hatzi-Cloud\\hatzi-service\\hatzi-system\\src\\main\\java\\com\\hatzi\\sys\\mapper";
 
     /**
      * xml文件输出路径
      */
-    public static final String XML_PATH = "/home/alex/code/java/lylbp/Hatzi-Cloud/hatzi-service/hatzi-system/src/main/resources/mapper";
+    public static final String XML_PATH = "E:\\code\\java\\lylbp\\Hatzi-Cloud\\hatzi-service\\hatzi-system\\src\\main\\resources\\mapper";
 
     /**
      * dto输出路径
      */
-    public static final String DTO_PATH = "/home/alex/code/java/lylbp/Hatzi-Cloud/hatzi-service/hatzi-system/src/main/java/com/hatzi/sys/dto";
+    public static final String DTO_PATH = "E:\\code\\java\\lylbp\\Hatzi-Cloud\\hatzi-service\\hatzi-system\\src\\main\\java\\com\\hatzi\\sys\\dto";
 
     /**
      * vo输出路径
      */
-    public static final String VO_PATH = "/home/alex/code/java/lylbp/Hatzi-Cloud/hatzi-service/hatzi-system/src/main/java/com/hatzi/sys/vo";
+    public static final String VO_PATH = "E:\\code\\java\\lylbp\\Hatzi-Cloud\\hatzi-service\\hatzi-system\\src\\main\\java\\com\\hatzi\\sys\\vo";
 
     /**
      * convert输出路径
      */
-    public static final String CONVERT_PATH = "/home/alex/code/java/lylbp/Hatzi-Cloud/hatzi-service/hatzi-system/src/main/java/com/hatzi/sys/convert";
+    public static final String CONVERT_PATH = "E:\\code\\java\\lylbp\\Hatzi-Cloud\\hatzi-service\\hatzi-system\\src\\main\\java\\com\\hatzi\\sys\\convert";
 
     /////////////////////////////////////////////包名相关///////////////////////////////////////////////////////////
     public static final String BASE_PACK = "com.hatzi";
@@ -176,22 +176,22 @@ public class Config {
     /**
      * 逻辑删除字段[空串无效]
      */
-    public static final String FIELD_LOGIC_DELETE_NAME = "is_valid";
+    public static final String FIELD_LOGIC_DELETE_NAME = "is_del";
 
     /**
      * 逻辑删除字段默认值
      */
-    public static final String FIELD_LOGIC_DELETE_DEFAULT_VALUE = "\"1\"";
+    public static final String FIELD_LOGIC_DELETE_DEFAULT_VALUE = "true";
 
     /**
      * 添加自动填充[空串无效]
      */
-    public static final String CREATE_FILL = "create_time,create_by,is_valid";
+    public static final String CREATE_FILL = "created_time,created_by,is_del";
 
     /**
      * 编辑自动填充[空串无效]
      */
-    public static final String UPDATE_FILL = "update_by,update_time";
+    public static final String UPDATE_FILL = "updated_by,updated_time";
 
     /**
      * 是否支持Swagger
@@ -237,5 +237,5 @@ public class Config {
     /**
      * VO中不生成的字段[空串无效]
      */
-    public static final String VO_NOT_RETURN_FIELD = "is_valid,create_by,update_by";
+    public static final String VO_NOT_RETURN_FIELD = "is_del,create_by,update_by";
 }

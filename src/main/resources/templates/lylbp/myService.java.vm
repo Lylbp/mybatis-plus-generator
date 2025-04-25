@@ -5,11 +5,24 @@ import ${cfg.VOPackage}.${entity}VO;
 import ${cfg.DTOPackage}.${entity}QueryDTO;
 import ${superServiceClassPackage};
 
+import ${cfg.DTOPackage}.${entity}CreateDTO;
+import ${cfg.DTOPackage}.${entity}UpdateDTO;
 import java.util.List;
 import java.util.Map;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
 import cn.hutool.core.lang.func.Func1;
+
+## ----------  BEGIN 字段循环遍历  ----------
+#foreach($field in ${table.fields})
+    #if(${field.keyFlag})
+        #set($keyPropertyName=${field.propertyName})
+        #set($keyPropertyType=${field.propertyType})
+        #set($keyColumnName=${field.columnName})
+    #end
+#end
+## ----------  END 字段循环遍历  ----------
+
 /**
  * <p>
  * $!{table.comment} 服务类
@@ -23,12 +36,27 @@ interface ${table.serviceName} : ${superServiceClass}<${entity}>
 #else
 public interface ${table.serviceName} extends ${superServiceClass}<${entity}> {
         /**
-         * 新增或编辑
+         * 新增
          *
-         * @param entity 实体
+         * @param dto 入参
          * @return Boolean
          */
-        Boolean edit(${entity} entity);
+         Boolean add(${entity}CreateDTO dto);
+        /**
+      * 编辑
+      *
+      * @param dto 入参
+      * @return Boolean
+      */
+         Boolean update(${entity}UpdateDTO dto);
+
+        /**
+    * 删除
+    *
+    * @param idList
+    * @return Boolean
+    */
+        Boolean delByIds(List<${keyPropertyType}> idList);
 
         /**
          * 通过查询参数获取列表

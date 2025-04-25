@@ -19,7 +19,6 @@ import ${cfg.VOPackage}.${entity}VO;
 import ${cfg.DTOPackage}.${entity}QueryDTO;
 import ${cfg.DTOPackage}.${entity}CreateDTO;
 import ${cfg.DTOPackage}.${entity}UpdateDTO;
-import ${cfg.ConvertMapperPackage}.${entity}ConvertMapper;
 import ${package.Service}.${table.serviceName};
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -34,6 +33,7 @@ import javax.annotation.Resource;
 #foreach($field in ${table.fields})
     #if(${field.keyFlag})
         #set($keyPropertyName=${field.propertyName})
+        #set($keyPropertyType=${field.propertyType})
         #set($keyCapitalName=${field.capitalName})
         #set($keyColumnName=${field.columnName})
     #end
@@ -65,17 +65,8 @@ class ${table.controllerName}#if(${superControllerClass}) : ${superControllerCla
     public class ${table.controllerName} {
     #end
 
-    #foreach($field in ${table.fields})
-        #if(${field.keyFlag})
-            #set($keyPropertyName=${field.propertyName})
-        #end
-    #end
-
 @Resource
 private ${table.serviceName}  ${table.entityPath}Service;
-
-@Resource
-private ${entity}ConvertMapper ${table.entityPath}ConvertMapper;
 
 /**
  * 获取数据分页列表
@@ -116,7 +107,7 @@ public ResResult<${entity}VO> getInfoById(@PathVariable(value = "${keyPropertyNa
 @PostMapping(value = "/add")
 @ApiOperation("添加")
 public ResResult<Boolean> add(@RequestBody @Validated ${entity}CreateDTO dto){
-        return ResResultUtil.success(${table.entityPath}Service.edit(${table.entityPath}ConvertMapper.${table.entityPath}CreateDTO2${entity}(dto)));
+        return ResResultUtil.success(${table.entityPath}Service.add(dto));
         }
 
 /**
@@ -129,7 +120,7 @@ public ResResult<Boolean> add(@RequestBody @Validated ${entity}CreateDTO dto){
 @PutMapping(value = "/edit")
 @ApiOperation("编辑")
 public ResResult<Boolean> edit(@RequestBody @Validated ${entity}UpdateDTO dto){
-        return ResResultUtil.success(${table.entityPath}Service.edit(${table.entityPath}ConvertMapper.${table.entityPath}UpdateDTO2${entity}(dto)));
+    return ResResultUtil.success(${table.entityPath}Service.update(dto));
         }
 
 /**
@@ -141,7 +132,7 @@ public ResResult<Boolean> edit(@RequestBody @Validated ${entity}UpdateDTO dto){
  */
 @DeleteMapping(value = "/batchDelete")
 @ApiOperation("通过主键批量删除")
-public ResResult<Boolean> batchDelete(@RequestBody @NotNull List<Long> idList){
+public ResResult<Boolean> batchDelete(@RequestBody @NotNull List<${keyPropertyType}> idList){
         return ResResultUtil.success(${table.entityPath}Service.removeByIds(idList));
         }
         }

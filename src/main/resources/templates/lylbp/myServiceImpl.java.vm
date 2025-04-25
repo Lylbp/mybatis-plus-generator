@@ -6,9 +6,12 @@ import ${cfg.DTOPackage}.${entity}QueryDTO;
 import ${package.Mapper}.${table.mapperName};
 import ${package.Service}.${table.serviceName};
 import ${superServiceImplClassPackage};
+import ${cfg.DTOPackage}.${entity}CreateDTO;
+import ${cfg.DTOPackage}.${entity}UpdateDTO;
+import ${cfg.ConvertMapperPackage}.${entity}ConvertMapper;
+
 import org.springframework.stereotype.Service;
 import java.util.List;
-import java.util.Map;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.bean.BeanUtil;
@@ -19,6 +22,16 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import org.springframework.transaction.annotation.Transactional;
+import javax.annotation.Resource;
+#foreach($field in ${table.fields})
+    #if(${field.keyFlag})
+        #set($keyPropertyName=${field.propertyName})
+        #set($keyPropertyType=${field.propertyType})
+        #set($keyCapitalName=${field.capitalName})
+        #set($keyColumnName=${field.columnName})
+    #end
+#end
 /**
  * <p>
  * $!{table.comment} 服务实现类
@@ -34,10 +47,25 @@ open class ${table.serviceImplName} : ${superServiceImplClass}<${table.mapperNam
 }
 #else
 public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.mapperName}, ${entity}> implements ${table.serviceName} {
+        @Resource
+        private ${entity}ConvertMapper ${table.entityPath}ConvertMapper;
+
+    @Override
+        public Boolean add(${entity}CreateDTO dto) {
+            ${entity} ${table.entityPath} = ${table.entityPath}ConvertMapper.${table.entityPath}CreateDTO2${entity}(dto);
+            return save(${table.entityPath});
+        }
+
         @Override
-        public Boolean edit(${entity} entity) {
-            //TODO 新增或编辑之前需要进行的逻辑
-            return saveOrUpdate(entity);
+        public Boolean update(${entity}UpdateDTO dto) {
+        ${entity} ${table.entityPath} = ${table.entityPath}ConvertMapper.${table.entityPath}UpdateDTO2${entity}(dto);
+            return updateById(${table.entityPath});
+        }
+
+        @Override
+        @Transactional(rollbackFor = {Exception.class})
+        public Boolean delByIds(List<${keyPropertyType}> idList){
+            return removeByIds(idList);
         }
 
         @Override
@@ -72,18 +100,8 @@ public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.m
         @Override
         public Boolean columnHasRepeat(String notId, SFunction<${entity}, ?> columnName, Object columnValue) {
             LambdaQueryWrapper<${entity}> wrapper = new QueryWrapper<${entity}>().lambda().eq(columnName, columnValue);
-            #foreach($field in ${table.fields})
-                #if(${field.columnName} == ${cfg.FieldlogicDeleteName})
-                        wrapper.eq(${entity}::get${field.capitalName}, ${cfg.FieldlogicDeleteDefaultValue});
-                #end
-            #end
-
             if (StrUtil.isNotEmpty(notId)) {
-                #foreach($field in ${table.fields})
-                    #if(${field.keyFlag})
-                            wrapper.ne(${entity}::get${field.capitalName}, notId);
-                    #end
-                #end
+                wrapper.ne(${entity}::get${keyCapitalName}, notId);
             }
             List<${entity}> entities = getBaseMapper().selectList(wrapper);
 
