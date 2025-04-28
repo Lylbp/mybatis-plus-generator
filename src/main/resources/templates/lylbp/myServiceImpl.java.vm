@@ -96,11 +96,6 @@ open class ${table.serviceImplName} : ${superServiceImplClass}<${table.mapperNam
         }
 
         @Override
-        public Boolean isExist(String id) {
-            return ObjectUtil.isNotEmpty(this.getById(id));
-        }
-
-        @Override
         public Boolean columnHasRepeat(String notId,SFunction<${entity},?>columnName,Object columnValue){
         LambdaQueryWrapper<${entity}>wrapper=new QueryWrapper<${entity}>().lambda().eq(columnName,columnValue);
         if(StrUtil.isNotEmpty(notId)){

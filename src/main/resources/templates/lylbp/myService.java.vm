@@ -85,14 +85,6 @@ import cn.hutool.core.lang.func.Func1;
              ${entity}VO getVOInfoBy (Func1 < ${entity}QueryDTO,?>func, Object value);
 
             /**
-             * 通过主键判断是否存在
-             *
-             * @param id 主键
-             * @return Boolean
-             */
-            Boolean isExist(String id);
-
-            /**
              * 判断字段是否重复 true:重复 false:不重复
              *
              * @param notId       id
