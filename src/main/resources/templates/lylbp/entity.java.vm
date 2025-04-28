@@ -1,20 +1,19 @@
 package ${package.Entity};
 
-    #foreach($pkg in ${table.importPackages})
-    import ${pkg};
+#foreach($pkg in ${table.importPackages})
+import ${pkg};
+#end
+#if(${swagger2})
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+#end
+#if(${entityLombokModel})
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+    #if(${chainModel})
+    import lombok.experimental.Accessors;
     #end
-    #if(${swagger2})
-    import io.swagger.annotations.ApiModel;
-    import io.swagger.annotations.ApiModelProperty;
-    #end
-    #if(${entityLombokModel})
-    import lombok.Data;
-    import lombok.EqualsAndHashCode;
-        #if(${chainModel})
-        import lombok.experimental.Accessors;
-        #end
-    #end
-import com.fasterxml.jackson.annotation.JsonIgnore;
+#end
 
 /**
  * <p>
@@ -60,8 +59,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
         #end
         #if("$!field.comment" != "")
             #if(${swagger2})
-            @ApiModelProperty(value = "${field.comment}" #if(${cfg.VoNotReturnField.split(
-                ",").contains($field.columnName)}) , hidden = true #end)
+            @ApiModelProperty(value = "${field.comment}")
             #else
             /**
              * ${field.comment}
@@ -95,9 +93,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
         ## 逻辑删除注解
         #if(${logicDeleteFieldName}==${field.name})
         @TableLogic
-        #end
-        #if(${cfg.VoNotReturnField.split(",").contains($field.columnName)})
-        @JsonIgnore
         #end
     private ${field.propertyType} ${field.propertyName};
     #end

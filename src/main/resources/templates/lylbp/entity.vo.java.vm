@@ -1,12 +1,27 @@
 package ${cfg.VOPackage};
 
+#set($ignoreProperties = [])
+
+#if(${cfg.VoNotReturnField} != "")
+    #set($ignoreColumns = $cfg.VoNotReturnField.split(","))
+    #foreach($field in $table.fields)
+        #foreach($col in $ignoreColumns)
+            #if($field.columnName.trim().equalsIgnoreCase($col.trim()))
+                #set($void = $ignoreProperties.add($field.propertyName))
+            #end
+        #end
+    #end
+#end
+
 import ${package.Entity}.${entity};
     #if(${entityLombokModel})
     import lombok.Data;
     import lombok.EqualsAndHashCode;
     #end
 import io.swagger.annotations.*;
-
+#if(!$ignoreProperties.isEmpty())
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+#end
 /**
  * <p>
  * $!{table.comment}VO类
@@ -28,6 +43,13 @@ import io.swagger.annotations.*;
     #end
     #if(${swagger2})
     @ApiModel(value = "${entity}VO对象")
+    #end
+    #if(!$ignoreProperties.isEmpty())
+    @JsonIgnoreProperties({
+        #foreach($prop in $ignoreProperties)
+                "$prop"#if($foreach.hasNext),#end
+        #end
+    })
     #end
 public class ${entity}VO extends ${entity} {
 }
