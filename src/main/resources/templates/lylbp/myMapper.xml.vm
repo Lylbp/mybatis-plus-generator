@@ -55,20 +55,6 @@
         </sql>
     #end
 
-    <!-- 通用编辑语句(数据库comment中含有?则不显示字段注释)) -->
-    <sql id="Base_Set">
-        <set>
-            #foreach($field in ${table.fields})
-                #if(${field.comment} != "" && ${field.comment.indexOf("?")} == -1)
-                    <!-- ${field.comment}设置 -->
-                #end
-                <if test="entity.${field.propertyName} != null ">
-                    ${field.columnName} = #{entity.${field.propertyName}},
-                </if>
-            #end
-        </set>
-    </sql>
-
     <!-- 通用查询语句(数据库comment中含有?则不显示字段注释)) -->
     <sql id="Base_Where_List">
         #foreach($field in ${table.fields})
@@ -172,11 +158,4 @@
             <include refid="Base_Where_List"/>
         </where>
     </select>
-
-    <!-- 根据${keyPropertyName}编辑${entity} -->
-    <update id="updateEntityBy${keyPropertyNameFirstUp}">
-        update ${table.name}
-        <include refid="Base_Set"/>
-        where ${keyColumnName} = #{${keyPropertyName}}
-    </update>
 </mapper>

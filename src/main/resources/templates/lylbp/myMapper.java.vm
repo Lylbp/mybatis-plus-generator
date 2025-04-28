@@ -38,14 +38,5 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
              * @return List<${entity}VO>
              */
             List<${entity}VO> queryVOByParams(@Param("page") Page < ${entity}VO > page, @Param("params") Map < String, Object > params);
-
-            /**
-             * 根据${keyPropertyName}编辑
-             *
-             * @param entity 对应实体 注意为null值不修改
-             * @param ${keyPropertyName}  ${keyPropertyName} ${keyPropertyNameFirstUp}
-             * @return Boolean
-             */
-            Boolean updateEntityBy${keyPropertyNameFirstUp}(@Param("entity")${entity} entity, @Param("${keyPropertyName}") String ${keyPropertyName});
         }
 #end
