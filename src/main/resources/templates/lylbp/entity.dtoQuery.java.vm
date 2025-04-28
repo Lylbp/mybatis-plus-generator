@@ -1,10 +1,11 @@
 package ${cfg.DTOPackage};
 
-#if(${entityLombokModel})
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-#end
+    #if(${entityLombokModel})
+    import lombok.Data;
+    import lombok.EqualsAndHashCode;
+    #end
 import io.swagger.annotations.*;
+
 import java.io.Serializable;
 
 /**
@@ -15,21 +16,21 @@ import java.io.Serializable;
  * @author ${author}
  * @since ${date}
  */
-#if(${entityLombokModel})
-@Data
-#if(${superEntityClass})
-@EqualsAndHashCode(callSuper = true)
-#else
-@EqualsAndHashCode(callSuper = false)
-#end
-#if(${chainModel})
-@Accessors(chain = true)
-#end
-#end
-#if(${swagger2})
-@ApiModel
-#end
-public class ${entity}QueryDTO implements Serializable{
+    #if(${entityLombokModel})
+    @Data
+        #if(${superEntityClass})
+        @EqualsAndHashCode(callSuper = true)
+        #else
+        @EqualsAndHashCode(callSuper = false)
+        #end
+        #if(${chainModel})
+        @Accessors(chain = true)
+        #end
+    #end
+    #if(${swagger2})
+    @ApiModel
+    #end
+public class ${entity}QueryDTO implements Serializable {
     #if(${entitySerialVersionUID})
         private static final long serialVersionUID = 1L;
     #end
@@ -46,7 +47,7 @@ public class ${entity}QueryDTO implements Serializable{
                  */
                 #end
             #end
-            private ${field.propertyType} ${field.propertyName} #if(${field.columnName} == ${cfg.FieldlogicDeleteName}) = ${cfg.FieldlogicDeleteDefaultValue} #end;
+        private ${field.propertyType} ${field.propertyName} #if(${field.columnName} == ${cfg.FieldlogicDeleteName}) = ${cfg.FieldlogicDeleteDefaultValue} #end;
         #end
     #end
     ## ----------  END 字段循环遍历  ----------
@@ -58,7 +59,9 @@ public class ${entity}QueryDTO implements Serializable{
     #if(!${entityLombokModel})
         #foreach($field in ${table.fields})
             #if(${field.keyFlag} || ${field.columnName} == ${cfg.FieldlogicDeleteName})
-                public ${field.propertyType} ${getprefix}${field.capitalName}() {
+                public ${field.propertyType} ${getprefix}${field.capitalName}()
+
+                {
                     return ${field.propertyName};
                 }
 

@@ -4,9 +4,20 @@ import ${package.Entity}.${entity};
 import ${cfg.VOPackage}.${entity}VO;
 import ${superMapperClassPackage};
 import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 import java.util.Map;
+
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+
+## ----------  BEGIN 字段循环遍历  ----------
+#foreach($field in ${table.fields})
+    #if(${field.keyFlag})
+        #set($keyPropertyName=${field.propertyName})
+        #set($keyPropertyNameFirstUp=${field.propertyName.substring(0,1).toUpperCase()} + ${field.propertyName.substring(1)})
+    #end
+#end
+## ----------  END 字段循环遍历  ----------
 
 /**
  * <p>
@@ -17,33 +28,24 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
  * @since ${date}
  */
 #if(${kotlin})
-interface ${table.mapperName} : ${superMapperClass}<${entity}>
+        interface ${table.mapperName} : ${superMapperClass}<${entity}>
 #else
-public interface ${table.mapperName} extends ${superMapperClass}<${entity}> {
-    ## ----------  BEGIN 字段循环遍历  ----------
-    #foreach($field in ${table.fields})
-        #if(${field.keyFlag})
-            #set($keyPropertyName=${field.propertyName})
-            #set($keyPropertyNameFirstUp=${field.propertyName.substring(0,1).toUpperCase()} + ${field.propertyName.substring(1)})
-        #end
-    #end
-    ## ----------  END 字段循环遍历  ----------
+        public interface ${table.mapperName} extends ${superMapperClass}<${entity}> {
+            /**
+             * 条件查询List<${entity}VO>
+             * @param page   分页参数
+             * @param params 查询参数
+             * @return List<${entity}VO>
+             */
+            List<${entity}VO> queryVOByParams(@Param("page") Page < ${entity}VO > page, @Param("params") Map < String, Object > params);
 
-    /**
-    * 条件查询List<${entity}VO>
-    * @param page   分页参数
-    * @param params 查询参数
-    * @return List<${entity}VO>
-    */
-    List<${entity}VO> queryVOByParams(@Param("page")Page<${entity}VO> page, @Param("params") Map<String, Object> params);
-
-    /**
-     * 根据${keyPropertyName}编辑
-     *
-     * @param entity 对应实体 注意为null值不修改
-     * @param ${keyPropertyName}  ${keyPropertyName} ${keyPropertyNameFirstUp}
-     * @return Boolean
-     */
-    Boolean updateEntityBy${keyPropertyNameFirstUp}(@Param("entity")${entity} entity, @Param("${keyPropertyName}") String ${keyPropertyName});
-}
+            /**
+             * 根据${keyPropertyName}编辑
+             *
+             * @param entity 对应实体 注意为null值不修改
+             * @param ${keyPropertyName}  ${keyPropertyName} ${keyPropertyNameFirstUp}
+             * @return Boolean
+             */
+            Boolean updateEntityBy${keyPropertyNameFirstUp}(@Param("entity")${entity} entity, @Param("${keyPropertyName}") String ${keyPropertyName});
+        }
 #end

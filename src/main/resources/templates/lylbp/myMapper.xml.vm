@@ -146,14 +146,16 @@
                             <!-- ${field.comment}开始时间查询 -->
                         #end
                         <if test="params.${field.propertyName}Start != null and params.${field.propertyName}Start != ''">
-                            AND t.${field.columnName} &gt;= to_date(#{params.${field.propertyName}Start}, 'yyyy-mm-dd HH24:MI:SS')
+                            AND t.${field.columnName} &gt;= to_date(#{params.${field.propertyName}Start}, 'yyyy-mm-dd
+                            HH24:MI:SS')
                         </if>
 
                         #if(${field.comment} != "" && ${field.comment.indexOf("?")} == -1)
                             <!-- ${field.comment}结束时间查询 -->
                         #end
                         <if test="params.${field.propertyName}End != null and params.${field.propertyName}End != ''">
-                            AND t.${field.columnName} &lt;= to_date(#{params.${field.propertyName}End}, 'yyyy-mm-dd HH24:MI:SS')
+                            AND t.${field.columnName} &lt;= to_date(#{params.${field.propertyName}End}, 'yyyy-mm-dd
+                            HH24:MI:SS')
                         </if>
                     #end
                 #end

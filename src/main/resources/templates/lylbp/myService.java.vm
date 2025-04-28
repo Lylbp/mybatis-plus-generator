@@ -9,6 +9,7 @@ import ${cfg.DTOPackage}.${entity}CreateDTO;
 import ${cfg.DTOPackage}.${entity}UpdateDTO;
 import java.util.List;
 import java.util.Map;
+
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
 import cn.hutool.core.lang.func.Func1;
@@ -32,73 +33,73 @@ import cn.hutool.core.lang.func.Func1;
  * @since ${date}
  */
 #if(${kotlin})
-interface ${table.serviceName} : ${superServiceClass}<${entity}>
+        interface ${table.serviceName} : ${superServiceClass}<${entity}>
 #else
-public interface ${table.serviceName} extends ${superServiceClass}<${entity}> {
-        /**
-         * 新增
-         *
-         * @param dto 入参
-         * @return Boolean
-         */
-         Boolean add(${entity}CreateDTO dto);
-        /**
-      * 编辑
-      *
-      * @param dto 入参
-      * @return Boolean
-      */
-         Boolean update(${entity}UpdateDTO dto);
+        public interface ${table.serviceName} extends ${superServiceClass}<${entity}> {
+            /**
+             * 新增
+             *
+             * @param dto 入参
+             * @return Boolean
+             */
+            Boolean add (${entity}CreateDTO dto);
+            /**
+              * 编辑
+              *
+              * @param dto 入参
+              * @return Boolean
+              */
+            Boolean update (${entity}UpdateDTO dto);
 
-        /**
-    * 删除
-    *
-    * @param idList
-    * @return Boolean
-    */
-        Boolean delByIds(List<${keyPropertyType}> idList);
+            /**
+            * 删除
+            *
+            * @param idList
+            * @return Boolean
+            */
+            Boolean delByIds (List <${keyPropertyType}> idList);
 
-        /**
-         * 通过查询参数获取列表
-         * @param page   分页对象,传null代表不分页
-         * @param queryDTO 查询参数
-         * @return List<${entity}VO>
-         */
-        List<${entity}VO> getVOListBy(Page<${entity}VO> page, ${entity}QueryDTO queryDTO);
+            /**
+             * 通过查询参数获取列表
+             * @param page   分页对象,传null代表不分页
+             * @param queryDTO 查询参数
+             * @return List<${entity}VO>
+             */
+             List<${entity}VO> getVOListBy (Page < ${entity}VO > page, ${entity}QueryDTO queryDTO);
 
-        /**
-         * 通过查询参数获取单个${entity}VO对象
-         *
-         * @param queryDTO 查询参数
-         * @return ${entity}VO
-         */
-        ${entity}VO getVOInfoBy(${entity}QueryDTO queryDTO);
+            /**
+             * 通过查询参数获取单个${entity}VO对象
+             *
+             * @param queryDTO 查询参数
+             * @return ${entity}VO
+             */
+             ${entity}VO getVOInfoBy (${entity}QueryDTO queryDTO);
 
-        /**
-         * 通过字段名称与值获取单个${entity}VO对象
-         *
-         * @param func 字段名称
-         * @param value 字段值
-         * @return ${entity}VO
-         */
-        ${entity}VO getVOInfoBy(Func1<${entity}QueryDTO,?>func,Object value);
+            /**
+             * 通过字段名称与值获取单个${entity}VO对象
+             *
+             * @param func 字段名称
+             * @param value 字段值
+             * @return ${entity}VO
+             */
+             ${entity}VO getVOInfoBy (Func1 < ${entity}QueryDTO,?>func, Object value);
 
-        /**
-         * 通过主键判断是否存在
-         *
-         * @param id 主键
-         * @return Boolean
-         */
-        Boolean isExist(String id);
+            /**
+             * 通过主键判断是否存在
+             *
+             * @param id 主键
+             * @return Boolean
+             */
+            Boolean isExist(String id);
 
-        /**
-         * 判断字段是否重复 true:重复 false:不重复
-         *
-         * @param notId       id
-         * @param columnName  字段名称
-         * @param columnValue 字段值
-         * @return Boolean
-         */
-        Boolean columnHasRepeat(String notId, SFunction<${entity}, ?> columnName, Object columnValue);
+            /**
+             * 判断字段是否重复 true:重复 false:不重复
+             *
+             * @param notId       id
+             * @param columnName  字段名称
+             * @param columnValue 字段值
+             * @return Boolean
+             */
+            Boolean columnHasRepeat(String notId, SFunction<${entity}, ?> columnName, Object columnValue);
 }
 #end
