@@ -133,7 +133,7 @@ public ResResult<Boolean> edit(@RequestBody @Validated ${entity}UpdateDTO dto){
 @DeleteMapping(value = "/batchDelete")
 @ApiOperation("通过主键批量删除")
 public ResResult<Boolean> batchDelete(@RequestBody @NotNull List<${keyPropertyType}> idList){
-        return ResResultUtil.success(${table.entityPath}Service.removeByIds(idList));
+        return ResResultUtil.success(${table.entityPath}Service.delByIds(idList));
         }
         }
 
