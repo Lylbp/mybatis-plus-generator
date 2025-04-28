@@ -181,7 +181,7 @@ public class Config {
     /**
      * 逻辑删除字段默认值
      */
-    public static final String FIELD_LOGIC_DELETE_DEFAULT_VALUE = "true";
+    public static final String FIELD_LOGIC_DELETE_DEFAULT_VALUE = "false";
 
     /**
      * 添加自动填充[空串无效]
@@ -237,5 +237,5 @@ public class Config {
     /**
      * VO中不生成的字段[空串无效]
      */
-    public static final String VO_NOT_RETURN_FIELD = "is_del,create_by,update_by";
+    public static final String VO_NOT_RETURN_FIELD = "is_del,created_by,updated_by";
 }

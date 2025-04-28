@@ -55,55 +55,49 @@ open class ${table.serviceImplName} : ${superServiceImplClass}<${table.mapperNam
 
         @Override
         public Boolean add(${entity}CreateDTO dto){
-    ${entity} ${table.entityPath} = ${table.entityPath}ConvertMapper.${table.entityPath}CreateDTO2${entity}(dto);
-        return save(${table.entityPath});
+            ${entity} ${table.entityPath} = ${table.entityPath}ConvertMapper.${table.entityPath}CreateDTO2${entity}(dto);
+            return save(${table.entityPath});
         }
 
         @Override
         public Boolean update(${entity}UpdateDTO dto){
-    ${entity} ${table.entityPath} = ${table.entityPath}ConvertMapper.${table.entityPath}UpdateDTO2${entity}(dto);
-        return updateById(${table.entityPath});
+            ${entity} ${table.entityPath} = ${table.entityPath}ConvertMapper.${table.entityPath}UpdateDTO2${entity}(dto);
+            return updateById(${table.entityPath});
         }
 
         @Override
         @Transactional(rollbackFor={Exception.class})
         public Boolean delByIds(List<${keyPropertyType}>idList){
-        return removeByIds(idList);
+            return removeByIds(idList);
         }
 
         @Override
-        public List<${entity}VO>getVOListBy(Page<${entity}VO>page, ${entity}QueryDTO queryDTO){
-        return getBaseMapper().queryVOByParams(page,BeanUtil.beanToMap(queryDTO));
+        public List<${entity}VO> get${entity}VOList(Page<${entity}VO>page, ${entity}QueryDTO queryDTO){
+            return baseMapper.query${entity}VOList(page,BeanUtil.beanToMap(queryDTO));
         }
 
         @Override
-        public ${entity}VO getVOInfoBy(${entity}QueryDTO queryDTO){
-    ${entity}VO ${table.entityPath}VO=null;
-        List<${entity}VO>list=getVOListBy(new Page<>(1,1),queryDTO);
-        if(ObjectUtil.isNotEmpty(list)){
-    ${table.entityPath}VO=list.get(0);
-        }
-
-        return ${table.entityPath}VO;
+        public ${entity}VO get${entity}VO(${entity}QueryDTO queryDTO){
+            return baseMapper.query${entity}VO(BeanUtil.beanToMap(queryDTO));
         }
 
         @Override
-        public ${entity}VO getVOInfoBy(Func1<${entity}QueryDTO,?>func,Object value){
-    ${entity}QueryDTO queryDTO=new ${entity}QueryDTO();
-        ReflectUtil.setFieldValue(queryDTO,LambdaUtil.getFieldName(func),value);
+        public ${entity}VO get${entity}VO(Func1<${entity}QueryDTO,?>func,Object value){
+            ${entity}QueryDTO queryDTO=new ${entity}QueryDTO();
+            ReflectUtil.setFieldValue(queryDTO,LambdaUtil.getFieldName(func),value);
 
-        return getVOInfoBy(queryDTO);
+            return get${entity}VO(queryDTO);
         }
 
         @Override
         public Boolean columnHasRepeat(String notId,SFunction<${entity},?>columnName,Object columnValue){
-        LambdaQueryWrapper<${entity}>wrapper=new QueryWrapper<${entity}>().lambda().eq(columnName,columnValue);
-        if(StrUtil.isNotEmpty(notId)){
-        wrapper.ne(${entity}::get${keyCapitalName},notId);
-        }
-        List<${entity}>entities=getBaseMapper().selectList(wrapper);
+            LambdaQueryWrapper<${entity}>wrapper=new QueryWrapper<${entity}>().lambda().eq(columnName,columnValue);
+            if(StrUtil.isNotEmpty(notId)){
+            wrapper.ne(${entity}::get${keyCapitalName},notId);
+            }
+            List<${entity}>entities=baseMapper.selectList(wrapper);
 
-        return ObjectUtil.isNotEmpty(entities);
+            return ObjectUtil.isNotEmpty(entities);
         }
-        }
+}
 #end

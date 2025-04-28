@@ -37,6 +37,14 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
              * @param params 查询参数
              * @return List<${entity}VO>
              */
-            List<${entity}VO> queryVOByParams(@Param("page") Page < ${entity}VO > page, @Param("params") Map < String, Object > params);
+            List<${entity}VO> query${entity}VOList(@Param("page") Page < ${entity}VO > page, @Param("params") Map < String, Object > params);
+
+
+            /**
+             * 条件查询${entity}VO
+             * @param params 查询参数
+             * @return ${entity}VO
+             */
+            ${entity}VO query${entity}VO(@Param("params") Map < String, Object > params);
         }
 #end

@@ -80,7 +80,7 @@ import javax.annotation.Resource;
         @ApiOperation("获取分页列表")
         public ResResult<PageResResult<${entity}VO>> getPageList(${entity}QueryDTO queryDTO, PageQueryDTO pageQueryDTO) {
             Page<${entity}VO> page = MybatisUtil.getMybatisPlusPage(pageQueryDTO, ${entity}VO.class);
-            page.setRecords(${table.entityPath}Service.getVOListBy(page, queryDTO));
+            page.setRecords(${table.entityPath}Service.get${entity}VOList(page, queryDTO));
 
             return ResResultUtil.makePageRsp(page.getRecords(), page.getTotal(), page.getCurrent(), page.getSize());
         }
@@ -95,7 +95,7 @@ import javax.annotation.Resource;
         @GetMapping(value = "/{${keyPropertyName}}")
         @ApiOperation("根据主键获取信息")
         public ResResult<${entity}VO> getInfoById(@PathVariable(value = "${keyPropertyName}") @NotBlank String ${keyPropertyName}) {
-            return ResResultUtil.success(${table.entityPath}Service.getVOInfoBy(${entity}QueryDTO::get${keyCapitalName} , ${keyPropertyName}));
+            return ResResultUtil.success(${table.entityPath}Service.get${entity}VO(${entity}QueryDTO::get${keyCapitalName} , ${keyPropertyName}));
         }
 
 

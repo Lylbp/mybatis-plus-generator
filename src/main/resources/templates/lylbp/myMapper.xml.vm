@@ -157,13 +157,24 @@
         #end
     </sql>
 
-    <!-- ${entity}VO查询语句 -->
-    <select id="queryVOByParams" parameterType="java.util.Map" resultType="${cfg.VOPackage}.${entity}VO">
+    <!-- 基础查询语句 -->
+    <sql id="Base_select_sql">
         SELECT
         <include refid="Base_Column_List"/>
-        FROM ${table.name} t
+        FROM sys_resource t
         <where>
             <include refid="Base_Where_List"/>
         </where>
+    </sql>
+
+    <!-- ${entity}VO查询语句 -->
+    <select id="query${entity}VOList" parameterType="java.util.Map" resultType="${cfg.VOPackage}.${entity}VO">
+        <include refid="Base_select_sql"/>
+    </select>
+
+    <!-- VO查询 -->
+    <select id="query${entity}VO" resultType="${cfg.VOPackage}.${entity}VO">
+        <include refid="Base_select_sql"/>
+        limit 1
     </select>
 </mapper>
