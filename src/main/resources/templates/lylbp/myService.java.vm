@@ -65,7 +65,7 @@ import cn.hutool.core.lang.func.Func1;
              * @param queryDTO 查询参数
              * @return List<${entity}VO>
              */
-             List<${entity}VO> get${entity}VOList (Page < ${entity}VO > page, ${entity}QueryDTO queryDTO);
+             List<${entity}VO> get${entity}VOList (Page<?> page, ${entity}QueryDTO queryDTO);
 
             /**
              * 通过查询参数获取单个${entity}VO对象

@@ -8,6 +8,7 @@ import java.util.List;
 import ${package.Entity}.${entity};
 import ${cfg.DTOPackage}.${entity}CreateDTO;
 import ${cfg.DTOPackage}.${entity}UpdateDTO;
+import ${cfg.DTOPackage}.${entity}DTO;
 import ${cfg.VOPackage}.${entity}VO;
 
 /**
@@ -38,19 +39,18 @@ public interface ${entity}ConvertMapper {
         ${entity} ${table.entityPath}UpdateDTO2${entity}(${entity}UpdateDTO updateDTO);
 
     /**
-     * ${entity}转${entity}VO
+     * ${entity}DTO转${entity}VO
      *
-     * @param ${table.entityPath} ${entity}对象
-     * @return ${entity}VO
+     * @param dto dto对象
+     * @return ${entity}
      */
-    ${entity}VO ${table.entityPath}2${entity}VO(${entity} ${table.entityPath});
-
+     ${entity}VO ${table.entityPath}DTO2${entity}VO(${entity}DTO dto);
 
     /**
-     * ${entity}集合转${entity}VO集合
+     * ${entity}DTOList转${entity}VOList
      *
-     * @param ${table.entityPath}List ${entity}对象集合
-     * @return List<${entity}VO>
+     * @param dtoList dto对象集合
+     * @return ${entity}
      */
-    List<${entity}VO> ${table.entityPath}List2${entity}VOList(List<${entity}> ${table.entityPath}List);
+     List<${entity}VO> ${table.entityPath}DTOList2${entity}VOList(List<${entity}DTO> dtoList);
 }

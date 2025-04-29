@@ -1,0 +1,38 @@
+package ${cfg.DTOPackage};
+import ${package.Entity}.${entity};
+    #if(${entityLombokModel})
+    import lombok.Data;
+    import lombok.EqualsAndHashCode;
+    #end
+
+import io.swagger.annotations.*;
+
+import java.io.Serializable;
+
+/**
+ * <p>
+ * $!{table.comment}创建
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+    #if(${entityLombokModel})
+    @Data
+        #if(${superEntityClass})
+        @EqualsAndHashCode(callSuper = true)
+        #else
+        @EqualsAndHashCode(callSuper = false)
+        #end
+        #if(${chainModel})
+        @Accessors(chain = true)
+        #end
+    #end
+    #if(${swagger2})
+    @ApiModel
+    #end
+public class ${entity}DTO extends ${entity} {
+    #if(${entitySerialVersionUID})
+        private static final long serialVersionUID = 1L;
+    #end
+}

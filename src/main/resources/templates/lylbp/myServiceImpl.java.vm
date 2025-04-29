@@ -8,6 +8,7 @@ import ${package.Service}.${table.serviceName};
 import ${superServiceImplClassPackage};
 import ${cfg.DTOPackage}.${entity}CreateDTO;
 import ${cfg.DTOPackage}.${entity}UpdateDTO;
+import ${cfg.DTOPackage}.${entity}DTO;
 import ${cfg.ConvertMapperPackage}.${entity}ConvertMapper;
 
 import org.springframework.stereotype.Service;
@@ -72,13 +73,15 @@ open class ${table.serviceImplName} : ${superServiceImplClass}<${table.mapperNam
         }
 
         @Override
-        public List<${entity}VO> get${entity}VOList(Page<${entity}VO>page, ${entity}QueryDTO queryDTO){
-            return baseMapper.query${entity}VOList(page,BeanUtil.beanToMap(queryDTO));
+        public List<${entity}VO> get${entity}VOList(Page<?>page, ${entity}QueryDTO queryDTO){
+            List<${entity}DTO> dtoList = baseMapper.query${entity}DTOList(page,BeanUtil.beanToMap(queryDTO));
+            return ${table.entityPath}ConvertMapper.${table.entityPath}DTOList2${entity}VOList(dtoList);
         }
 
         @Override
         public ${entity}VO get${entity}VO(${entity}QueryDTO queryDTO){
-            return baseMapper.query${entity}VO(BeanUtil.beanToMap(queryDTO));
+            ${entity}DTO dto = baseMapper.query${entity}DTO(BeanUtil.beanToMap(queryDTO));
+            return ${table.entityPath}ConvertMapper.${table.entityPath}DTO2${entity}VO(dto);
         }
 
         @Override

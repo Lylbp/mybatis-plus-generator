@@ -164,6 +164,11 @@ public class Config {
 
 
     /**
+     * DTO模版地址
+     */
+    public static final String DTO_TEMPLATE = "/templates/lylbp/entity.dto.java.vm";
+
+    /**
      * convertMapper模版地址
      */
     public static final String CONVERT_MAPPER_TEMPLATE = "/templates/lylbp/entity.convertMapper.java.vm";
@@ -186,7 +191,7 @@ public class Config {
     /**
      * 添加自动填充[空串无效]
      */
-    public static final String CREATE_FILL = "created_time,created_by,is_del";
+    public static final String CREATE_FILL = "created_time,created_by,is_del,app_id,tenant_code";
 
     /**
      * 编辑自动填充[空串无效]

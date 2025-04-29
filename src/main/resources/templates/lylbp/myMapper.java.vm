@@ -2,6 +2,7 @@ package ${package.Mapper};
 
 import ${package.Entity}.${entity};
 import ${cfg.VOPackage}.${entity}VO;
+import ${cfg.DTOPackage}.${entity}DTO;
 import ${superMapperClassPackage};
 import org.apache.ibatis.annotations.Param;
 
@@ -32,19 +33,19 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 #else
         public interface ${table.mapperName} extends ${superMapperClass}<${entity}> {
             /**
-             * 条件查询List<${entity}VO>
+             * 条件查询List<${entity}DTO>
              * @param page   分页参数
              * @param params 查询参数
-             * @return List<${entity}VO>
+             * @return List<${entity}DTO>
              */
-            List<${entity}VO> query${entity}VOList(@Param("page") Page < ${entity}VO > page, @Param("params") Map < String, Object > params);
+            List<${entity}DTO> query${entity}DTOList(@Param("page") Page <?> page, @Param("params") Map < String, Object > params);
 
 
             /**
-             * 条件查询${entity}VO
+             * 条件查询${entity}DTO
              * @param params 查询参数
-             * @return ${entity}VO
+             * @return ${entity}DTO
              */
-            ${entity}VO query${entity}VO(@Param("params") Map < String, Object > params);
+            ${entity}DTO query${entity}DTO(@Param("params") Map < String, Object > params);
         }
 #end

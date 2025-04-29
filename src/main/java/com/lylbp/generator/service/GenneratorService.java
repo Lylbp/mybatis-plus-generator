@@ -76,6 +76,11 @@ public class GenneratorService {
     public static final String FILE_NAME_DTO_QUERY = "%sQueryDTO";
 
     /**
+     * DTO文件名称
+     */
+    public static final String FILE_NAME_DTO = "%sDTO";
+
+    /**
      * convertMapper文件名称
      */
     public static final String FILE_NAME_CONVERT_MAPPER = "%sConvertMapper";
@@ -331,6 +336,17 @@ public class GenneratorService {
                 @Override
                 public String outputFile(TableInfo tableInfo) {
                     String fileName = String.format(FILE_NAME_DTO_UPDATE, tableInfo.getEntityName());
+                    return Config.DTO_PATH + "/" + fileName + StringPool.DOT_JAVA;
+                }
+            });
+        }
+
+        // 自定义输出DTO配置
+        if (ObjectUtil.isNotEmpty(Config.DTO_TEMPLATE) && ObjectUtil.isNotEmpty(Config.DTO_PATH)) {
+            fileOutConfigList.add(new FileOutConfig(Config.DTO_TEMPLATE) {
+                @Override
+                public String outputFile(TableInfo tableInfo) {
+                    String fileName = String.format(FILE_NAME_DTO, tableInfo.getEntityName());
                     return Config.DTO_PATH + "/" + fileName + StringPool.DOT_JAVA;
                 }
             });

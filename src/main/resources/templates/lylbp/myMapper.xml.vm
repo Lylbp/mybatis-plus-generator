@@ -161,19 +161,19 @@
     <sql id="Base_select_sql">
         SELECT
         <include refid="Base_Column_List"/>
-        FROM sys_resource t
+        FROM ${table.name} t
         <where>
             <include refid="Base_Where_List"/>
         </where>
     </sql>
 
     <!-- ${entity}VO查询语句 -->
-    <select id="query${entity}VOList" parameterType="java.util.Map" resultType="${cfg.VOPackage}.${entity}VO">
+    <select id="query${entity}DTOList" parameterType="java.util.Map" resultType="${cfg.DTOPackage}.${entity}DTO">
         <include refid="Base_select_sql"/>
     </select>
 
     <!-- VO查询 -->
-    <select id="query${entity}VO" resultType="${cfg.VOPackage}.${entity}VO">
+    <select id="query${entity}DTO" resultType="${cfg.DTOPackage}.${entity}DTO">
         <include refid="Base_select_sql"/>
         limit 1
     </select>
