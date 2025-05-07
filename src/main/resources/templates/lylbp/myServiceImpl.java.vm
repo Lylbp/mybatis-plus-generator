@@ -56,13 +56,13 @@ open class ${table.serviceImplName} : ${superServiceImplClass}<${table.mapperNam
 
         @Override
         public Boolean add(${entity}CreateDTO dto){
-            ${entity} ${table.entityPath} = ${table.entityPath}ConvertMapper.${table.entityPath}CreateDTO2${entity}(dto);
+            ${entity} ${table.entityPath} = ${table.entityPath}ConvertMapper.convert(dto);
             return save(${table.entityPath});
         }
 
         @Override
         public Boolean update(${entity}UpdateDTO dto){
-            ${entity} ${table.entityPath} = ${table.entityPath}ConvertMapper.${table.entityPath}UpdateDTO2${entity}(dto);
+            ${entity} ${table.entityPath} = ${table.entityPath}ConvertMapper.convert(dto);
             return updateById(${table.entityPath});
         }
 
@@ -75,13 +75,13 @@ open class ${table.serviceImplName} : ${superServiceImplClass}<${table.mapperNam
         @Override
         public List<${entity}VO> get${entity}VOList(Page<?>page, ${entity}QueryDTO queryDTO){
             List<${entity}DTO> dtoList = baseMapper.query${entity}DTOList(page,BeanUtil.beanToMap(queryDTO));
-            return ${table.entityPath}ConvertMapper.${table.entityPath}DTOList2${entity}VOList(dtoList);
+            return ${table.entityPath}ConvertMapper.convert(dtoList);
         }
 
         @Override
         public ${entity}VO get${entity}VO(${entity}QueryDTO queryDTO){
             ${entity}DTO dto = baseMapper.query${entity}DTO(BeanUtil.beanToMap(queryDTO));
-            return ${table.entityPath}ConvertMapper.${table.entityPath}DTO2${entity}VO(dto);
+            return ${table.entityPath}ConvertMapper.convert(dto);
         }
 
         @Override

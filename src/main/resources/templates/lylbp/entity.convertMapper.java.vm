@@ -28,7 +28,7 @@ public interface ${entity}ConvertMapper {
      * @param createDTO 创建对象
      * @return ${entity}
      */
-        ${entity} ${table.entityPath}CreateDTO2${entity}(${entity}CreateDTO createDTO);
+        ${entity} convert(${entity}CreateDTO createDTO);
 
     /**
      * ${entity}UpdateDTO转${entity}
@@ -36,7 +36,7 @@ public interface ${entity}ConvertMapper {
      * @param updateDTO 修改对象
      * @return ${entity}
      */
-        ${entity} ${table.entityPath}UpdateDTO2${entity}(${entity}UpdateDTO updateDTO);
+        ${entity} convert(${entity}UpdateDTO updateDTO);
 
     /**
      * ${entity}DTO转${entity}VO
@@ -44,7 +44,7 @@ public interface ${entity}ConvertMapper {
      * @param dto dto对象
      * @return ${entity}
      */
-     ${entity}VO ${table.entityPath}DTO2${entity}VO(${entity}DTO dto);
+     ${entity}VO convert(${entity}DTO dto);
 
     /**
      * ${entity}DTOList转${entity}VOList
@@ -52,5 +52,5 @@ public interface ${entity}ConvertMapper {
      * @param dtoList dto对象集合
      * @return ${entity}
      */
-     List<${entity}VO> ${table.entityPath}DTOList2${entity}VOList(List<${entity}DTO> dtoList);
+     List<${entity}VO> convert(List<${entity}DTO> dtoList);
 }

@@ -160,19 +160,26 @@
     <!-- 基础查询语句 -->
     <sql id="Base_select_sql">
         SELECT
-        <include refid="Base_Column_List"/>
+        <choose>
+            <when test="params.sqlColumn != null and params.sqlColumn != ''">
+                ${params.sqlColumn}
+            </when>
+            <otherwise>
+                <include refid="Base_Column_List"/>
+            </otherwise>
+        </choose>
         FROM ${table.name} t
         <where>
             <include refid="Base_Where_List"/>
         </where>
     </sql>
 
-    <!-- ${entity}VO查询语句 -->
+    <!-- ${entity}DTO集合查询 -->
     <select id="query${entity}DTOList" parameterType="java.util.Map" resultType="${cfg.DTOPackage}.${entity}DTO">
         <include refid="Base_select_sql"/>
     </select>
 
-    <!-- VO查询 -->
+    <!-- ${entity}DTO查询 -->
     <select id="query${entity}DTO" resultType="${cfg.DTOPackage}.${entity}DTO">
         <include refid="Base_select_sql"/>
         limit 1

@@ -74,11 +74,11 @@ import javax.annotation.Resource;
          *
          * @author ${author}
          * @date   ${date}
-         * @return ResResult<PageResResult <${entity}VO>>
+         * @return ResResult<PageData <${entity}VO>>
          */
         @GetMapping(value = "/${entity}VO/getPageList")
         @ApiOperation("获取分页列表")
-        public ResResult<PageResResult<${entity}VO>> getPageList(${entity}QueryDTO queryDTO, PageQueryDTO pageQueryDTO) {
+        public ResResult<PageData<${entity}VO>> getPageList(${entity}QueryDTO queryDTO, PageQueryDTO pageQueryDTO) {
             Page<${entity}VO> page = MybatisUtil.getMybatisPlusPage(pageQueryDTO, ${entity}VO.class);
             page.setRecords(${table.entityPath}Service.get${entity}VOList(page, queryDTO));
 
