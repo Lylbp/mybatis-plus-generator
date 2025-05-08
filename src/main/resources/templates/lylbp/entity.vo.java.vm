@@ -13,15 +13,20 @@ package ${cfg.VOPackage};
     #end
 #end
 
-import ${package.Entity}.${entity};
-import ${cfg.DTOPackage}.${entity}DTO;
-    #if(${entityLombokModel})
-    import lombok.Data;
-    import lombok.EqualsAndHashCode;
-    #end
+import java.util.Date;
+
+#if(${entityLombokModel})
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+#end
+#if(${swagger2})
 import io.swagger.annotations.*;
+#end
 #if(!$ignoreProperties.isEmpty())
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+#end
+#if(${entitySerialVersionUID})
+import java.io.Serializable;
 #end
 /**
  * <p>
@@ -43,7 +48,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
         #end
     #end
     #if(${swagger2})
-    @ApiModel(value = "${entity}VO对象")
+    @ApiModel
     #end
     #if(!$ignoreProperties.isEmpty())
     @JsonIgnoreProperties({
@@ -52,5 +57,51 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
         #end
     })
     #end
-public class ${entity}VO extends ${entity}DTO {
+
+#if(${entitySerialVersionUID})
+    public class ${entity}VO implements Serializable {
+        private static final long serialVersionUID = 1L;
+#else
+    public class ${entity}VO{
+#end
+    ## ----------  BEGIN 字段循环遍历  ----------
+    #foreach($field in ${table.fields})
+
+        #if(${field.keyFlag})
+            #set($keyPropertyName=${field.propertyName})
+        #end
+        #if("$!field.comment" != "")
+            #if(${swagger2})
+            @ApiModelProperty(value = "${field.comment}")
+            #else
+            /**
+             * ${field.comment}
+             */
+            #end
+        #end
+    private ${field.propertyType} ${field.propertyName};
+    #end
+    ## ----------  END 字段循环遍历  ----------
+
+    #if(!${entityLombokModel})
+        #foreach($field in ${table.fields})
+
+            public ${field.propertyType} get${field.propertyName.substring(0,1).toUpperCase()}${field.propertyName.substring(1)}() {
+            return ${field.propertyName};
+            }
+
+            #if(${chainModel})
+            public ${entity} set${field.propertyName.substring(0,1).toUpperCase()}${field.propertyName.substring(1)}(${field.propertyType} ${field.propertyName}) {
+            #else
+                public void set${field.propertyName.substring(0,1).toUpperCase()}${field.propertyName.substring(1)}(${field.propertyType} ${field.propertyName}) {
+            #end
+            this.${field.propertyName} = ${field.propertyName};
+            #if(${chainModel})
+                return this;
+            #end
+            }
+        #end
+        ## --foreach end---
+    #end
+
 }

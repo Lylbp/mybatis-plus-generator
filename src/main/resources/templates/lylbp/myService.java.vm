@@ -8,7 +8,6 @@ import ${superServiceClassPackage};
 import ${cfg.DTOPackage}.${entity}CreateDTO;
 import ${cfg.DTOPackage}.${entity}UpdateDTO;
 import java.util.List;
-import java.util.Map;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.core.toolkit.support.SFunction;

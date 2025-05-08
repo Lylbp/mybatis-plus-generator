@@ -242,5 +242,5 @@ public class Config {
     /**
      * VO中不生成的字段[空串无效]
      */
-    public static final String VO_NOT_RETURN_FIELD = "is_del,created_by,updated_by";
+    public static final String VO_NOT_RETURN_FIELD = "is_del,created_by,updated_by,del_time_str";
 }

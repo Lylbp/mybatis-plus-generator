@@ -1,8 +1,6 @@
 package ${cfg.ConvertMapperPackage};
 
 import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
-
 import java.util.List;
 
 import ${package.Entity}.${entity};
@@ -16,9 +14,8 @@ import ${cfg.VOPackage}.${entity}VO;
  * ${entity}对象转换类
  * </p>
  *
- * @Description ${entity}转换对象
- * @Author ${author}
- * @Date ${date}
+ * @author ${author}
+ * @since ${date}
  */
 @Mapper(componentModel = "spring")
 public interface ${entity}ConvertMapper {

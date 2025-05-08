@@ -4,9 +4,13 @@ package ${cfg.DTOPackage};
     import lombok.Data;
     import lombok.EqualsAndHashCode;
     #end
+#if(${swagger2})
 import io.swagger.annotations.*;
+#end
 
+#if(${entitySerialVersionUID})
 import java.io.Serializable;
+#end
 
 /**
  * <p>
@@ -30,8 +34,10 @@ import java.io.Serializable;
     #if(${swagger2})
     @ApiModel
     #end
-public class ${entity}CreateDTO implements Serializable {
-    #if(${entitySerialVersionUID})
-        private static final long serialVersionUID = 1L;
-    #end
+#if(${entitySerialVersionUID})
+public class ${entity}CreateDTO implements Serializable{
+    private static final long serialVersionUID = 1L;
+#else
+public class ${entity}CreateDTO {
+#end
 }

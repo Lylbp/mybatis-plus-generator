@@ -1,7 +1,6 @@
 package ${package.Mapper};
 
 import ${package.Entity}.${entity};
-import ${cfg.VOPackage}.${entity}VO;
 import ${cfg.DTOPackage}.${entity}DTO;
 import ${superMapperClassPackage};
 import org.apache.ibatis.annotations.Param;
