@@ -14,9 +14,9 @@ import ${cfg.ConvertMapperPackage}.${entity}ConvertMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
-import cn.hutool.core.util.ObjectUtil;
+import java.util.stream.Collectors;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.lang.func.Func1;
 import cn.hutool.core.lang.func.LambdaUtil;
@@ -26,7 +26,9 @@ import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.transaction.annotation.Transactional;
-
+import lombok.extern.slf4j.Slf4j;
+import com.hatzi.core.util.AssertUtil;
+import com.hatzi.core.enums.SystemResultEnum;
 import javax.annotation.Resource;
 #foreach($field in ${table.fields})
     #if(${field.keyFlag})
@@ -34,6 +36,10 @@ import javax.annotation.Resource;
         #set($keyPropertyType=${field.propertyType})
         #set($keyCapitalName=${field.capitalName})
         #set($keyColumnName=${field.columnName})
+    #end
+    #if(${field.columnName} == ${cfg.FieldlogicDeleteName})
+        #set($hasFieldlogicDelete=true)
+        #set($deleteCapitalName=${field.propertyName.substring(0,1).toUpperCase()}+""+${field.propertyName.substring(1)})
     #end
 #end
 /**
@@ -45,6 +51,7 @@ import javax.annotation.Resource;
  * @since ${date}
  */
 @Service
+@Slf4j
 #if(${kotlin})
 open class ${table.serviceImplName} : ${superServiceImplClass}<${table.mapperName}, ${entity}>(), ${table.serviceName} {
 
@@ -56,20 +63,40 @@ open class ${table.serviceImplName} : ${superServiceImplClass}<${table.mapperNam
 
         @Override
         public Boolean add(${entity}CreateDTO dto){
-            ${entity} ${table.entityPath} = ${table.entityPath}ConvertMapper.convert(dto);
-            return save(${table.entityPath});
+            return save(${table.entityPath}ConvertMapper.convert(dto));
         }
 
         @Override
         public Boolean update(${entity}UpdateDTO dto){
-            ${entity} ${table.entityPath} = ${table.entityPath}ConvertMapper.convert(dto);
-            return updateById(${table.entityPath});
+             //验证数据是否存在
+            AssertUtil.notNull(getById(dto.get${keyCapitalName}()), SystemResultEnum.DATA_NOT_EXIST);
+
+            return updateById(${table.entityPath}ConvertMapper.convert(dto));
         }
 
         @Override
-        @Transactional(rollbackFor={Exception.class})
-        public Boolean delByIds(List<${keyPropertyType}>idList){
-            return removeByIds(idList);
+        @Transactional(rollbackFor = {Exception.class})
+        public Boolean delByIds(List<${keyPropertyType}> idList) {
+           #if(${hasFieldlogicDelete})
+                List<${entity}> dbList = baseMapper.selectBatchIds(idList).stream()
+                    .filter(item -> {
+                        if (Boolean.TRUE.equals(item.get${deleteCapitalName}())) {
+                            log.warn("id repeat remove, id:{}", item.get${keyCapitalName}());
+                            return false;
+                        }
+                        item.set${deleteCapitalName}(true);
+                        return true;
+                    })
+                    .collect(Collectors.toList());
+            #else
+                List<${entity}> dbList = baseMapper.selectBatchIds(idList);
+            #end
+            if (dbList.isEmpty()) {
+                log.warn("dbList is empty,idList:[{}]", StrUtil.join(",", idList));
+                return true;
+            }
+
+            return removeByIds(dbList);
         }
 
         @Override
@@ -93,9 +120,9 @@ open class ${table.serviceImplName} : ${superServiceImplClass}<${table.mapperNam
         }
 
         @Override
-        public Boolean columnHasRepeat(String notId,SFunction<${entity},?>columnName,Object columnValue){
+        public Boolean columnHasRepeat(${keyPropertyType} notId,SFunction<${entity},?>columnName,Object columnValue){
             LambdaQueryWrapper<${entity}>wrapper=new QueryWrapper<${entity}>().lambda().eq(columnName,columnValue);
-            if(StrUtil.isNotEmpty(notId)){
+            if(ObjectUtil.isNotEmpty(notId)){
             wrapper.ne(${entity}::get${keyCapitalName},notId);
             }
             List<${entity}>entities=baseMapper.selectList(wrapper);

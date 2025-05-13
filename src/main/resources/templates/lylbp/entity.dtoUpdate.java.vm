@@ -41,4 +41,21 @@ import java.io.Serializable;
     #else
     public class ${entity}UpdateDTO {
     #end
+
+    ## ----------  BEGIN 字段循环遍历  ----------
+    #foreach($field in ${table.fields})
+        #if(${field.keyFlag})
+            #if("$!field.comment" != "")
+                #if(${swagger2})
+                @ApiModelProperty(value = "${field.comment}")
+                #else
+                /**
+                 * ${field.comment}
+                 */
+                #end
+            #end
+        private ${field.propertyType} ${field.propertyName};
+        #end
+    #end
+    ## ----------  END 字段循环遍历  ----------
 }

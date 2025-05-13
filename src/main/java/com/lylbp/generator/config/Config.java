@@ -196,7 +196,7 @@ public class Config {
     /**
      * 编辑自动填充[空串无效]
      */
-    public static final String UPDATE_FILL = "updated_by,updated_time";
+    public static final String UPDATE_FILL = "updated_by,updated_time,del_time_str";
 
     /**
      * 是否支持Swagger
