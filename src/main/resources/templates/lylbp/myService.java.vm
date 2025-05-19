@@ -91,6 +91,6 @@ import cn.hutool.core.lang.func.Func1;
              * @param columnValue 字段值
              * @return Boolean
              */
-            Boolean columnHasRepeat(${keyPropertyType} notId, SFunction<${entity}, ?> columnName, Object columnValue);
+            Boolean hasRepeat(${keyPropertyType} notId, SFunction<${entity}, ?> columnName, Object columnValue);
 }
 #end

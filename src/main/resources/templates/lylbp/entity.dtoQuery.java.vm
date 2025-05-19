@@ -34,7 +34,6 @@ import java.io.Serializable;
     #if(${swagger2})
     @ApiModel
     #end
-
     #if(${entitySerialVersionUID})
     public class ${entity}QueryDTO implements Serializable {
         private static final long serialVersionUID = 1L;

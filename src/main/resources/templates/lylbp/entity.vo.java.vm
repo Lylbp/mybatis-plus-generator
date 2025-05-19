@@ -57,7 +57,6 @@ import java.io.Serializable;
         #end
     })
     #end
-
 #if(${entitySerialVersionUID})
     public class ${entity}VO implements Serializable {
         private static final long serialVersionUID = 1L;

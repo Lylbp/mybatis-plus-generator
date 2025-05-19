@@ -120,7 +120,7 @@ open class ${table.serviceImplName} : ${superServiceImplClass}<${table.mapperNam
         }
 
         @Override
-        public Boolean columnHasRepeat(${keyPropertyType} notId,SFunction<${entity},?>columnName,Object columnValue){
+        public Boolean hasRepeat(${keyPropertyType} notId,SFunction<${entity},?>columnName,Object columnValue){
             LambdaQueryWrapper<${entity}>wrapper=new QueryWrapper<${entity}>().lambda().eq(columnName,columnValue);
             if(ObjectUtil.isNotEmpty(notId)){
             wrapper.ne(${entity}::get${keyCapitalName},notId);
