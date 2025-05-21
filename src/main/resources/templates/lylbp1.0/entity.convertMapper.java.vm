@@ -6,13 +6,8 @@ import java.util.List;
 import ${package.Entity}.${entity};
 import ${cfg.DTOPackage}.${entity}CreateDTO;
 import ${cfg.DTOPackage}.${entity}UpdateDTO;
-import ${cfg.DTOPackage}.${entity}QueryDTO;
 import ${cfg.DTOPackage}.${entity}DTO;
 import ${cfg.VOPackage}.${entity}VO;
-
-import ${cfg.FormPackage}.${entity}CreateForm;
-import ${cfg.FormPackage}.${entity}UpdateForm;
-import ${cfg.FormPackage}.${entity}QueryForm;
 
 /**
  * <p>
@@ -24,30 +19,6 @@ import ${cfg.FormPackage}.${entity}QueryForm;
  */
 @Mapper(componentModel = "spring")
 public interface ${entity}ConvertMapper {
-    /**
-     * ${entity}CreateForm转${entity}CreateDTO
-     *
-     * @param form 表单对象
-     * @return  ${entity}CreateDTO
-     */
-        ${entity}CreateDTO convert(${entity}CreateForm form);
-
-    /**
-     * ${entity}UpdateForm转${entity}UpdateDTO
-     *
-     * @param form 表单对象
-     * @return  ${entity}UpdateDTO
-     */
-        ${entity}UpdateDTO convert(${entity}UpdateForm form);
-
-    /**
-     * ${entity}QueryForm转${entity}QueryDTO
-     *
-     * @param form 表单对象
-     * @return ${entity}QueryDTO
-     */
-        ${entity}QueryDTO convert(${entity}QueryForm form);
-
     /**
      * ${entity}CreateDTO转${entity}
      *

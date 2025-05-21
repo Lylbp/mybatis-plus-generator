@@ -1,0 +1,86 @@
+package ${cfg.FormPackage};
+
+#if(${entityLombokModel})
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+#end
+#if(${swagger2})
+import io.swagger.annotations.*;
+#end
+
+#if(${entitySerialVersionUID})
+import java.io.Serializable;
+#end
+
+/**
+ * <p>
+ * $!{table.comment}查询表单对象
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+    #if(${entityLombokModel})
+    @Data
+        #if(${superEntityClass})
+        @EqualsAndHashCode(callSuper = true)
+        #else
+        @EqualsAndHashCode(callSuper = false)
+        #end
+        #if(${chainModel})
+        @Accessors(chain = true)
+        #end
+    #end
+    #if(${swagger2})
+    @ApiModel
+    #end
+    #if(${entitySerialVersionUID})
+    public class ${entity}QueryForm implements Serializable {
+        private static final long serialVersionUID = 1L;
+    #else
+    public class ${entity}QueryForm {
+    #end
+    ## ----------  BEGIN 字段循环遍历  ----------
+    #foreach($field in ${table.fields})
+        #if(${field.keyFlag} || ${field.columnName} == ${cfg.FieldlogicDeleteName})
+            #if("$!field.comment" != "")
+                #if(${swagger2})
+                @ApiModelProperty(value = "${field.comment}")
+                #else
+                /**
+                 * ${field.comment}
+                 */
+                #end
+            #end
+        private ${field.propertyType} ${field.propertyName} #if(${field.columnName} == ${cfg.FieldlogicDeleteName}) = ${cfg.FieldlogicDeleteDefaultValue} #end;
+        #end
+    #end
+    ## ----------  END 字段循环遍历  ----------
+
+
+
+
+
+    #if(!${entityLombokModel})
+        #foreach($field in ${table.fields})
+            #if(${field.keyFlag} || ${field.columnName} == ${cfg.FieldlogicDeleteName})
+                public ${field.propertyType} get${field.propertyName.substring(0,1).toUpperCase()}${field.propertyName.substring(1)}() {
+                    return ${field.propertyName};
+                }
+
+                #if(${chainModel})
+                public ${entity} set${field.propertyName.substring(0,1).toUpperCase()}${field.propertyName.substring(1)}(${field.propertyType} ${field.propertyName}) {
+                #else
+                    public void set${field.propertyName.substring(0,1).toUpperCase()}${field.propertyName.substring(1)}
+                    (${field.propertyType} ${field.propertyName}) {
+                #end
+                this.${field.propertyName} = ${field.propertyName};
+                #if(${chainModel})
+                    return this;
+                #end
+            }
+            #end
+        #end
+        ## --foreach end---
+    #end
+}

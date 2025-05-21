@@ -81,6 +81,21 @@ public class GenneratorService {
     public static final String FILE_NAME_DTO = "%sDTO";
 
     /**
+     * 新增Form文件名称
+     */
+    public static final String FILE_NAME_FORM_CREATE = "%sCreateForm";
+
+    /**
+     * 编辑Form文件名称
+     */
+    public static final String FILE_NAME_FORM_UPDATE = "%sUpdateForm";
+
+    /**
+     * 查询Form文件名称
+     */
+    public static final String FILE_NAME_FORM_QUERY = "%sQueryForm";
+
+    /**
      * convertMapper文件名称
      */
     public static final String FILE_NAME_CONVERT_MAPPER = "%sConvertMapper";
@@ -352,6 +367,40 @@ public class GenneratorService {
             });
         }
 
+        // 自定义输出查询FORM配置
+        if (ObjectUtil.isNotEmpty(Config.FORM_QUERY_TEMPLATE) && ObjectUtil.isNotEmpty(Config.FORM_PATH)) {
+            fileOutConfigList.add(new FileOutConfig(Config.FORM_QUERY_TEMPLATE) {
+                @Override
+                public String outputFile(TableInfo tableInfo) {
+                    String fileName = String.format(FILE_NAME_FORM_QUERY, tableInfo.getEntityName());
+                    return Config.FORM_PATH + "/" + fileName + StringPool.DOT_JAVA;
+                }
+            });
+        }
+
+        // 自定义输出新增Form配置
+        if (ObjectUtil.isNotEmpty(Config.FORM_CREATE_TEMPLATE) && ObjectUtil.isNotEmpty(Config.FORM_PATH)) {
+            fileOutConfigList.add(new FileOutConfig(Config.FORM_CREATE_TEMPLATE) {
+                @Override
+                public String outputFile(TableInfo tableInfo) {
+                    String fileName = String.format(FILE_NAME_FORM_CREATE, tableInfo.getEntityName());
+                    return Config.FORM_PATH + "/" + fileName + StringPool.DOT_JAVA;
+                }
+            });
+        }
+
+
+        // 自定义输出编辑Form配置
+        if (ObjectUtil.isNotEmpty(Config.FORM_UPDATE_TEMPLATE) && ObjectUtil.isNotEmpty(Config.FORM_PATH)) {
+            fileOutConfigList.add(new FileOutConfig(Config.FORM_UPDATE_TEMPLATE) {
+                @Override
+                public String outputFile(TableInfo tableInfo) {
+                    String fileName = String.format(FILE_NAME_FORM_UPDATE, tableInfo.getEntityName());
+                    return Config.FORM_PATH + "/" + fileName + StringPool.DOT_JAVA;
+                }
+            });
+        }
+
         // 自定义输出convertMapper配置
         if (ObjectUtil.isNotEmpty(Config.CONVERT_MAPPER_TEMPLATE) && ObjectUtil.isNotEmpty(Config.CONVERT_PATH)) {
             fileOutConfigList.add(new FileOutConfig(Config.CONVERT_MAPPER_TEMPLATE) {
@@ -412,6 +461,7 @@ public class GenneratorService {
                 map.put("VOPackage", Config.PACKAGE_NAME_VO);
                 map.put("ConvertMapperPackage", Config.PACKAGE_NAME_CONVERT);
                 map.put("DTOPackage", Config.PACKAGE_NAME_DTO);
+                map.put("FormPackage", Config.PACKAGE_NAME_FORM);
                 map.put("DBType", dbType.getDb());
                 map.put("FieldlogicDeleteName", Config.FIELD_LOGIC_DELETE_NAME);
                 map.put("FieldlogicDeleteDefaultValue", Config.FIELD_LOGIC_DELETE_DEFAULT_VALUE);

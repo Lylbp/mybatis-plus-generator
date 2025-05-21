@@ -51,6 +51,11 @@ public class Config {
     public static final String DTO_PATH = "E:\\code\\java\\lylbp\\Hatzi-Cloud\\hatzi-service\\hatzi-system\\src\\main\\java\\com\\hatzi\\sys\\dto";
 
     /**
+     * form输出路径
+     */
+    public static final String FORM_PATH = "E:\\code\\java\\lylbp\\Hatzi-Cloud\\hatzi-service\\hatzi-system\\src\\main\\java\\com\\hatzi\\sys\\form";
+
+    /**
      * vo输出路径
      */
     public static final String VO_PATH = "E:\\code\\java\\lylbp\\Hatzi-Cloud\\hatzi-service\\hatzi-system\\src\\main\\java\\com\\hatzi\\sys\\vo";
@@ -97,6 +102,11 @@ public class Config {
      */
     public static final String PACKAGE_NAME_DTO = "com.hatzi.sys.dto";
 
+    /**
+     * 包名：form
+     */
+
+    public static final String PACKAGE_NAME_FORM = "com.hatzi.sys.form";
 
     /**
      * 包名：vo
@@ -167,6 +177,22 @@ public class Config {
      * DTO模版地址
      */
     public static final String DTO_TEMPLATE = "/templates/lylbp/entity.dto.java.vm";
+
+    /**
+     * Form查询模版地址
+     */
+    public static final String FORM_QUERY_TEMPLATE = "/templates/lylbp/entity.formQuery.java.vm";
+
+    /**
+     * Form新增模版地址
+     */
+    public static final String FORM_CREATE_TEMPLATE = "/templates/lylbp/entity.formCreate.java.vm";
+
+
+    /**
+     * Form编辑模版地址
+     */
+    public static final String FORM_UPDATE_TEMPLATE = "/templates/lylbp/entity.formUpdate.java.vm";
 
     /**
      * convertMapper模版地址

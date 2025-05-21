@@ -21,6 +21,10 @@ import ${cfg.DTOPackage}.${entity}QueryDTO;
 import ${cfg.DTOPackage}.${entity}CreateDTO;
 import ${cfg.DTOPackage}.${entity}UpdateDTO;
 import ${package.Service}.${table.serviceName};
+import ${cfg.ConvertMapperPackage}.${entity}ConvertMapper;
+import ${cfg.FormPackage}.${entity}CreateForm;
+import ${cfg.FormPackage}.${entity}UpdateForm;
+import ${cfg.FormPackage}.${entity}QueryForm;
 
     #if(${swagger2})
     import io.swagger.annotations.Api;
@@ -73,6 +77,8 @@ import javax.annotation.Resource;
         @Resource
         private ${table.serviceName}  ${table.entityPath}Service;
 
+        @Resource
+        private ${entity}ConvertMapper ${table.entityPath}ConvertMapper;
         /**
          * 获取数据分页列表
          *
@@ -84,7 +90,9 @@ import javax.annotation.Resource;
             #if(${swagger2})
             @ApiOperation("获取分页列表")
             #end
-        public ResResult<PageData<${entity}VO>> getPageList(${entity}QueryDTO queryDTO, PageQueryDTO pageQueryDTO) {
+        public ResResult<PageData<${entity}VO>> getPageList(${entity}QueryForm form, PageQueryDTO pageQueryDTO) {
+            ${entity}QueryDTO queryDTO = ${table.entityPath}ConvertMapper.convert(form);
+
             Page<${entity}VO> page = MybatisUtil.getMybatisPlusPage(pageQueryDTO, ${entity}VO.class);
             page.setRecords(${table.entityPath}Service.get${entity}VOList(page, queryDTO));
 
@@ -118,7 +126,8 @@ import javax.annotation.Resource;
             #if(${swagger2})
             @ApiOperation("添加")
             #end
-        public ResResult<Boolean> add(@RequestBody @Validated ${entity}CreateDTO dto) {
+        public ResResult<Boolean> add(@RequestBody @Validated ${entity}CreateForm form) {
+            ${entity}CreateDTO dto = ${table.entityPath}ConvertMapper.convert(form);
             return ResResultUtil.success(${table.entityPath}Service.add(dto));
         }
 
@@ -133,7 +142,8 @@ import javax.annotation.Resource;
             #if(${swagger2})
             @ApiOperation("编辑")
             #end
-        public ResResult<Boolean> edit(@RequestBody @Validated ${entity}UpdateDTO dto) {
+        public ResResult<Boolean> edit(@RequestBody @Validated ${entity}UpdateForm form) {
+            ${entity}UpdateDTO dto = ${table.entityPath}ConvertMapper.convert(form);
             return ResResultUtil.success(${table.entityPath}Service.update(dto));
         }
 
