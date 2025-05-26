@@ -217,7 +217,7 @@ public class Config {
     /**
      * 添加自动填充[空串无效]
      */
-    public static final String CREATE_FILL = "created_time,created_by,is_del,app_id,tenant_code";
+    public static final String CREATE_FILL = "created_time,created_by,is_del,app_id,tenant_id";
 
     /**
      * 编辑自动填充[空串无效]
