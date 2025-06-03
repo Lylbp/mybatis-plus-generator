@@ -31,7 +31,7 @@ import ${cfg.FormPackage}.${entity}QueryForm;
     import io.swagger.annotations.ApiOperation;
     #end
 import org.springframework.validation.annotation.Validated;
-
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.annotation.Resource;
@@ -83,17 +83,17 @@ import javax.annotation.Resource;
          * 获取数据分页列表
          *
          * @author ${author}
-         * @date   ${date}
+         * @since   ${date}
          * @return ResResult<PageData <${entity}VO>>
          */
-        @GetMapping(value = "/${entity}VO/getPageList")
+        @GetMapping(value = "/pageList")
             #if(${swagger2})
             @ApiOperation("获取分页列表")
             #end
-        public ResResult<PageData<${entity}VO>> getPageList(${entity}QueryForm form, PageQueryDTO pageQueryDTO) {
+        public ResResult<PageData<${entity}VO>> pageList(${entity}QueryForm form, PageQueryDTO pageQueryDTO) {
             ${entity}QueryDTO queryDTO = ${table.entityPath}ConvertMapper.convert(form);
-
             Page<${entity}VO> page = MybatisUtil.getMybatisPlusPage(pageQueryDTO, ${entity}VO.class);
+
             page.setRecords(${table.entityPath}Service.get${entity}VOList(page, queryDTO));
 
             return ResResultUtil.makePageRsp(page.getRecords(), page.getTotal(), page.getCurrent(), page.getSize());
@@ -106,11 +106,11 @@ import javax.annotation.Resource;
          * @since ${date}
          * @return ResResult<${entity}VO>
          */
-        @GetMapping(value = "/${entity}VO/{${keyPropertyName}}")
+        @GetMapping(value = "/{${keyPropertyName}}")
             #if(${swagger2})
             @ApiOperation("根据主键获取信息")
             #end
-        public ResResult<${entity}VO> getInfoById(@PathVariable(value = "${keyPropertyName}") @NotBlank String ${keyPropertyName}) {
+        public ResResult<${entity}VO> info(@PathVariable(value = "${keyPropertyName}") @NotBlank String ${keyPropertyName}) {
             return ResResultUtil.success(${table.entityPath}Service.get${entity}VO(${entity}QueryDTO::get${keyCapitalName} , ${keyPropertyName}));
         }
 
@@ -119,14 +119,14 @@ import javax.annotation.Resource;
          * 添加
          *
          * @author ${author}
-         * @date   ${date}
+         * @since   ${date}
          * @return ResResult<${entity}VO>
          */
         @PostMapping(value = "/add")
             #if(${swagger2})
             @ApiOperation("添加")
             #end
-        public ResResult<Boolean> add(@RequestBody @Validated ${entity}CreateForm form) {
+        public ResResult<Boolean> add(@RequestBody @Valid ${entity}CreateForm form) {
             ${entity}CreateDTO dto = ${table.entityPath}ConvertMapper.convert(form);
             return ResResultUtil.success(${table.entityPath}Service.add(dto));
         }
@@ -135,14 +135,14 @@ import javax.annotation.Resource;
          * 编辑
          *
          * @author ${author}
-         * @date   ${date}
+         * @since   ${date}
          * @return ResResult<Boolean>
          */
-        @PutMapping(value = "/edit")
+        @PutMapping(value = "/update")
             #if(${swagger2})
             @ApiOperation("编辑")
             #end
-        public ResResult<Boolean> edit(@RequestBody @Validated ${entity}UpdateForm form) {
+        public ResResult<Boolean> update(@RequestBody @Valid ${entity}UpdateForm form) {
             ${entity}UpdateDTO dto = ${table.entityPath}ConvertMapper.convert(form);
             return ResResultUtil.success(${table.entityPath}Service.update(dto));
         }
@@ -151,7 +151,7 @@ import javax.annotation.Resource;
          * 通过主键批量删除
          *
          * @author ${author}
-         * @date   ${date}
+         * @since   ${date}
          * @return ResResult<Boolean>
          */
         @DeleteMapping(value = "/batchDelete")

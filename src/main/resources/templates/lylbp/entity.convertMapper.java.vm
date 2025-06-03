@@ -51,18 +51,18 @@ public interface ${entity}ConvertMapper {
     /**
      * ${entity}CreateDTO转${entity}
      *
-     * @param createDTO 创建对象
+     * @param dto 创建对象
      * @return ${entity}
      */
-        ${entity} convert(${entity}CreateDTO createDTO);
+        ${entity} convert(${entity}CreateDTO dto);
 
     /**
      * ${entity}UpdateDTO转${entity}
      *
-     * @param updateDTO 修改对象
+     * @param dto 修改对象
      * @return ${entity}
      */
-        ${entity} convert(${entity}UpdateDTO updateDTO);
+        ${entity} convert(${entity}UpdateDTO dto);
 
     /**
      * ${entity}DTO转${entity}VO

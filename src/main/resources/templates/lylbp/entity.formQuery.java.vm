@@ -42,7 +42,7 @@ import java.io.Serializable;
     #end
     ## ----------  BEGIN 字段循环遍历  ----------
     #foreach($field in ${table.fields})
-        #if(${field.keyFlag} || ${field.columnName} == ${cfg.FieldlogicDeleteName})
+        #if(${field.keyFlag})
             #if("$!field.comment" != "")
                 #if(${swagger2})
                 @ApiModelProperty(value = "${field.comment}")
@@ -52,7 +52,7 @@ import java.io.Serializable;
                  */
                 #end
             #end
-        private ${field.propertyType} ${field.propertyName} #if(${field.columnName} == ${cfg.FieldlogicDeleteName}) = ${cfg.FieldlogicDeleteDefaultValue} #end;
+        private ${field.propertyType} ${field.propertyName};
         #end
     #end
     ## ----------  END 字段循环遍历  ----------
