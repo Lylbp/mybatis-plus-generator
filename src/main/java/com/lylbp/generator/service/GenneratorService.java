@@ -470,6 +470,9 @@ public class GenneratorService {
                 map.put("BaseCoreEntityPack", Config.BASE_CORE_ENTITY_PACK);
                 map.put("MybatisUtilPack", Config.MYBATIS_UTIL_PACK);
                 map.put("VoNotReturnField", Config.VO_NOT_RETURN_FIELD);
+                map.put("QueryFormSupport", StrUtil.isNotEmpty(Config.FORM_QUERY_TEMPLATE));
+                map.put("AddFormSupport", StrUtil.isNotEmpty(Config.FORM_CREATE_TEMPLATE));
+                map.put("UpdateFormSupport", StrUtil.isNotEmpty(Config.FORM_UPDATE_TEMPLATE));
                 this.setMap(map);
             }
         };

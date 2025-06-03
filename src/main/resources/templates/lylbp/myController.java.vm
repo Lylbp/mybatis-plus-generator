@@ -21,16 +21,28 @@ import ${cfg.DTOPackage}.${entity}QueryDTO;
 import ${cfg.DTOPackage}.${entity}CreateDTO;
 import ${cfg.DTOPackage}.${entity}UpdateDTO;
 import ${package.Service}.${table.serviceName};
-import ${cfg.ConvertMapperPackage}.${entity}ConvertMapper;
-import ${cfg.FormPackage}.${entity}CreateForm;
-import ${cfg.FormPackage}.${entity}UpdateForm;
-import ${cfg.FormPackage}.${entity}QueryForm;
+    #if(${cfg.QueryFormSupport} || ${cfg.AddFormSupport} || ${cfg.UpdateFormSupport})
+    import ${cfg.ConvertMapperPackage}.${entity}ConvertMapper;
+    #end
+
+    #if(${cfg.AddFormSupport})
+    import ${cfg.FormPackage}.${entity}CreateForm;
+    #end
+
+    #if(${cfg.UpdateFormSupport})
+    import ${cfg.FormPackage}.${entity}UpdateForm;
+    #end
+
+    #if(${cfg.QueryFormSupport})
+    import ${cfg.FormPackage}.${entity}QueryForm;
+    #end
 
     #if(${swagger2})
     import io.swagger.annotations.Api;
     import io.swagger.annotations.ApiOperation;
     #end
 import org.springframework.validation.annotation.Validated;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -55,6 +67,7 @@ import javax.annotation.Resource;
  * @author ${author}
  * @since ${date}
  */
+@Validated
 #if(${restControllerStyle})
 @RestController
 #else
@@ -77,8 +90,10 @@ import javax.annotation.Resource;
         @Resource
         private ${table.serviceName}  ${table.entityPath}Service;
 
-        @Resource
-        private ${entity}ConvertMapper ${table.entityPath}ConvertMapper;
+    #if(${cfg.QueryFormSupport} || ${cfg.AddFormSupport} || ${cfg.UpdateFormSupport})
+            @Resource
+            private ${entity}ConvertMapper ${table.entityPath}ConvertMapper;
+    #end
         /**
          * 获取数据分页列表
          *
@@ -90,75 +105,89 @@ import javax.annotation.Resource;
             #if(${swagger2})
             @ApiOperation("获取分页列表")
             #end
-        public ResResult<PageData<${entity}VO>> pageList(${entity}QueryForm form, PageQueryDTO pageQueryDTO) {
-            ${entity}QueryDTO queryDTO = ${table.entityPath}ConvertMapper.convert(form);
+            #if(${cfg.QueryFormSupport})
+            public ResResult<PageData<${entity}VO>> pageList(${entity}QueryForm form, PageQueryDTO pageQueryDTO) {
+                    ${entity}QueryDTO dto = ${table.entityPath}ConvertMapper.convert(form);
+            #else
+                public ResResult<PageData<${entity}VO>> pageList(${entity}QueryDTO dto, PageQueryDTO pageQueryDTO) {
+            #end
             Page<${entity}VO> page = MybatisUtil.getMybatisPlusPage(pageQueryDTO, ${entity}VO.class);
 
-            page.setRecords(${table.entityPath}Service.get${entity}VOList(page, queryDTO));
+            page.setRecords(${table.entityPath}Service.get${entity}VOList(page, dto));
 
             return ResResultUtil.makePageRsp(page.getRecords(), page.getTotal(), page.getCurrent(), page.getSize());
         }
 
-        /**
-         * 根据主键获取信息
-         *
-         * @author ${author}
-         * @since ${date}
-         * @return ResResult<${entity}VO>
-         */
-        @GetMapping(value = "/{${keyPropertyName}}")
-            #if(${swagger2})
-            @ApiOperation("根据主键获取信息")
-            #end
-        public ResResult<${entity}VO> info(@PathVariable(value = "${keyPropertyName}") @NotBlank String ${keyPropertyName}) {
+            /**
+             * 根据主键获取信息
+             *
+             * @author ${author}
+             * @since ${date}
+             * @return ResResult<${entity}VO>
+             */
+            @GetMapping(value = "/{${keyPropertyName}}")
+                #if(${swagger2})
+                @ApiOperation("根据主键获取信息")
+                #end
+            public ResResult<${entity}VO> info
+            (@PathVariable(value = "${keyPropertyName}") @NotBlank String ${keyPropertyName}) {
             return ResResultUtil.success(${table.entityPath}Service.get${entity}VO(${entity}QueryDTO::get${keyCapitalName} , ${keyPropertyName}));
         }
 
 
-        /**
-         * 添加
-         *
-         * @author ${author}
-         * @since   ${date}
-         * @return ResResult<${entity}VO>
-         */
+            /**
+             * 添加
+             *
+             * @author ${author}
+             * @since   ${date}
+             * @return ResResult<${entity}VO>
+             */
         @PostMapping(value = "/add")
             #if(${swagger2})
             @ApiOperation("添加")
             #end
-        public ResResult<Boolean> add(@RequestBody @Valid ${entity}CreateForm form) {
-            ${entity}CreateDTO dto = ${table.entityPath}ConvertMapper.convert(form);
+            #if(${cfg.AddFormSupport})
+                public ResResult<Boolean> add(@RequestBody @Valid ${entity}CreateForm form) {
+                    ${entity}CreateDTO dto = ${table.entityPath}ConvertMapper.convert(form);
+            #else
+                public ResResult<Boolean> add(@RequestBody @Valid ${entity}CreateDTO dto) {
+            #end
+
             return ResResultUtil.success(${table.entityPath}Service.add(dto));
         }
 
-        /**
-         * 编辑
-         *
-         * @author ${author}
-         * @since   ${date}
-         * @return ResResult<Boolean>
-         */
+            /**
+             * 编辑
+             *
+             * @author ${author}
+             * @since   ${date}
+             * @return ResResult<Boolean>
+             */
         @PutMapping(value = "/update")
             #if(${swagger2})
             @ApiOperation("编辑")
             #end
-        public ResResult<Boolean> update(@RequestBody @Valid ${entity}UpdateForm form) {
-            ${entity}UpdateDTO dto = ${table.entityPath}ConvertMapper.convert(form);
+            #if(${cfg.UpdateFormSupport})
+                public ResResult<Boolean> update (@RequestBody @Valid ${entity}UpdateForm form){
+                    ${entity}UpdateDTO dto = ${table.entityPath}ConvertMapper.convert(form);
+            #else
+                public ResResult<Boolean> update (@RequestBody @Valid ${entity}UpdateDTO dto){
+            #end
             return ResResultUtil.success(${table.entityPath}Service.update(dto));
         }
 
-        /**
-         * 通过主键批量删除
-         *
-         * @author ${author}
-         * @since   ${date}
-         * @return ResResult<Boolean>
-         */
+            /**
+             * 通过主键批量删除
+             *
+             * @author ${author}
+             * @since   ${date}
+             * @return ResResult<Boolean>
+             */
         @DeleteMapping(value = "/batchDelete")
             #if(${swagger2})
             @ApiOperation("通过主键批量删除")
             #end
-        public ResResult<Boolean> batchDelete(@RequestBody @NotNull List<${keyPropertyType}> idList) {
+            public ResResult<Boolean> batchDelete (@RequestBody @NotNull List <${keyPropertyType}> idList){
             return ResResultUtil.success(${table.entityPath}Service.delByIds(idList));
         }
         }

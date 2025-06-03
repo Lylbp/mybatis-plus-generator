@@ -45,7 +45,7 @@ import java.io.Serializable;
         #if(${field.keyFlag} || ${field.columnName} == ${cfg.FieldlogicDeleteName})
             #if("$!field.comment" != "")
                 #if(${swagger2})
-                @ApiModelProperty(value = "${field.comment}")
+                @ApiModelProperty(value = "${field.comment}" #if(${field.columnName} == ${cfg.FieldlogicDeleteName}) , hidden = true #end)
                 #else
                 /**
                  * ${field.comment}

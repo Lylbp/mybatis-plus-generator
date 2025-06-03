@@ -1,18 +1,27 @@
 package ${cfg.ConvertMapperPackage};
 
 import org.mapstruct.Mapper;
+
 import java.util.List;
 
 import ${package.Entity}.${entity};
 import ${cfg.DTOPackage}.${entity}CreateDTO;
 import ${cfg.DTOPackage}.${entity}UpdateDTO;
-import ${cfg.DTOPackage}.${entity}QueryDTO;
 import ${cfg.DTOPackage}.${entity}DTO;
 import ${cfg.VOPackage}.${entity}VO;
 
+#if(${cfg.AddFormSupport})
 import ${cfg.FormPackage}.${entity}CreateForm;
+#end
+
+#if(${cfg.UpdateFormSupport})
 import ${cfg.FormPackage}.${entity}UpdateForm;
+#end
+
+#if(${cfg.QueryFormSupport})
 import ${cfg.FormPackage}.${entity}QueryForm;
+import ${cfg.DTOPackage}.${entity}QueryDTO;
+#end
 
 /**
  * <p>
@@ -24,30 +33,35 @@ import ${cfg.FormPackage}.${entity}QueryForm;
  */
 @Mapper(componentModel = "spring")
 public interface ${entity}ConvertMapper {
-    /**
-     * ${entity}CreateForm转${entity}CreateDTO
-     *
-     * @param form 表单对象
-     * @return  ${entity}CreateDTO
-     */
-        ${entity}CreateDTO convert(${entity}CreateForm form);
+    #if(${cfg.AddFormSupport})
+        /**
+         * ${entity}CreateForm转${entity}CreateDTO
+         *
+         * @param form 表单对象
+         * @return  ${entity}CreateDTO
+         */
+            ${entity}CreateDTO convert(${entity}CreateForm form);
+    #end
 
-    /**
-     * ${entity}UpdateForm转${entity}UpdateDTO
-     *
-     * @param form 表单对象
-     * @return  ${entity}UpdateDTO
-     */
-        ${entity}UpdateDTO convert(${entity}UpdateForm form);
+    #if(${cfg.UpdateFormSupport})
+        /**
+         * ${entity}UpdateForm转${entity}UpdateDTO
+         *
+         * @param form 表单对象
+         * @return  ${entity}UpdateDTO
+         */
+            ${entity}UpdateDTO convert(${entity}UpdateForm form);
+    #end
 
-    /**
-     * ${entity}QueryForm转${entity}QueryDTO
-     *
-     * @param form 表单对象
-     * @return ${entity}QueryDTO
-     */
-        ${entity}QueryDTO convert(${entity}QueryForm form);
-
+    #if(${cfg.QueryFormSupport})
+        /**
+         * ${entity}QueryForm转${entity}QueryDTO
+         *
+         * @param form 表单对象
+         * @return ${entity}QueryDTO
+         */
+            ${entity}QueryDTO convert(${entity}QueryForm form);
+    #end
     /**
      * ${entity}CreateDTO转${entity}
      *
@@ -70,7 +84,7 @@ public interface ${entity}ConvertMapper {
      * @param dto dto对象
      * @return ${entity}
      */
-     ${entity}VO convert(${entity}DTO dto);
+        ${entity}VO convert(${entity}DTO dto);
 
     /**
      * ${entity}DTOList转${entity}VOList
@@ -78,5 +92,5 @@ public interface ${entity}ConvertMapper {
      * @param dtoList dto对象集合
      * @return ${entity}
      */
-     List<${entity}VO> convert(List<${entity}DTO> dtoList);
+    List<${entity}VO> convert(List<${entity}DTO> dtoList);
 }

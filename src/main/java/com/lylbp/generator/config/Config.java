@@ -186,13 +186,13 @@ public class Config {
     /**
      * Form新增模版地址
      */
-    public static final String FORM_CREATE_TEMPLATE = "/templates/lylbp/entity.formCreate.java.vm";
+    public static final String FORM_CREATE_TEMPLATE = "";
 
 
     /**
      * Form编辑模版地址
      */
-    public static final String FORM_UPDATE_TEMPLATE = "/templates/lylbp/entity.formUpdate.java.vm";
+    public static final String FORM_UPDATE_TEMPLATE = "";
 
     /**
      * convertMapper模版地址

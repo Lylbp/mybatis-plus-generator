@@ -28,7 +28,7 @@ public class MySQLCodeGenerator {
         // 表前缀[生成的实体类自动不含表前缀]
         String[] tablePrefixes = {""};
         // 表名，为空，不生成表
-        String[] tableNames = {"sys_app_resource"};
+        String[] tableNames = {"sys_dict_type"};
         // 字段前缀
         String[] fieldPrefixes = {};
         GenneratorService.execute(DbType.MYSQL, dbUrl, username, password, "com.mysql.cj.jdbc.Driver", tablePrefixes, tableNames, fieldPrefixes);
