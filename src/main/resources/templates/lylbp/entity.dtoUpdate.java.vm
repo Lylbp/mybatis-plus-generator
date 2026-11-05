@@ -57,4 +57,27 @@ import java.io.Serializable;
         #end
     #end
     ## ----------  END 字段循环遍历  ----------
+
+    #if(!${entityLombokModel})
+        #foreach($field in ${table.fields})
+            #if(${field.keyFlag})
+                public ${field.propertyType} get${field.propertyName.substring(0,1).toUpperCase()}${field.propertyName.substring(1)}() {
+                    return ${field.propertyName};
+                }
+
+                #if(${chainModel})
+                public ${entity} set${field.propertyName.substring(0,1).toUpperCase()}${field.propertyName.substring(1)}(${field.propertyType} ${field.propertyName}) {
+                #else
+                    public void set${field.propertyName.substring(0,1).toUpperCase()}${field.propertyName.substring(1)}
+                    (${field.propertyType} ${field.propertyName}) {
+                #end
+                this.${field.propertyName} = ${field.propertyName};
+                #if(${chainModel})
+                    return this;
+                #end
+            }
+            #end
+        #end
+        ## --foreach end---
+    #end
 }

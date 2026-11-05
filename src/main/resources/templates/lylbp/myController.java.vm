@@ -140,7 +140,7 @@ import javax.annotation.Resource;
              *
              * @author ${author}
              * @since   ${date}
-             * @return ResResult<${entity}VO>
+             * @return ResResult<Boolean>
              */
         @PostMapping(value = "/add")
             #if(${swagger2})

@@ -1,5 +1,7 @@
 package ${cfg.DTOPackage};
-
+    #foreach($pkg in ${table.importPackages})
+    import ${pkg};
+    #end
     #if(${entityLombokModel})
     import lombok.Data;
     import lombok.EqualsAndHashCode;

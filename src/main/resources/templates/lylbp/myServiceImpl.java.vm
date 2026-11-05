@@ -77,25 +77,14 @@ open class ${table.serviceImplName} : ${superServiceImplClass}<${table.mapperNam
         @Override
         @Transactional(rollbackFor = {Exception.class})
         public Boolean delByIds(List<${keyPropertyType}> idList) {
-           #if(${hasFieldlogicDelete})
-                List<${entity}> dbList = baseMapper.selectBatchIds(idList).stream()
-                    .filter(item -> {
-                        if (Boolean.TRUE.equals(item.get${deleteCapitalName}())) {
-                            log.warn("id repeat remove, id:{}", item.get${keyCapitalName}());
-                            return false;
-                        }
-                        item.set${deleteCapitalName}(true);
-                        return true;
-                    })
-                    .collect(Collectors.toList());
-            #else
-                List<${entity}> dbList = baseMapper.selectBatchIds(idList);
-            #end
+            List<${entity}> dbList = baseMapper.selectBatchIds(idList);
             if (dbList.isEmpty()) {
                 log.warn("dbList is empty,idList:[{}]", StrUtil.join(",", idList));
                 return true;
             }
-
+            #if(${hasFieldlogicDelete})
+               dbList.forEach(item -> item.set${deleteCapitalName}(true));
+            #end
             return removeByIds(dbList);
         }
 

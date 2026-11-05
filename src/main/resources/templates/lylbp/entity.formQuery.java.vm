@@ -63,7 +63,7 @@ import java.io.Serializable;
 
     #if(!${entityLombokModel})
         #foreach($field in ${table.fields})
-            #if(${field.keyFlag} || ${field.columnName} == ${cfg.FieldlogicDeleteName})
+            #if(${field.keyFlag})
                 public ${field.propertyType} get${field.propertyName.substring(0,1).toUpperCase()}${field.propertyName.substring(1)}() {
                     return ${field.propertyName};
                 }
