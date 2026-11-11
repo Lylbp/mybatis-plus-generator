@@ -20,7 +20,7 @@ public class MySQLCodeGenerator {
      */
     public static void main(String[] args) {
         // url
-        String dbUrl = "jdbc:mysql://192.168.0.81:3306/hatzi_cloud";
+        String dbUrl = "jdbc:mysql://192.168.0.81:3306/hatzi-ai-demo";
         // 账户
         String username = "root";
         // 密码
@@ -28,7 +28,8 @@ public class MySQLCodeGenerator {
         // 表前缀[生成的实体类自动不含表前缀]
         String[] tablePrefixes = {""};
         // 表名，为空，不生成表
-        String[] tableNames = {"sys_user2"};
+        String[] tableNames = {"bb_inventory","bb_product","bb_sales_record", "bb_transfer_order",
+                "bb_transfer_order_item", "bb_warehouse"};
         // 字段前缀
         String[] fieldPrefixes = {};
         GenneratorService.execute(DbType.MYSQL, dbUrl, username, password, "com.mysql.cj.jdbc.Driver", tablePrefixes, tableNames, fieldPrefixes);

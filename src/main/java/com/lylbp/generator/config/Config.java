@@ -13,57 +13,57 @@ public class Config {
     /**
      * controller,service,mapper,serviceImpl输出路径
      */
-    public static final String OUT_OUT_DIR = "E:\\code\\java\\lylbp\\Hatzi-Cloud\\hatzi-service\\hatzi-system\\src\\main\\java\\";
+    public static final String OUT_OUT_DIR = "E:\\code\\java\\lylbp\\Hatzi-Cloud\\hatzi-service\\hatzi-ai-demo\\src\\main\\java\\";
 
     /**
      * controller文件输出路径
      */
-    public static final String CONTROLLER_PATH = "E:\\code\\java\\lylbp\\Hatzi-Cloud\\hatzi-service\\hatzi-system\\src\\main\\java\\com\\hatzi\\sys\\controller";
+    public static final String CONTROLLER_PATH = "E:\\code\\java\\lylbp\\Hatzi-Cloud\\hatzi-service\\hatzi-ai-demo\\src\\main\\java\\com\\hatzi\\ai\\controller";
 
     /**
      * entity输出路径
      */
-    public static final String ENTITY_PATH = "E:\\code\\java\\lylbp\\Hatzi-Cloud\\hatzi-service\\hatzi-system\\src\\main\\java\\com\\hatzi\\sys\\entity";
+    public static final String ENTITY_PATH = "E:\\code\\java\\lylbp\\Hatzi-Cloud\\hatzi-service\\hatzi-ai-demo\\src\\main\\java\\com\\hatzi\\ai\\entity";
 
     /**
      * service文件输出路径
      */
-    public static final String SERVICE_PATH = "E:\\code\\java\\lylbp\\Hatzi-Cloud\\hatzi-service\\hatzi-system\\src\\main\\java\\com\\hatzi\\sys\\service";
+    public static final String SERVICE_PATH = "E:\\code\\java\\lylbp\\Hatzi-Cloud\\hatzi-service\\hatzi-ai-demo\\src\\main\\java\\com\\hatzi\\ai\\service";
 
     /**
      * serviceImpl文件输出路径
      */
-    public static final String SERVICE_IMPL_PATH = "E:\\code\\java\\lylbp\\Hatzi-Cloud\\hatzi-service\\hatzi-system\\src\\main\\java\\com\\hatzi\\sys\\service\\impl";
+    public static final String SERVICE_IMPL_PATH = "E:\\code\\java\\lylbp\\Hatzi-Cloud\\hatzi-service\\hatzi-ai-demo\\src\\main\\java\\com\\hatzi\\ai\\service\\impl";
 
     /**
      * Mapper文件输出路径
      */
-    public static final String MAPPER_PATH = "E:\\code\\java\\lylbp\\Hatzi-Cloud\\hatzi-service\\hatzi-system\\src\\main\\java\\com\\hatzi\\sys\\mapper";
+    public static final String MAPPER_PATH = "E:\\code\\java\\lylbp\\Hatzi-Cloud\\hatzi-service\\hatzi-ai-demo\\src\\main\\java\\com\\hatzi\\ai\\mapper";
 
     /**
      * xml文件输出路径
      */
-    public static final String XML_PATH = "E:\\code\\java\\lylbp\\Hatzi-Cloud\\hatzi-service\\hatzi-system\\src\\main\\resources\\mapper";
+    public static final String XML_PATH = "E:\\code\\java\\lylbp\\Hatzi-Cloud\\hatzi-service\\hatzi-ai-demo\\src\\main\\resources\\mapper";
 
     /**
      * dto输出路径
      */
-    public static final String DTO_PATH = "E:\\code\\java\\lylbp\\Hatzi-Cloud\\hatzi-service\\hatzi-system\\src\\main\\java\\com\\hatzi\\sys\\dto";
+    public static final String DTO_PATH = "E:\\code\\java\\lylbp\\Hatzi-Cloud\\hatzi-service\\hatzi-ai-demo\\src\\main\\java\\com\\hatzi\\ai\\dto";
 
     /**
      * form输出路径
      */
-    public static final String FORM_PATH = "E:\\code\\java\\lylbp\\Hatzi-Cloud\\hatzi-service\\hatzi-system\\src\\main\\java\\com\\hatzi\\sys\\form";
+    public static final String FORM_PATH = "E:\\code\\java\\lylbp\\Hatzi-Cloud\\hatzi-service\\hatzi-ai-demo\\src\\main\\java\\com\\hatzi\\ai\\form";
 
     /**
      * vo输出路径
      */
-    public static final String VO_PATH = "E:\\code\\java\\lylbp\\Hatzi-Cloud\\hatzi-service\\hatzi-system\\src\\main\\java\\com\\hatzi\\sys\\vo";
+    public static final String VO_PATH = "E:\\code\\java\\lylbp\\Hatzi-Cloud\\hatzi-service\\hatzi-ai-demo\\src\\main\\java\\com\\hatzi\\ai\\vo";
 
     /**
      * convert输出路径
      */
-    public static final String CONVERT_PATH = "E:\\code\\java\\lylbp\\Hatzi-Cloud\\hatzi-service\\hatzi-system\\src\\main\\java\\com\\hatzi\\sys\\convert";
+    public static final String CONVERT_PATH = "E:\\code\\java\\lylbp\\Hatzi-Cloud\\hatzi-service\\hatzi-ai-demo\\src\\main\\java\\com\\hatzi\\ai\\convert";
 
     /////////////////////////////////////////////包名相关///////////////////////////////////////////////////////////
     public static final String BASE_PACK = "com.hatzi";
@@ -74,49 +74,49 @@ public class Config {
     /**
      * controller包名
      */
-    public static final String PACKAGE_NAME_CONTROLLER = "com.hatzi.sys.controller";
+    public static final String PACKAGE_NAME_CONTROLLER = "com.hatzi.ai.controller";
 
     /**
      * 包名：entity
      */
-    public static final String PACKAGE_NAME_ENTITY = "com.hatzi.sys.entity";
+    public static final String PACKAGE_NAME_ENTITY = "com.hatzi.ai.entity";
 
 
     /**
      * 包名：mapper
      */
-    public static final String PACKAGE_NAME_MAPPER = "com.hatzi.sys.mapper";
+    public static final String PACKAGE_NAME_MAPPER = "com.hatzi.ai.mapper";
 
     /**
      * 包名：service
      */
-    public static final String PACKAGE_NAME_SERVICE = "com.hatzi.sys.service";
+    public static final String PACKAGE_NAME_SERVICE = "com.hatzi.ai.service";
 
     /**
      * 包名：service.impl
      */
-    public static final String PACKAGE_NAME_SERVICE_IMPL = "com.hatzi.sys.service.impl";
+    public static final String PACKAGE_NAME_SERVICE_IMPL = "com.hatzi.ai.service.impl";
 
     /**
      * 包名：dto
      */
-    public static final String PACKAGE_NAME_DTO = "com.hatzi.sys.dto";
+    public static final String PACKAGE_NAME_DTO = "com.hatzi.ai.dto";
 
     /**
      * 包名：form
      */
 
-    public static final String PACKAGE_NAME_FORM = "com.hatzi.sys.form";
+    public static final String PACKAGE_NAME_FORM = "com.hatzi.ai.form";
 
     /**
      * 包名：vo
      */
-    public static final String PACKAGE_NAME_VO = "com.hatzi.sys.vo";
+    public static final String PACKAGE_NAME_VO = "com.hatzi.ai.vo";
 
     /**
      * 包名：convert
      */
-    public static final String PACKAGE_NAME_CONVERT = "com.hatzi.sys.convert";
+    public static final String PACKAGE_NAME_CONVERT = "com.hatzi.ai.convert";
 
     /////////////////////////////////////////////模版文件配置///////////////////////////////////////////////////////////
     /**
