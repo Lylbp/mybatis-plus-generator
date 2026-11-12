@@ -140,7 +140,7 @@ import jakarta.annotation.Resource;
                 #elseif(${swagger})
                 @ApiOperation("根据主键获取信息")
                 #end
-            public ResResult<${entity}VO> info(@NotBlank String ${keyPropertyName}) {
+            public ResResult<${entity}VO> info(@PathVariable @NotBlank String ${keyPropertyName}) {
             return ResResultUtil.success(${table.entityPath}Service.get${entity}VO(
                         ${entity}QueryDTO::get${keyCapitalName} , ${keyPropertyName}));
         }
