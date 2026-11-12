@@ -32,12 +32,10 @@ import lombok.EqualsAndHashCode;
         @Accessors(chain = true)
         #end
     #end
-    #if(${springdoc} || ${swagger})
-        #foreach($an in ${entityClassAnnotations})
-            #if($an.displayName.startsWith("@Schema") || $an.displayName.startsWith("@ApiModel"))
-                ${an.displayName}
-            #end
-        #end
+    #if(${springdoc})
+    @Schema
+    #elseif(${swagger})
+    @ApiModel
     #end
     #if(${entitySerialVersionUID})
     public class ${entity}QueryForm implements Serializable {
