@@ -42,7 +42,17 @@
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-generator</artifactId>
-            <version>3.3.2</version>
+            <version>3.5.18</version>
+        </dependency>
+        <dependency>
+          <groupId>com.baomidou</groupId>
+          <artifactId>mybatis-plus-annotation</artifactId>
+          <version>3.5.18</version>
+        </dependency>
+        <dependency>
+          <groupId>com.baomidou</groupId>
+          <artifactId>mybatis-plus-core</artifactId>
+          <version>3.5.18</version>
         </dependency>
         <!--Mybatis Plus 代码生成依赖-->
         <dependency>

@@ -1,18 +1,13 @@
 package ${package.Entity};
 
-#foreach($pkg in ${table.importPackages})
+#foreach($pkg in ${importEntityFrameworkPackages})
 import ${pkg};
 #end
-###if(${swagger2})
-##import io.swagger.annotations.ApiModel;
-##import io.swagger.annotations.ApiModelProperty;
-###end
+#foreach($pkg in ${importEntityJavaPackages})
+import ${pkg};
+#end
 #if(${entityLombokModel})
-import lombok.Data;
 import lombok.EqualsAndHashCode;
-    #if(${chainModel})
-    import lombok.experimental.Accessors;
-    #end
 #end
 
 /**
@@ -24,7 +19,6 @@ import lombok.EqualsAndHashCode;
  * @since ${date}
  */
     #if(${entityLombokModel})
-    @Data
         #if(${superEntityClass})
         @EqualsAndHashCode(callSuper = true)
         #else
@@ -34,22 +28,24 @@ import lombok.EqualsAndHashCode;
         @Accessors(chain = true)
         #end
     #end
-    #if(${table.convert})
-    @TableName("${table.name}")
+    #foreach($an in ${entityClassAnnotations})
+        ${an.displayName}
     #end
-##    #if(${swagger2})
-##    @ApiModel(value = "${entity}对象", description = "$!{table.comment}")
-##    #end
     #if(${superEntityClass})
     public class ${entity} extends ${superEntityClass}#if(${activeRecord})<${entity}>#end {
     #elseif(${activeRecord})
         public class ${entity} extends Model<${entity}> {
-    #else
+    #elseif(${entitySerialVersionUID})
         public class ${entity} implements Serializable {
+    #else
+        public class ${entity} {
     #end
 
     #if(${entitySerialVersionUID})
-        private static final long serialVersionUID = 1L;
+        #if(${entitySerialAnnotation})
+        @Serial
+        #end
+    private static final long serialVersionUID = 1L;
     #end
     ## ----------  BEGIN 字段循环遍历  ----------
     #foreach($field in ${table.fields})
@@ -58,43 +54,16 @@ import lombok.EqualsAndHashCode;
             #set($keyPropertyName=${field.propertyName})
         #end
         #if("$!field.comment" != "")
-            ##            #if(${swagger2})
-            ##            @ApiModelProperty(value = "${field.comment}")
-            ##            #else
-            /**
-             * ${field.comment}
-             */
-            ##            #end
-        #end
-        #if(${field.keyFlag})
-            ## 主键
-            #if(${field.keyIdentityFlag})
-            @TableId(value = "${field.annotationColumnName}", type = IdType.AUTO)
-            #elseif(!$null.isNull(${idType}) && "$!idType" != "")
-            @TableId(value = "${field.annotationColumnName}", type = IdType.${idType})
-            #elseif(${field.convert})
-            @TableId("${field.annotationColumnName}")
+            #if(${entityFieldUseJavaDoc})
+                /**
+                 * ${field.comment}
+                 */
             #end
-            ## 普通字段
-        #elseif(${field.fill})
-            ## -----   存在字段填充设置   -----
-            #if(${field.convert})
-            @TableField(value = "${field.annotationColumnName}", fill = FieldFill.${field.fill})
-            #else
-            @TableField(fill = FieldFill.${field.fill})
-            #end
-        #elseif(${field.convert})
-        @TableField("${field.annotationColumnName}")
         #end
-        ## 乐观锁注解
-        #if(${versionFieldName}==${field.name})
-        @Version
+        #foreach($an in ${field.annotationAttributesList})
+            ${an.displayName}
         #end
-        ## 逻辑删除注解
-        #if(${logicDeleteFieldName}==${field.name})
-        @TableLogic
-        #end
-    private ${field.propertyType} ${field.propertyName};
+        private ${field.propertyType} ${field.propertyName};
     #end
     ## ----------  END 字段循环遍历  ----------
 
@@ -105,8 +74,9 @@ import lombok.EqualsAndHashCode;
             #else
                 #set($getprefix="get")
             #end
-            ## 不直接用${field.capitalName}是因为ENTITY_BOOLEAN_COLUMN_REMOVE_IS_PREFIX为true时，会移除is前缀
-            public ${field.propertyType} ${getprefix}${field.propertyName.substring(0,1).toUpperCase()}${field.propertyName.substring(1)}() {
+            ## 不直接用${field.capitalName}是因为ENTITY_BOOLEAN_COLUMN_REMOVE_IS_PREFIX为false时，会移除is前缀
+            public ${field.propertyType} ${getprefix}${field.propertyName.substring(0,1).toUpperCase()}${field.propertyName.substring(1)}
+            () {
             return ${field.propertyName};
         }
 
@@ -132,7 +102,8 @@ import lombok.EqualsAndHashCode;
         #end
     #end
 
-    #if(!${entityLombokModel})
+
+    #if(!${entityLombokModel} && ${entityToString})
         @Override
         public String toString() {
         return "${entity}{" +

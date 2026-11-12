@@ -1,17 +1,14 @@
 package ${cfg.DTOPackage};
-    #foreach($pkg in ${table.importPackages})
+    #foreach($pkg in ${importEntityFrameworkPackages})
+    import ${pkg};
+    #end
+    #foreach($pkg in ${importEntityJavaPackages})
     import ${pkg};
     #end
     #if(${entityLombokModel})
     import lombok.Data;
     import lombok.EqualsAndHashCode;
     #end
-
-    #if(${entitySerialVersionUID})
-    import java.io.Serializable;
-    #end
-
-import java.util.Date;
 
 /**
  * <p>
@@ -34,7 +31,10 @@ import java.util.Date;
     #end
     #if(${entitySerialVersionUID})
     public class ${entity}DTO implements Serializable {
-        private static final long serialVersionUID = 1L;
+        #if(${entitySerialAnnotation})
+        @Serial
+        #end
+    private static final long serialVersionUID = 1L;
     #else
     public class ${entity}DTO {
     #end

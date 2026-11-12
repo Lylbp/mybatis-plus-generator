@@ -29,7 +29,7 @@ import org.springframework.transaction.annotation.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import com.hatzi.core.util.AssertUtil;
 import com.hatzi.core.enums.SystemResultEnum;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 #foreach($field in ${table.fields})
     #if(${field.keyFlag})
         #set($keyPropertyName=${field.propertyName})
@@ -77,7 +77,7 @@ open class ${table.serviceImplName} : ${superServiceImplClass}<${table.mapperNam
         @Override
         @Transactional(rollbackFor = {Exception.class})
         public Boolean delByIds(List<${keyPropertyType}> idList) {
-            List<${entity}> dbList = baseMapper.selectBatchIds(idList);
+            List<${entity}> dbList = baseMapper.selectByIds(idList);
             if (dbList.isEmpty()) {
                 log.warn("dbList is empty,idList:[{}]", StrUtil.join(",", idList));
                 return true;

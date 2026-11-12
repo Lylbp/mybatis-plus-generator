@@ -1,15 +1,15 @@
 package ${cfg.DTOPackage};
 
+#foreach($pkg in ${importEntityFrameworkPackages})
+import ${pkg};
+#end
+#foreach($pkg in ${importEntityJavaPackages})
+import ${pkg};
+#end
+
 #if(${entityLombokModel})
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-#end
-#if(${swagger2})
-import io.swagger.annotations.*;
-#end
-
-#if(${entitySerialVersionUID})
-import java.io.Serializable;
 #end
 
 /**
@@ -22,6 +22,7 @@ import java.io.Serializable;
  */
     #if(${entityLombokModel})
     @Data
+    @ToString
         #if(${superEntityClass})
         @EqualsAndHashCode(callSuper = true)
         #else
@@ -31,12 +32,19 @@ import java.io.Serializable;
         @Accessors(chain = true)
         #end
     #end
-    #if(${swagger2})
-    @ApiModel
+    #if(${springdoc} || ${swagger})
+        #foreach($an in ${entityClassAnnotations})
+            #if($an.displayName.startsWith("@Schema") || $an.displayName.startsWith("@ApiModel"))
+                ${an.displayName}
+            #end
+        #end
     #end
     #if(${entitySerialVersionUID})
     public class ${entity}QueryDTO implements Serializable {
-        private static final long serialVersionUID = 1L;
+        #if(${entitySerialAnnotation})
+        @Serial
+        #end
+    private static final long serialVersionUID = 1L;
     #else
     public class ${entity}QueryDTO {
     #end
@@ -44,8 +52,10 @@ import java.io.Serializable;
     #foreach($field in ${table.fields})
         #if(${field.keyFlag} || ${field.columnName} == ${cfg.FieldlogicDeleteName})
             #if("$!field.comment" != "")
-                #if(${swagger2})
-                @ApiModelProperty(value = "${field.comment}" #if(${field.columnName} == ${cfg.FieldlogicDeleteName}) , hidden = true #end)
+                #if(${springdoc})
+                    @Schema(description = "${field.comment}" #if(${field.columnName} == ${cfg.FieldlogicDeleteName}) , hidden = true #end)
+                #elseif(${swagger})
+                    @ApiModelProperty(value = "${field.comment}" #if(${field.columnName} == ${cfg.FieldlogicDeleteName}) , hidden = true #end)
                 #else
                 /**
                  * ${field.comment}

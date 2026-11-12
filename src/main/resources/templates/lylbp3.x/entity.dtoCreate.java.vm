@@ -1,15 +1,14 @@
 package ${cfg.DTOPackage};
-
-    #if(${entityLombokModel})
-    import lombok.Data;
-    import lombok.EqualsAndHashCode;
-    #end
-#if(${swagger2})
-import io.swagger.annotations.*;
+#foreach($pkg in ${importEntityFrameworkPackages})
+import ${pkg};
+#end
+#foreach($pkg in ${importEntityJavaPackages})
+import ${pkg};
 #end
 
-#if(${entitySerialVersionUID})
-import java.io.Serializable;
+#if(${entityLombokModel})
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 #end
 
 /**
@@ -22,6 +21,7 @@ import java.io.Serializable;
  */
     #if(${entityLombokModel})
     @Data
+    @ToString
         #if(${superEntityClass})
         @EqualsAndHashCode(callSuper = true)
         #else
@@ -31,13 +31,20 @@ import java.io.Serializable;
         @Accessors(chain = true)
         #end
     #end
-    #if(${swagger2})
-    @ApiModel
+    #if(${springdoc} || ${swagger})
+        #foreach($an in ${entityClassAnnotations})
+            #if($an.displayName.startsWith("@Schema") || $an.displayName.startsWith("@ApiModel"))
+                ${an.displayName}
+            #end
+        #end
     #end
-#if(${entitySerialVersionUID})
-public class ${entity}CreateDTO implements Serializable{
+    #if(${entitySerialVersionUID})
+    public class ${entity}CreateDTO implements Serializable{
+        #if(${entitySerialAnnotation})
+        @Serial
+        #end
     private static final long serialVersionUID = 1L;
-#else
-public class ${entity}CreateDTO {
-#end
+    #else
+    public class ${entity}CreateDTO {
+    #end
 }

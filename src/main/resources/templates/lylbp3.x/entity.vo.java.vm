@@ -1,5 +1,11 @@
 package ${cfg.VOPackage};
-#foreach($pkg in ${table.importPackages})
+###foreach($pkg in ${table.importPackages})
+##import ${pkg};
+###end
+#foreach($pkg in ${importEntityFrameworkPackages})
+import ${pkg};
+#end
+#foreach($pkg in ${importEntityJavaPackages})
 import ${pkg};
 #end
 
@@ -22,14 +28,8 @@ import java.util.Date;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 #end
-#if(${swagger2})
-import io.swagger.annotations.*;
-#end
 #if(!$ignoreProperties.isEmpty())
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-#end
-#if(${entitySerialVersionUID})
-import java.io.Serializable;
 #end
 /**
  * <p>
@@ -50,9 +50,6 @@ import java.io.Serializable;
         @Accessors(chain = true)
         #end
     #end
-    #if(${swagger2})
-    @ApiModel
-    #end
     #if(!$ignoreProperties.isEmpty())
     @JsonIgnoreProperties({
         #foreach($prop in $ignoreProperties)
@@ -60,12 +57,22 @@ import java.io.Serializable;
         #end
     })
     #end
-#if(${entitySerialVersionUID})
+    #if(${springdoc} || ${swagger})
+        #foreach($an in ${entityClassAnnotations})
+            #if($an.displayName.startsWith("@Schema") || $an.displayName.startsWith("@ApiModel"))
+                ${an.displayName}
+            #end
+        #end
+    #end
+    #if(${entitySerialVersionUID})
     public class ${entity}VO implements Serializable {
-        private static final long serialVersionUID = 1L;
-#else
+        #if(${entitySerialAnnotation})
+        @Serial
+        #end
+    private static final long serialVersionUID = 1L;
+    #else
     public class ${entity}VO{
-#end
+    #end
     ## ----------  BEGIN 字段循环遍历  ----------
     #foreach($field in ${table.fields})
 
@@ -73,15 +80,19 @@ import java.io.Serializable;
             #set($keyPropertyName=${field.propertyName})
         #end
         #if("$!field.comment" != "")
-            #if(${swagger2})
-            @ApiModelProperty(value = "${field.comment}")
+            #if(${springdoc} || ${swagger})
+                #foreach($an in ${field.annotationAttributesList})
+                    #if($an.displayName.startsWith("@Schema") || $an.displayName.startsWith("@ApiModel"))
+                        ${an.displayName}
+                    #end
+                #end
             #else
-            /**
-             * ${field.comment}
-             */
+                /**
+                 * ${field.comment}
+                 */
             #end
         #end
-    private ${field.propertyType} ${field.propertyName};
+        private ${field.propertyType} ${field.propertyName};
     #end
     ## ----------  END 字段循环遍历  ----------
 
@@ -94,7 +105,7 @@ import java.io.Serializable;
             #end
 
             public ${field.propertyType} get${field.propertyName.substring(0,1).toUpperCase()}${field.propertyName.substring(1)}() {
-            return ${field.propertyName};
+                return ${field.propertyName};
             }
 
             #if(${chainModel})
@@ -106,7 +117,7 @@ import java.io.Serializable;
             #if(${chainModel})
                 return this;
             #end
-            }
+        }
         #end
         ## --foreach end---
     #end

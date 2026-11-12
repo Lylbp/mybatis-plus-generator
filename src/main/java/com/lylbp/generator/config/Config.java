@@ -16,31 +16,6 @@ public class Config {
     public static final String OUT_OUT_DIR = "E:\\code\\java\\lylbp\\Hatzi-Cloud\\hatzi-service\\hatzi-ai-demo\\src\\main\\java\\";
 
     /**
-     * controller文件输出路径
-     */
-    public static final String CONTROLLER_PATH = "E:\\code\\java\\lylbp\\Hatzi-Cloud\\hatzi-service\\hatzi-ai-demo\\src\\main\\java\\com\\hatzi\\ai\\controller";
-
-    /**
-     * entity输出路径
-     */
-    public static final String ENTITY_PATH = "E:\\code\\java\\lylbp\\Hatzi-Cloud\\hatzi-service\\hatzi-ai-demo\\src\\main\\java\\com\\hatzi\\ai\\entity";
-
-    /**
-     * service文件输出路径
-     */
-    public static final String SERVICE_PATH = "E:\\code\\java\\lylbp\\Hatzi-Cloud\\hatzi-service\\hatzi-ai-demo\\src\\main\\java\\com\\hatzi\\ai\\service";
-
-    /**
-     * serviceImpl文件输出路径
-     */
-    public static final String SERVICE_IMPL_PATH = "E:\\code\\java\\lylbp\\Hatzi-Cloud\\hatzi-service\\hatzi-ai-demo\\src\\main\\java\\com\\hatzi\\ai\\service\\impl";
-
-    /**
-     * Mapper文件输出路径
-     */
-    public static final String MAPPER_PATH = "E:\\code\\java\\lylbp\\Hatzi-Cloud\\hatzi-service\\hatzi-ai-demo\\src\\main\\java\\com\\hatzi\\ai\\mapper";
-
-    /**
      * xml文件输出路径
      */
     public static final String XML_PATH = "E:\\code\\java\\lylbp\\Hatzi-Cloud\\hatzi-service\\hatzi-ai-demo\\src\\main\\resources\\mapper";
@@ -122,66 +97,66 @@ public class Config {
     /**
      * controller模版地址
      */
-    public static final String CONTROLLER_TEMPLATE = "/templates/lylbp/myController.java.vm";
+    public static final String CONTROLLER_TEMPLATE = "/templates/lylbp3.x/myController.java.vm";
 
 
     /**
      * service模版地址
      */
-    public static final String SERVICE_TEMPLATE = "/templates/lylbp/myService.java.vm";
+    public static final String SERVICE_TEMPLATE = "/templates/lylbp3.x/myService.java.vm";
 
     /**
      * serviceImpl模版地址
      */
-    public static final String SERVICE_IMPL_TEMPLATE = "/templates/lylbp/myServiceImpl.java.vm";
+    public static final String SERVICE_IMPL_TEMPLATE = "/templates/lylbp3.x/myServiceImpl.java.vm";
 
     /**
      * mapper模版地址
      */
-    public static final String MAPPER_TEMPLATE = "/templates/lylbp/myMapper.java.vm";
+    public static final String MAPPER_TEMPLATE = "/templates/lylbp3.x/myMapper.java.vm";
 
 
     /**
      * xml模版地址
      */
-    public static final String XML_TEMPLATE = "/templates/lylbp/myMapper.xml.vm";
+    public static final String XML_TEMPLATE = "/templates/lylbp3.x/myMapper.xml.vm";
 
     /**
      * entity模版地址
      */
-    public static final String ENTITY_TEMPLATE = "/templates/lylbp/entity.java.vm";
+    public static final String ENTITY_TEMPLATE = "/templates/lylbp3.x/entity.java.vm";
 
     /**
      * VO模版地址
      */
-    public static final String VO_TEMPLATE = "/templates/lylbp/entity.vo.java.vm";
+    public static final String VO_TEMPLATE = "/templates/lylbp3.x/entity.vo.java.vm";
 
 
     /**
      * DTO查询模版地址
      */
-    public static final String DTO_QUERY_TEMPLATE = "/templates/lylbp/entity.dtoQuery.java.vm";
+    public static final String DTO_QUERY_TEMPLATE = "/templates/lylbp3.x/entity.dtoQuery.java.vm";
 
     /**
      * DTO新增模版地址
      */
-    public static final String DTO_CREATE_TEMPLATE = "/templates/lylbp/entity.dtoCreate.java.vm";
+    public static final String DTO_CREATE_TEMPLATE = "/templates/lylbp3.x/entity.dtoCreate.java.vm";
 
     /**
      * DTO新增模版地址
      */
-    public static final String DTO_UPDATE_TEMPLATE = "/templates/lylbp/entity.dtoUpdate.java.vm";
+    public static final String DTO_UPDATE_TEMPLATE = "/templates/lylbp3.x/entity.dtoUpdate.java.vm";
 
 
     /**
      * DTO模版地址
      */
-    public static final String DTO_TEMPLATE = "/templates/lylbp/entity.dto.java.vm";
+    public static final String DTO_TEMPLATE = "/templates/lylbp3.x/entity.dto.java.vm";
 
     /**
      * Form查询模版地址
      */
-    public static final String FORM_QUERY_TEMPLATE = "/templates/lylbp/entity.formQuery.java.vm";
+    public static final String FORM_QUERY_TEMPLATE = "/templates/lylbp3.x/entity.formQuery.java.vm";
 
     /**
      * Form新增模版地址
@@ -197,7 +172,7 @@ public class Config {
     /**
      * convertMapper模版地址
      */
-    public static final String CONVERT_MAPPER_TEMPLATE = "/templates/lylbp/entity.convertMapper.java.vm";
+    public static final String CONVERT_MAPPER_TEMPLATE = "/templates/lylbp3.x/entity.convertMapper.java.vm";
     /////////////////////////////////////////////其他配置///////////////////////////////////////////////////////////
     /**
      * controller公共父类[空串无效]
@@ -231,19 +206,9 @@ public class Config {
 
 
     /**
-     * 是否覆盖已有文件
-     */
-    public static final Boolean FILE_OVERRIDE = true;
-
-    /**
      * entity是否支持lombok
      */
     public static final Boolean ENTITY_LOMBOK_SUPPORT = true;
-
-    /**
-     * 是否为RestController
-     */
-    public static final Boolean IS_REST_CONTROLLER = true;
 
     /**
      * entity属性上添加表字段映射
