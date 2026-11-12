@@ -1,0 +1,60 @@
+package ${cfg.FormPackage};
+
+    #if(${entityLombokModel})
+    import lombok.Data;
+    import lombok.EqualsAndHashCode;
+    #end
+#if(${swagger2})
+import io.swagger.annotations.*;
+#end
+
+#if(${entitySerialVersionUID})
+import java.io.Serializable;
+#end
+
+/**
+ * <p>
+ * $!{table.comment}修改表单对象
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+    #if(${entityLombokModel})
+    @Data
+        #if(${superEntityClass})
+        @EqualsAndHashCode(callSuper = true)
+        #else
+        @EqualsAndHashCode(callSuper = false)
+        #end
+        #if(${chainModel})
+        @Accessors(chain = true)
+        #end
+    #end
+    #if(${swagger2})
+    @ApiModel
+    #end
+    #if(${entitySerialVersionUID})
+    public class ${entity}UpdateForm implements Serializable {
+        private static final long serialVersionUID = 1L;
+    #else
+    public class ${entity}UpdateForm {
+    #end
+
+    ## ----------  BEGIN 字段循环遍历  ----------
+    #foreach($field in ${table.fields})
+        #if(${field.keyFlag})
+            #if("$!field.comment" != "")
+                #if(${swagger2})
+                @ApiModelProperty(value = "${field.comment}")
+                #else
+                /**
+                 * ${field.comment}
+                 */
+                #end
+            #end
+        private ${field.propertyType} ${field.propertyName};
+        #end
+    #end
+    ## ----------  END 字段循环遍历  ----------
+}

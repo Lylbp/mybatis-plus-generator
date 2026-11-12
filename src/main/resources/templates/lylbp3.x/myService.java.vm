@@ -1,0 +1,96 @@
+package ${package.Service};
+
+import ${package.Entity}.${entity};
+import ${cfg.VOPackage}.${entity}VO;
+import ${cfg.DTOPackage}.${entity}QueryDTO;
+import ${superServiceClassPackage};
+
+import ${cfg.DTOPackage}.${entity}CreateDTO;
+import ${cfg.DTOPackage}.${entity}UpdateDTO;
+import java.util.List;
+
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
+import cn.hutool.core.lang.func.Func1;
+
+## ----------  BEGIN 字段循环遍历  ----------
+#foreach($field in ${table.fields})
+    #if(${field.keyFlag})
+        #set($keyPropertyName=${field.propertyName})
+        #set($keyPropertyType=${field.propertyType})
+        #set($keyColumnName=${field.columnName})
+    #end
+#end
+## ----------  END 字段循环遍历  ----------
+
+/**
+ * <p>
+ * $!{table.comment} 服务类
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+#if(${kotlin})
+        interface ${table.serviceName} : ${superServiceClass}<${entity}>
+#else
+        public interface ${table.serviceName} extends ${superServiceClass}<${entity}> {
+            /**
+             * 新增
+             *
+             * @param dto 入参
+             * @return Boolean
+             */
+            Boolean add (${entity}CreateDTO dto);
+            /**
+              * 编辑
+              *
+              * @param dto 入参
+              * @return Boolean
+              */
+            Boolean update (${entity}UpdateDTO dto);
+
+            /**
+            * 删除
+            *
+            * @param idList
+            * @return Boolean
+            */
+            Boolean delByIds (List <${keyPropertyType}> idList);
+
+            /**
+             * 通过查询参数获取列表
+             * @param page   分页对象,传null代表不分页
+             * @param queryDTO 查询参数
+             * @return List<${entity}VO>
+             */
+             List<${entity}VO> get${entity}VOList (Page<?> page, ${entity}QueryDTO queryDTO);
+
+            /**
+             * 通过查询参数获取单个${entity}VO对象
+             *
+             * @param queryDTO 查询参数
+             * @return ${entity}VO
+             */
+             ${entity}VO get${entity}VO (${entity}QueryDTO queryDTO);
+
+            /**
+             * 通过字段名称与值获取单个${entity}VO对象
+             *
+             * @param func 字段名称
+             * @param value 字段值
+             * @return ${entity}VO
+             */
+             ${entity}VO get${entity}VO (Func1 < ${entity}QueryDTO,?>func, Object value);
+
+            /**
+             * 判断字段是否重复 true:重复 false:不重复
+             *
+             * @param notId       id
+             * @param columnName  字段名称
+             * @param columnValue 字段值
+             * @return Boolean
+             */
+            Boolean hasRepeat(${keyPropertyType} notId, SFunction<${entity}, ?> columnName, Object columnValue);
+}
+#end
